@@ -31,12 +31,10 @@ The script uses a fixed seed, checks numerical consistency, and writes raw data 
 
 ## Publishing
 
-GitHub Pages serves the `gh-pages` branch. The GitHub Actions workflow renders HTML/PDF, validates links and references, then publishes on changes to `main`. It can also be run manually. For a local publication:
+GitHub Pages uses the GitHub Actions workflow in `.github/workflows/publish.yml`. It renders HTML/PDF, validates links and references, then deploys the validated artifact on changes to `main`. The `gh-pages` branch preserves the initial locally rendered publication. The workflow can also be run manually:
 
 ```sh
-quarto render
-python3 scripts/check_book.py
-quarto publish gh-pages --no-render --no-prompt --no-browser
+gh workflow run publish.yml --ref main
 ```
 
 ## Rights and attribution

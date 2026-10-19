@@ -4,24 +4,33 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 concurrency:
   group: github-pages
   cancel-in-progress: false
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.10.18
           tinytex: true
+      - uses: actions/configure-pages@v5
       - name: Render HTML and PDF
         run: quarto render
       - name: Validate references and navigation
         run: python3 scripts/check_book.py
+      - name: Upload validated site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
       - name: Publish GitHub Pages
-        run: quarto publish gh-pages --no-render --no-prompt --no-browser
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: deployment
+        uses: actions/deploy-pages@v4
