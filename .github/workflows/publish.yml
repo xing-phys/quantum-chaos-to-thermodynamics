@@ -8,11 +8,11 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: github-pages
+  group: quarto-book-pages
   cancel-in-progress: false
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
