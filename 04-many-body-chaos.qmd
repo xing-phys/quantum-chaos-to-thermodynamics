@@ -1,0 +1,146 @@
+# Physical many-body Hamiltonians and eigenstate structure {#sec-many-body-chaos}
+
+Random matrices explain universal fluctuations, but a many-body Hamiltonian has much more structure than an invariant ensemble. This chapter connects the two descriptions through concrete lattice models, symmetry sectors, and energy-constrained eigenstates. The distinction matters because a state may be spread over many basis vectors without giving thermal predictions.
+
+## Two useful model families
+
+For spin-$1/2$ degrees of freedom on an open chain, consider
+
+$$
+H_{\mathrm{Ising}}=J\sum_{j=1}^{L-1}\sigma_j^z\sigma_{j+1}^z
++h_x\sum_{j=1}^L\sigma_j^x+h_z\sum_{j=1}^L\sigma_j^z.
+$$ {#eq-manybody-ising}
+
+Here $\sigma^\alpha$ has eigenvalues $\pm1$, and the Hilbert-space dimension is $2^L$. The $h_z=0$ transverse-field Ising chain is integrable: a transformation to fermions reduces it to independent quasiparticle modes. Generic nonzero transverse and longitudinal fields remove that free-particle solution. “Generic” excludes special limits and does not imply a theorem of ETH. With real couplings, complex conjugation is an antiunitary symmetry in the $\sigma^z$ basis, so GOE is the relevant benchmark within a fully resolved real symmetry sector. This antiunitary operation need not coincide with physical reversal of every spin.
+
+A particle-conserving example uses spinless fermions or hard-core bosons:
+
+$$
+\begin{aligned}
+H={}&-t\sum_j(c_j^\dagger c_{j+1}+\text{h.c.})
++V\sum_j(n_j-\tfrac12)(n_{j+1}-\tfrac12)\\
+&-t'\sum_j(c_j^\dagger c_{j+2}+\text{h.c.})
++V'\sum_j(n_j-\tfrac12)(n_{j+2}-\tfrac12).
+\end{aligned}
+$$ {#eq-manybody-particle-chain}
+
+For the usual uniform one-dimensional chain the nearest-neighbor limit connects to the integrable XXZ model; next-nearest-neighbor terms generically break integrability. Fixing particle number $N$ gives dimension $\binom LN$, already exponential near half filling. Boundary conditions and particle statistics require care: fermionic hopping acquires occupation-dependent signs, and periodic hard-core bosons and fermions do not always share identical boundary sectors. Exact diagonalization studies such as @fSantosRigol2010 use these families to examine the crossover between integrability and chaos.
+
+## Why symmetry reduction is physics
+
+A symmetry $Q$ satisfying $[H,Q]=0$ divides the Hilbert space into invariant subspaces. Diagonalization may be performed separately in each one. This both reduces computational cost and states which macroscopic information is being held fixed. Examples include total particle number, total magnetization, lattice momentum, and spatial reflection.
+
+Two subtleties are common. First, noncommuting symmetry generators cannot in general all be fixed simultaneously. For example, reflection maps momentum $k$ to $-k$ and preserves an individual momentum sector only at special momenta. Second, if the preparation occupies several sectors, its sector weights are conserved. An equilibrium comparison must keep those weights or justify why the chosen observable cannot distinguish them.
+
+In the Ising chain, the spin-flip operator $\prod_j\sigma_j^x$ is a symmetry at $h_z=0$ and is broken by a generic longitudinal field. Reflection remains for a spatially uniform open chain. A boundary perturbation can remove reflection, but one must then describe the perturbed Hamiltonian explicitly. Hidden unremoved symmetries can imitate integrable level statistics.
+
+## Eigenstates in a physically chosen basis
+
+Write $H=H_0+\lambda V$, where $H_0\ket\alpha=\epsilon_\alpha\ket\alpha$, and expand
+
+$$
+\ket n=\sum_\alpha C_\alpha^{(n)}\ket\alpha,\qquad
+\sum_\alpha|C_\alpha^{(n)}|^2=1.
+$$ {#eq-manybody-expansion}
+
+The basis should answer a physical question: occupation states reveal configuration-space structure; an integrable $H_0$ basis reveals hybridization between its eigenstates. No basis-independent notion of participation exists, because the energy basis makes every exact eigenstate occupy a single vector.
+
+For weights $w_\alpha=|C_\alpha^{(n)}|^2$, useful measures are the Shannon entropy and inverse participation ratio:
+
+$$
+S_{\mathrm{Sh}}=-\sum_\alpha w_\alpha\ln w_\alpha,\qquad
+\mathrm{IPR}=\sum_\alpha w_\alpha^2,\qquad
+\mathrm{PR}=\mathrm{IPR}^{-1}.
+$$ {#eq-manybody-participation}
+
+A uniform superposition over $M$ vectors gives $S_{\mathrm{Sh}}=\ln M$ and $\mathrm{PR}=M$. A real Haar vector has mean IPR $3/(D+2)$, so a typical participation ratio is of order $D/3$. This is a benchmark for random amplitudes, not a universal target: physical states often fill only the part of the basis consistent with their energy.
+
+A basis state $\ket\alpha$ has mean final-Hamiltonian energy $E_\alpha=\bra\alpha H\ket\alpha$ and energy variance
+
+$$
+\sigma_\alpha^2=\bra\alpha H^2\ket\alpha-E_\alpha^2
+=\sum_{\gamma\ne\alpha}|H_{\gamma\alpha}|^2.
+$$ {#eq-manybody-shell-width}
+
+Only configurations connected by the Hamiltonian appear in this exact expression. Few-body interactions make the matrix sparse and constrain the accessible energy envelope. The energy-shell picture asks whether coefficients fluctuate randomly *within* that physically allowed envelope. It does not assume equal weight across the entire spectrum. @fSantosBorgonovi2012 uses this viewpoint to connect eigenstate structure with relaxation.
+
+Perturbation theory offers a useful local criterion. For an unperturbed state $\ket\alpha$, the leading amplitude on $\ket\gamma$ is approximately $\lambda V_{\gamma\alpha}/(\epsilon_\alpha-\epsilon_\gamma)$. A near resonance invalidates this expansion even if $\lambda$ is small. Because many-body level spacings become very small with size, weak interactions can hybridize many states. Yet the relevant denominator is the spacing among states connected by the perturbation, together with its selection rules, rather than indiscriminately the smallest spacing in the entire Hilbert space. This distinction helps explain why local interactions, sparse connectivity, and conserved quantities leave structure absent from a full random matrix.
+
+A smooth envelope and irregular internal coefficients play different roles. The envelope determines which energies and configurations are accessible; coefficient statistics describe fluctuations within that support. Increasing participation can initially reflect a widening envelope, before the internal coefficients resemble random variables. Comparing nearby eigenstates at the same energy and in the same physical basis helps separate these effects.
+
+## Local density of states and survival probability
+
+The local density of states (LDOS), also called the strength function, of a preparation $\ket{\psi_0}$ is
+
+$$
+F_{\psi_0}(E)=\sum_n|\braket{n}{\psi_0}|^2\delta(E-E_n).
+$$ {#eq-manybody-ldos}
+
+Its moments are the energy moments in the initial state. Its Fourier transform is the return amplitude,
+
+$$
+\mathcal G(t)=\bra{\psi_0}e^{-iHt/\hbar}\ket{\psi_0}
+=\int\mathrm dE\,F_{\psi_0}(E)e^{-iEt/\hbar},\qquad
+P_{\mathrm{surv}}(t)=|\mathcal G(t)|^2.
+$$ {#eq-manybody-survival}
+
+An ideal Gaussian LDOS of variance $\sigma_E^2$ gives $P_{\mathrm{surv}}(t)=e^{-\sigma_E^2t^2/\hbar^2}$. An ideal Lorentzian of width $\Gamma$ gives an exponential decay after Fourier transformation. A weak-coupling golden-rule regime can produce an approximately Lorentzian central profile, while stronger mixing may produce a roughly Gaussian envelope. Actual bounded spectra have edges and discrete levels, so neither ideal profile holds at all times.
+
+A direct expansion, independent of either approximation, gives
+
+$$
+P_{\mathrm{surv}}(t)=1-\frac{\sigma_E^2t^2}{\hbar^2}+O(t^4)
+$$ {#eq-manybody-shorttime}
+
+for a finite system. The early quadratic law shows why a purely exponential survival probability cannot start at $t=0$. It also shows that fast decay of a return probability is controlled by energy spread, which alone does not establish thermalization of a local observable.
+
+## Entanglement adds a different diagnostic
+
+Divide the chain into regions $A$ and $B$. The Schmidt decomposition is
+$\ket\psi=\sum_{a=1}^\chi\sqrt{\lambda_a}\ket a_A\ket a_B$,
+where $\lambda_a\ge0$ and $\sum_a\lambda_a=1$. Both reduced states share the nonzero eigenvalues $\lambda_a$, and
+
+$$
+S_A=-\sum_a\lambda_a\ln\lambda_a=S_B,
+\qquad S_A\le\ln\min(d_A,d_B).
+$$ {#eq-manybody-entanglement}
+
+Highly excited thermal eigenstates of many local chaotic systems have entropy proportional to subsystem volume when $A$ is small compared with the whole system. At finite energy density the coefficient is the thermodynamic entropy density, under subsystem ETH assumptions. Ground states, localized eigenstates, and constrained subspaces can behave differently.
+
+For a Haar-random complex pure state in an unconstrained product space with $d_A\le d_B$, the Page average is
+
+$$
+\mathbb E S_A=\sum_{k=d_B+1}^{d_Ad_B}\frac1k-
+\frac{d_A-1}{2d_B}
+\simeq\ln d_A-\frac{d_A}{2d_B},
+$$ {#eq-manybody-page}
+
+where the final expression assumes large dimensions. The exact expression was proposed by @fPage1993 and proved in subsequent work, including @fSen1996. The unrestricted Haar average is a useful high-temperature benchmark. Fixed energy, particle number, or other constraints change the appropriate random-state ensemble and its finite-size corrections. Agreement with an unrestricted Page estimate is not required at a general temperature.
+
+Participation entropy and entanglement entropy ask different questions. A product of local equal superpositions occupies every computational basis vector but has no entanglement. Conversely, a state can have large bipartite entropy while preserving special correlations that make some observables nonthermal. No single scalar diagnoses all aspects of chaos.
+
+## Exercises and worked answers
+
+**1. Derive the shell width.** Starting from $\bra\alpha H^2\ket\alpha$, establish @eq-manybody-shell-width.
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+Insert $I=\sum_\gamma\ket\gamma\bra\gamma$ between the two Hamiltonians. Hermiticity gives $\bra\alpha H^2\ket\alpha=\sum_\gamma|H_{\gamma\alpha}|^2$. The diagonal term is $E_\alpha^2$, which cancels in the variance.
+:::
+
+**2. Delocalized but unentangled.** Evaluate the computational-basis participation and bipartite entropy of $\ket+^{\otimes L}$, where $\ket+=(\ket0+\ket1)/\sqrt2$.
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+Every configuration has weight $2^{-L}$, so $\mathrm{PR}=2^L$ and $S_{\mathrm{Sh}}=L\ln2$. The state factorizes across every spatial cut, giving $S_A=0$. Computational-basis delocalization alone does not imply entanglement or thermal behavior.
+:::
+
+**3. Return plateau.** Assuming nondegenerate energies, find the infinite-time average of $P_{\mathrm{surv}}(t)$.
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+Writing $p_n=|\braket n{\psi_0}|^2$ gives $P_{\mathrm{surv}}(t)=\sum_{mn}p_mp_ne^{i(E_m-E_n)t/\hbar}$. Time averaging removes terms with $m\ne n$, leaving $\sum_np_n^2$. Its inverse is the effective number of populated energy eigenstates. Energy degeneracies require combining weights within equal-energy subspaces.
+:::

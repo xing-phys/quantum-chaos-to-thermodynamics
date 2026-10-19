@@ -2,3 +2,13 @@
 /_site/
 
 **/*.quarto_ipynb
+
+# Temporary files from an interrupted LaTeX render
+/index.aux
+/index.log
+/index.tex
+/index.toc
+/index.out
+/index.lof
+/index.lot
+__pycache__/

@@ -1,0 +1,131 @@
+# States, observables, and equilibrium ensembles {#sec-foundations}
+
+A gas in a sealed box obeys reversible microscopic equations. Nevertheless, its pressure becomes predictable without knowing every particle's position or every amplitude of its wavefunction. The central question of this book is how a small set of observables can become insensitive to most microscopic information. We begin by defining exactly which information an observable accesses and what an equilibrium prediction means.
+
+## The quantum state as a prediction rule
+
+A normalized vector $\ket{\psi}$ describes a pure state. The probability of obtaining the result $a$ when measuring $A=\sum_a aP_a$ is $\bra{\psi}P_a\ket{\psi}$. A density matrix packages both pure and mixed preparations:
+
+$$
+\rho=\sum_j p_j\ket{\psi_j}\bra{\psi_j},\qquad
+p_j\geq0,\qquad\sum_jp_j=1,\qquad
+\langle A\rangle_\rho=\operatorname{Tr}(\rho A).
+$$ {#eq-found-density}
+
+A density matrix is positive, Hermitian, and has unit trace. Its decomposition into preparation vectors is generally not unique; predictions depend on $\rho$, not on a chosen decomposition. Purity, $\operatorname{Tr}\rho^2$, equals one for a pure state and is smaller for a mixed state. The von Neumann entropy, in units with $k_{\mathrm B}=1$, is
+
+$$
+S_{\mathrm{vN}}(\rho)=-\operatorname{Tr}(\rho\ln\rho).
+$$ {#eq-found-vnentropy}
+
+Zero eigenvalues contribute zero because $x\ln x\to0$ as $x\to0^+$. Unitary evolution, $\rho(t)=U(t)\rho(0)U^\dagger(t)$, preserves every eigenvalue of $\rho$, hence preserves this entropy. An isolated pure state therefore never becomes a mixed Gibbs state as a statement about its full density matrix.
+
+Why, then, can a subsystem become thermal? For $\mathcal H=\mathcal H_A\otimes\mathcal H_B$, the reduced state is $\rho_A=\operatorname{Tr}_B\rho$. In bases $\ket{a}\ket{b}$,
+
+$$
+(\rho_A)_{aa'}=\sum_b\rho_{ab,a'b},\qquad
+\operatorname{Tr}(\rho A\otimes I_B)=\operatorname{Tr}_A(\rho_A A).
+$$ {#eq-found-partialtrace}
+
+For the entangled vector $(\ket{00}+\ket{11})/\sqrt2$, the global entropy is zero but $\rho_A=I_A/2$ has entropy $\ln2$. Entanglement allows local ignorance within a completely specified global state. No averaging over an observer's ignorance is needed for this example.
+
+## Three ensembles and their assumptions
+
+Suppose energy is the only extensive conserved quantity besides fixed particle number and volume. An isolated equilibrium system with energy known within a window $\mathcal W=[E-\Delta/2,E+\Delta/2]$ is assigned
+
+$$
+\rho_{\mathrm{mc}}=\frac{P_{\mathcal W}}{D_{\mathcal W}},\qquad
+P_{\mathcal W}=\sum_{E_n\in\mathcal W}\ket n\bra n,\qquad
+D_{\mathcal W}=\operatorname{Tr}P_{\mathcal W}.
+$$ {#eq-found-microcanonical}
+
+The window should contain many levels while remaining narrow on the energy scale over which the target observable changes appreciably. The microcanonical prescription is a prediction rule whose dynamical justification remains to be established; it is not an extra term in the Schrödinger equation.
+
+For a system exchanging energy with a large reservoir, the canonical state is
+
+$$
+\rho_\beta=\frac{e^{-\beta H}}{Z},\qquad Z=\operatorname{Tr}e^{-\beta H},\qquad\beta=1/T.
+$$ {#eq-found-canonical}
+
+If particles can also be exchanged, $\rho_{\beta,\mu}=e^{-\beta(H-\mu N)}/\mathcal Z$, provided $[H,N]=0$. Other exact charges require corresponding constraints. Throughout this book, comparing states from different conserved-charge sectors without specifying their weights is an avoidable source of confusion.
+
+Here is a derivation of the Boltzmann factor. Let $H=H_A+H_B+H_{AB}$ and initially neglect the boundary interaction when counting levels. If $A$ has energy $\epsilon_a$, the number of compatible reservoir states is $\Omega_B(E_{\mathrm{tot}}-\epsilon_a)$. Therefore
+
+$$
+p_a\propto e^{S_B(E_{\mathrm{tot}}-\epsilon_a)}
+\simeq e^{S_B(E_{\mathrm{tot}})-\beta\epsilon_a},\qquad
+\beta=\left.\frac{\partial S_B}{\partial E_B}\right|_{E_{\mathrm{tot}}}.
+$$ {#eq-found-reservoir}
+
+The next term is $-\epsilon_a^2/(2T^2C_B)$ after choosing a suitable reference energy. A reservoir of large heat capacity suppresses this correction. The approximation also requires a coupling weak enough that the subsystem energy remains meaningful. At appreciable coupling, the reduced equilibrium state need not be $e^{-\beta H_A}/Z_A$ for the bare subsystem Hamiltonian.
+
+The same canonical distribution follows by maximizing $-\sum_np_n\ln p_n$ with fixed normalization and mean energy. A variation gives $\ln p_n=-1-\alpha-\beta E_n$. This is a useful inference principle, but maximizing entropy by itself does not prove that a particular Hamiltonian carries an arbitrary preparation to that distribution.
+
+## Thermodynamic functions from a partition function
+
+Differentiating the finite-dimensional partition function gives exact identities:
+
+$$
+U=-\partial_\beta\ln Z,\qquad
+\operatorname{Var}_\beta(H)=\partial_\beta^2\ln Z,
+\qquad C=\frac{\operatorname{Var}_\beta(H)}{T^2}.
+$$ {#eq-found-partition-identities}
+
+For finite-range systems away from a critical point, both $U$ and $C$ usually scale as the number of sites $L$. Thus the energy width scales as $\sqrt L$ while the mean energy is extensive. The width in energy density, $\Delta e=\Delta E/L$, vanishes as $L^{-1/2}$. This is the scale separation behind much ensemble equivalence.
+
+More explicitly, write the number of states near $E=Le$ as $\exp[Ls(e)+o(L)]$. The canonical sum is approximated by
+
+$$
+Z(\beta)\approx\int \mathrm de\,\exp\{L[s(e)-\beta e]\}.
+$$ {#eq-found-saddle}
+
+If $s(e)$ is smooth and strictly concave near a unique maximum of $s(e)-\beta e$, a saddle point gives $s'(e_*)=\beta$ and a narrow distribution around $e_*$. A local observable smooth in $e$ then has the same leading prediction in microcanonical and canonical ensembles. This argument assumes the thermodynamic limit and thermodynamic stability. Long-range interactions, first-order coexistence, and nonconcave entropy can obstruct simple versions of equivalence. Even when local observables agree, the global density matrices and energy fluctuations can differ greatly.
+
+For $L$ independent two-level systems with energies $0$ and $\epsilon$, $Z=(1+e^{-\beta\epsilon})^L$ and the excited fraction is $q=(1+e^{\beta\epsilon})^{-1}$. The microcanonical count with $M=Lq$ excitations is $\binom LM$. Stirling's formula gives $s(q)=-q\ln q-(1-q)\ln(1-q)$, so $\partial S/\partial E=\epsilon^{-1}\ln[(1-q)/q]$, recovering the same temperature. This solvable counting problem illustrates ensemble equivalence without assuming chaos.
+
+## Typicality: a kinematic fact with a dynamical limitation
+
+Let a constrained subspace $\mathcal H_R$ have dimension $D_R$ and define $\Omega=P_R/D_R$. Choose a unit vector uniformly with the unitary invariant Haar measure in this subspace. For an observable $A_R=P_RAP_R$,
+
+$$
+\mathbb E\langle A\rangle_\psi=\frac{\operatorname{Tr}_R A_R}{D_R},\qquad
+\operatorname{Var}(\langle A\rangle_\psi)=
+\frac{\operatorname{Tr}_R(A_R^2)/D_R-[\operatorname{Tr}_R A_R/D_R]^2}{D_R+1}.
+$$ {#eq-found-typicality}
+
+One obtains this by using
+$\mathbb E[(\ket\psi\bra\psi)^{\otimes2}]=(I+\mathsf F)/[D_R(D_R+1)]$, where $\mathsf F$ swaps two copies of the subspace. The variance is at most $\|A\|^2/(D_R+1)$. Most vectors therefore give nearly the same answer for any fixed bounded observable when $D_R$ is large. The canonical-typicality results of @fPopescu2006 establish corresponding closeness statements for a sufficiently small subsystem under appropriate dimension conditions; see also @fGoldstein2006 for the energy-shell formulation.
+
+This is a statement about measure on a space of vectors. A time-independent Hamiltonian keeps the absolute values of its energy-basis coefficients fixed, so a physical orbit never samples all Haar-random vectors. Moreover, easily prepared low-entanglement states are atypical. Typicality explains why thermal-looking pure states are abundant; it leaves open whether physical dynamics reaches them, and how quickly. Those questions motivate quantum chaos and ETH.
+
+::: {.callout-note}
+## What does “thermal” mean here?
+
+Specify an observable class and an accuracy. A subsystem is thermal when its reduced state is close enough to an equilibrium state to reproduce that class. Equilibration means small deviations from a stationary value for most times. Thermalization additionally identifies that value with an equilibrium ensemble fixed by the conserved macroscopic data.
+:::
+
+## Exercises and worked answers
+
+**1. Entropy without mixing.** For $\ket\psi=\sqrt p\ket{00}+\sqrt{1-p}\ket{11}$, calculate the purity and entropy of $A$.
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+Tracing $B$ removes the cross terms: $\rho_A=\operatorname{diag}(p,1-p)$. Therefore $\operatorname{Tr}\rho_A^2=p^2+(1-p)^2$ and $S_A=-p\ln p-(1-p)\ln(1-p)$. The global state remains pure for every $p$.
+:::
+
+**2. Finite reservoir correction.** Show that $S_B''(E_B)=-1/(T^2C_B)$ and identify when the quadratic correction in @eq-found-reservoir matters.
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+Differentiate $S_B'=1/T$: $S_B''=-(1/T^2)(\partial T/\partial E_B)=-1/(T^2C_B)$. Expanding around the mean subsystem energy gives a correction of order $(\epsilon_a-\bar\epsilon)^2/(T^2C_B)$. It is small when the reservoir heat capacity greatly exceeds the subsystem energy-variance scale measured in units of $T^2$.
+:::
+
+**3. A zero-temperature caveat.** Why does the saddle-point argument not automatically justify a canonical description of an arbitrary low-energy pure state?
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+It compares equilibrium ensembles under smoothness and large-deviation assumptions. It says nothing about a pure state's overlaps with eigenstates. Near a spectral edge, the number of participating levels may be small and the entropy expansion can fail. Dynamical thermalization requires additional information about the eigenstates and the preparation.
+:::

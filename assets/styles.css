@@ -1,4 +1,4 @@
-/* Shared styles for the OYA-OQS report site */
+/* Shared styles for the quantum chaos course companion. */
 
 /* Slightly larger, clearer display equations */
 .math.display {
@@ -9,8 +9,14 @@
 
 /* Keep long inline formulas from breaking awkwardly */
 .math.inline {
-  white-space: nowrap;
+  overflow-wrap: normal;
 }
+
+main { max-width: 58rem; }
+p { line-height: 1.65; }
+.sidebar-title { font-weight: 650; }
+table { font-size: 0.93em; }
+figure img { background: white; border-radius: 4px; }
 
 /* Figure captions */
 figure.quarto-float.tbl figcaption,

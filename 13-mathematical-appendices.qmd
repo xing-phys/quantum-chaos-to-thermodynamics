@@ -1,0 +1,284 @@
+# Mathematical tools and two revealing examples {#sec-mathematical-appendices}
+
+This chapter collects the seven auxiliary topics behind the book's main argument. The kicked rotor illustrates the distinction between classical diffusion and quantum interference. Zeta zeros illustrate spectral universality and the limits of numerical evidence. The remaining sections provide proofs and continuum derivations that can be reused independently. A probability vector is a column vector throughout; a doubly stochastic matrix has both row sums and column sums equal to one.
+
+## The kicked rotor: from a map to localization {#sec-app-rotor}
+
+### Classical stroboscopic dynamics
+
+Choose dimensionless time with one kick per unit interval and Hamiltonian
+
+$$
+H(\theta,P,t)=\frac{P^2}{2}+K\cos\theta\sum_{n\in\mathbb Z}\delta(t-n),
+\qquad \theta\equiv\theta+2\pi.
+$$
+
+Let $(\theta_n,P_n)$ denote the state just before kick $n$. Integrating Hamilton's equation through the impulse and then through free rotation gives the *standard map*:
+
+$$
+P_{n+1}=P_n+K\sin\theta_n,\qquad
+\theta_{n+1}=\theta_n+P_{n+1}\pmod{2\pi}.
+$$ {#eq-app-standard-map}
+
+Its tangent matrix in the order $(\theta,P)$ is
+$\left(\begin{smallmatrix}1+K\cos\theta&1\\K\cos\theta&1\end{smallmatrix}\right)$, with determinant one. Thus phase-space area is preserved even when nearby trajectories separate exponentially. For small kicks many invariant curves survive; for stronger kicks large chaotic regions appear, with regular islands often remaining.
+
+The fixed points at $P=0$ are $\theta=0$ and $\theta=\pi$. Their tangent eigenvalues obey
+
+$$
+\lambda^2-(2+K\cos\theta_*)\lambda+1=0.
+$$
+
+For our positive-cosine kick convention, $\theta_*=\pi$ is the potential minimum. Its trace is $2-K$, so for $0<K<4$ the eigenvalues are a complex-conjugate pair of modulus one: the fixed point is elliptic at linear order. At $K>4$ they become real reciprocal eigenvalues, one with modulus larger than one, giving a hyperbolic instability. At $\theta_*=0$, the trace is $2+K>2$, so that point is hyperbolic for every $K>0$. The endpoints $K=0,4$ are marginal and need nonlinear analysis. Near the elliptic point, writing $\theta=\pi+q$ gives $q_{n+1}-2q_n+q_{n-1}\simeq-Kq_n$; for $K\ll1$ this approaches a pendulum's small-oscillation equation. Hyperbolicity of a fixed point is local information: it does not prove that the entire map is chaotic or determine the threshold for unrestricted momentum transport.
+
+If successive angles were independent and uniform, each momentum increment would have mean zero and variance $K^2/2$. Then
+$\ev{(P_n-P_0)^2}\simeq D_Pn$, with $D_P\simeq K^2/2$. This random-phase estimate is useful in a strongly chaotic regime. Correlations between kicks, trapping near islands, and accelerator modes can change the diffusion coefficient or even the diffusion law. Classical chaos alone does not justify treating every kick as independent noise.
+
+### Floquet evolution
+
+Quantization gives momentum states $\ket m$ with $P\ket m=\hbar_{\mathrm{eff}}m\ket m$, $m\in\mathbb Z$. Wavefunctions are periodic in $\theta$; equivalently, $[\theta,P]=i\hbar_{\mathrm{eff}}$ holds in the usual local angular-coordinate sense. Evolution from just before one kick to just before the next is
+
+$$
+U_F=\exp\left(-\frac{iP^2}{2\hbar_{\mathrm{eff}}}\right)
+\exp\left(-\frac{iK\cos\theta}{\hbar_{\mathrm{eff}}}\right).
+$$ {#eq-app-rotor-floquet}
+
+Using the Fourier expansion
+$e^{-iz\cos\theta}=\sum_l(-i)^lJ_l(z)e^{il\theta}$ gives
+
+$$
+\bra{m}U_F\ket{n}
+=e^{-i\hbar_{\mathrm{eff}}m^2/2}
+(-i)^{m-n}J_{m-n}(K/\hbar_{\mathrm{eff}}).
+$$
+
+A numerical simulation can alternate a diagonal kick in angle representation with a diagonal free phase in momentum representation, using Fourier transforms. A momentum cutoff must be large enough that the spreading wavepacket never reaches its artificial boundary.
+
+For generic nonresonant parameters in a classically diffusive regime, interference can stop the quantum momentum spreading. Floquet eigenstates become localized in momentum, with envelopes schematically $\abs{\psi_m}^2\sim e^{-2|m-m_0|/\ell}$. The relation between the rotor eigenvalue problem and a one-dimensional Anderson-type lattice problem explains this *dynamical localization* [@Fishman1982Rotor]. The phase sequence is deterministic, so one must not silently replace every parameter choice by independent random disorder.
+
+A useful scaling estimate compares classical spreading in mode number, $\ev{(\Delta m)^2}\sim(D_P/\hbar_{\mathrm{eff}}^2)n$, with a break time of order the number $\ell$ of appreciably occupied Floquet components. Setting $\ell^2\sim(D_P/\hbar_{\mathrm{eff}}^2)\ell$ gives $\ell\sim D_P/\hbar_{\mathrm{eff}}^2$ and $n_{\mathrm{break}}\sim\ell$, up to convention-dependent numerical factors. This is a scaling argument, not an exact formula across all $K$.
+
+Resonances are an essential exception. When $\hbar_{\mathrm{eff}}/(4\pi)$ is rational, the free phases are periodic in momentum and resonance or antiresonance may replace localization. For $\hbar_{\mathrm{eff}}=4\pi$, the free operator is the identity. Starting from $m=0$, after $n$ kicks the angle wavefunction is proportional to $e^{-inK\cos\theta/\hbar_{\mathrm{eff}}}$, so $\ev{P^2}=K^2n^2/2$: ballistic growth. At $\hbar_{\mathrm{eff}}=2\pi$, the free evolution translates the angle by $\pi$, successive cosine kicks cancel, and $U_F^2=1$. For a kicked particle rather than a rotor, conserved quasimomentum introduces another resonance condition. Weak noise or decoherence can also destroy interference and restore long-time diffusion.
+
+## Zeta zeros: unfolding, evidence, and conjecture {#sec-app-zeta}
+
+For $\Re s>1$, the Riemann zeta function is $\zeta(s)=\sum_{n\geq1}n^{-s}$. Analytic continuation defines it elsewhere, apart from its pole at $s=1$. Its nontrivial zeros lie in the critical strip $0<\Re s<1$. The Riemann hypothesis asserts that all lie on $\Re s=1/2$. It is separate from statements about spacing correlations.
+
+Write zeros on the critical line as $1/2+i\gamma_n$ with positive increasing $\gamma_n$. In a range in which all zeros are known to lie on that line, or conditionally on the Riemann hypothesis, a smooth counting function is
+
+$$
+\overline N(T)=\frac{T}{2\pi}\ln\frac{T}{2\pi}
+-\frac{T}{2\pi}+\frac78.
+$$
+
+The local density changes slowly with height: $\overline N'(T)=(2\pi)^{-1}\ln(T/2\pi)$. Raw spacings at different heights are therefore incomparable. Define unfolded positions $x_n=\overline N(\gamma_n)$ and spacings $s_n=x_{n+1}-x_n$. Their local mean approaches one. In a narrow window near $T$, the equivalent approximation is $s_n\simeq(\gamma_{n+1}-\gamma_n)\ln(T/2\pi)/(2\pi)$.
+
+The conjectured distinct-pair correlation is the bulk GUE expression
+
+$$
+R_2(s)=1-\left(\frac{\sin\pi s}{\pi s}\right)^2.
+$$ {#eq-app-zeta-pair}
+
+The self-pair delta function at $s=0$ is excluded from this convention. Expanding the sine shows $R_2(s)\sim\pi^2s^2/3$ near zero, a form of quadratic repulsion. Pair correlation is not the same statistic as the nearest-neighbor distribution, although both can be compared with random matrices.
+
+Montgomery obtained conditional results for a restricted Fourier range and proposed the fuller pair-correlation statement [@Montgomery1973Pair]. Odlyzko's high-precision computations found detailed numerical agreement with random-matrix predictions [@Odlyzko1987Zeros]. This is strong numerical evidence for spectral universality. It is neither a proof of the full correlation conjecture nor a proof of the Riemann hypothesis.
+
+The Hilbert–Pólya idea asks whether a suitable self-adjoint operator could encode the zeros as spectral data, so that its real eigenvalues would force their real parts to be $1/2$. A successful proof needs a rigorously established correspondence with all relevant zeros; merely constructing an operator with selected imaginary parts as eigenvalues achieves nothing by itself. No such operator or proof is supplied by matching a spacing histogram. The physics lesson is methodological: a universal statistic can reveal structure without identifying its microscopic mechanism.
+
+### Prime modes and complex-temperature zeros
+
+Unique prime factorization supplies another connection to statistical mechanics. For $\Re s>1$, absolute convergence permits expanding
+
+$$
+\prod_{p\ \mathrm{prime}}(1-p^{-s})^{-1}
+=\prod_p\sum_{n_p\geq0}p^{-sn_p}
+=\sum_{n\geq1}n^{-s}=\zeta(s).
+$$
+
+Each choice of nonnegative integers $n_p$ corresponds to exactly one integer $n=\prod_pp^{n_p}$. Introduce independent bosonic modes with normal-ordered energies
+$H=E_*\sum_p(\ln p)N_p$, where $E_*>0$ sets the energy unit and the vacuum energy is zero. A Fock state then has energy $E_n=E_*\ln n$, with one state per positive integer. Its partition function is
+
+$$
+Z(\beta)=\prod_p\frac1{1-e^{-\beta E_*\ln p}}
+=\zeta(\beta E_*),\qquad \Re(\beta E_*)>1.
+$$
+
+The convergence restriction is physical: at high enough temperature the increasing number of accessible logarithmic-energy levels makes the trace diverge. Analytically continuing $\zeta$ beyond this domain does not make that divergent trace a thermal state. In particular, the critical-line zeros are outside the domain of this literal infinite-mode Gibbs ensemble. This distinction prevents the partition-function analogy from becoming a purported physical proof about the zeros.
+
+For any Hamiltonian with a convergent Gibbs trace, its energy probability distribution has characteristic function
+
+$$
+\chi_\beta(u)=\ev{e^{iuH}}_\beta
+=\frac{Z(\beta-iu)}{Z(\beta)}.
+$$
+
+Here $u$ has units of inverse energy. Thus zeros of the characteristic function are complex-temperature zeros of the partition function on the corresponding vertical line. Zeros in complex inverse temperature are called Fisher zeros. A finite-level cutoff makes $Z$ a finite sum, so its complex zeros are unambiguous; interpreting their accumulation as a thermodynamic singularity requires a specified limit. Neither analytic continuation nor removal of a cutoff can be interchanged with that limit without justification. For the untruncated prime-mode model, the Euler product has no zeros in its convergent half-plane, so its physical characteristic function does not sample the critical-line zeros.
+
+A related Loschmidt amplitude is obtained by purifying the Gibbs state: $\ket{\Psi_\beta}=\sum_n\sqrt{p_n}\ket n\ket n$. Evolving only one copy gives overlap $Z(\beta+it/\hbar)/Z(\beta)$. This establishes a precise relation to return amplitudes for that preparation, not for an arbitrary quench. Proposed broader links between complex-zero patterns and ergodicity remain conjectural. The prime-mode Hamiltonian itself has conserved occupation numbers; a partition-function identity alone does not establish chaotic dynamics.
+
+## When the uniform state is an attractor {#sec-app-contraction}
+
+Let $D$ be a $d\times d$ doubly stochastic matrix and $u_i=1/d$. Since its rows sum to one, $Du=u$. Its columns summing to one ensure normalization of $Dp$. These facts establish a stationary uniform state, but they do not establish attraction. The identity matrix preserves every distribution, and a cyclic permutation rotates distributions forever.
+
+A sufficient condition is *primitivity*: for some integer $m$, every entry of $D^m$ is positive. Set $a=\min_{ij}(D^m)_{ij}>0$ and $\delta=da\leq1$. If $\delta<1$, write
+
+$$
+D^m=\delta J+(1-\delta)R,\qquad J_{ij}=1/d,
+$$
+
+where $R$ is again doubly stochastic and nonnegative. If $\delta=1$, $D^m=J$ and mixing is already exact. For any vector $x$, column stochasticity and the triangle inequality give
+
+$$
+\norm{Rx}_1\leq\sum_{ij}R_{ij}|x_j|=\norm{x}_1.
+$$
+
+Because $J(p-u)=0$,
+
+$$
+\norm{D^{mn}p-u}_1\leq(1-\delta)^n\norm{p-u}_1.
+$$ {#eq-app-stochastic-contraction}
+
+Intermediate applications of $D$ cannot increase this norm, so $D^np\to u$. The bound is constructive, although often far from optimal. Spectrally, primitivity means that the eigenvalue one is simple and all other eigenvalues have modulus smaller than one. For a finite Markov chain it is equivalent to irreducibility plus aperiodicity. Reducible dynamics can retain independent conserved sectors, and a uniform state over the whole Hilbert space is then the wrong target. Time-dependent products require their own mixing conditions; primitivity of an unrelated average matrix is insufficient.
+
+## A constructive proof of Birkhoff's theorem {#sec-app-birkhoff}
+
+**The theorem.** Every finite doubly stochastic matrix is a convex combination of permutation matrices: $D=\sum_a w_aP_a$, $w_a\geq0$, $\sum_aw_a=1$.
+
+First regard the nonzero entries of $D$ as edges of a bipartite graph connecting rows to columns. For a subset $S$ of rows, let $N(S)$ be the columns connected to them. Their total row weight is $|S|$, and it all lies in $N(S)$. The total weight in those columns is $|N(S)|$, so $|N(S)|\geq|S|$.
+
+This condition guarantees a matching covering all rows. To see why, start with a matching of maximal size. If a row is unmatched, follow alternating paths: an unused edge from a row to a column, then the matching edge back to a row. If an unmatched column is reached, reversing the path increases the matching, contradicting maximality. Otherwise every reached column is matched to a reached row, while the initial unmatched row supplies one additional reached row. The reached rows then outnumber their neighboring columns, contradicting the condition above. Hence a perfect matching exists.
+
+Choose its permutation matrix $P$ and put $w=\min_iD_{i,P(i)}>0$. Then $D-wP$ is nonnegative with row and column sums $1-w$. If $w=1$ we are done. Otherwise
+
+$$
+D=wP+(1-w)D_1,\qquad D_1=\frac{D-wP}{1-w}
+$$
+
+and $D_1$ is doubly stochastic. At least one previously positive entry has become zero, and no zero has become positive. Repeating the procedure must terminate after finitely many steps. Expanding the nested decompositions gives the desired positive weights, which sum to one.
+
+For example,
+$\left(\begin{smallmatrix}0.6&0.4\\0.4&0.6\end{smallmatrix}\right)=0.6I+0.4\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)$.
+This is an algebraic representation of population mixing. It does not assert that a particular unitary evolution physically tosses a classical coin between permutations. Quantum transition probabilities $D_{ij}=|U_{ij}|^2$ form a subset of doubly stochastic matrices, and Birkhoff's theorem applies to that subset as well.
+
+## A rigorous passive-work inequality {#sec-app-passivity}
+
+Consider a cyclic process: the final Hamiltonian equals the initial one. Order its energies as $E_1\leq\cdots\leq E_d$ and let the initial state be diagonal with $p_1\geq\cdots\geq p_d$. Such a state is *passive*. A unitary process gives final energy populations $q=Dp$, where $D_{ij}=|U_{ij}|^2$ is doubly stochastic. We prove
+
+$$
+\ev W=\sum_iE_i(q_i-p_i)\geq0.
+$$ {#eq-app-passive-work}
+
+For each $k<d$, define $r_j=\sum_{i\leq k}D_{ij}$. Then $0\leq r_j\leq1$ and $\sum_jr_j=k$. Since the $p_j$ decrease with $j$, the largest possible value of $\sum_jr_jp_j$ is obtained by giving weight one to the first $k$ entries. This can also be seen by repeatedly moving available weight from a larger index to a smaller one, which never lowers the sum. Therefore
+
+$$
+\sum_{i\leq k}q_i=\sum_jr_jp_j\leq\sum_{i\leq k}p_i.
+$$
+
+Set $R_k=\sum_{i\leq k}(q_i-p_i)\leq0$, with $R_0=R_d=0$. Discrete summation by parts yields
+
+$$
+\ev W=\sum_iE_i(R_i-R_{i-1})
+=\sum_{k=1}^{d-1}(E_k-E_{k+1})R_k\geq0.
+$$
+
+Each factor in each product is nonpositive. No chaos assumption, large-system limit, or canonical ensemble was used. The proof works for every doubly stochastic population map. Degenerate energies cause no problem because the corresponding energy gaps vanish.
+
+A Gibbs distribution with $\beta\geq0$ is passive because its populations decrease with energy. Conversely, a population inversion $p_j>p_i$ for $E_j>E_i$ permits work extraction by swapping levels: the change is $(E_j-E_i)(p_i-p_j)<0$. Coherences also matter: a general passive state must commute with $H$, since an appropriate unitary can otherwise lower its energy. With degeneracies one can diagonalize within each energy subspace.
+
+Passivity for one copy is weaker than *complete passivity*, which requires that no number of copies allow work extraction by a joint cycle. The latter singles out equilibrium Gibbs states and ground-state cases under the appropriate hypotheses [@Lenard1978Passivity; @Pusz1978Passivity]. For a noncyclic protocol with different initial and final spectra, @eq-app-passive-work is not the relevant comparison without additional terms.
+
+## Deriving the energy drift–diffusion relation {#sec-app-drift-diffusion}
+
+Let $P(E,t)$ be a density per unit energy and $w(E,\omega)\dd\omega$ the rate for a jump from $E$ to $E+\omega$. The gain–loss equation is
+
+$$
+\partial_tP(E)=\int\dd\omega\,
+\left[w(E-\omega,\omega)P(E-\omega)-w(E,\omega)P(E)\right].
+$$
+
+If jumps are small compared with the scale on which the distribution and rates vary, Taylor expansion of the gain term produces the first two Kramers–Moyal terms:
+
+$$
+\partial_tP=-\partial_E(AP)+\frac12\partial_E^2(BP),\qquad
+A(E)=\int\dd\omega\,\omega w(E,\omega),\quad
+B(E)=\int\dd\omega\,\omega^2w(E,\omega).
+$$ {#eq-app-fokker-planck}
+
+$A$ has units energy/time and $B$ has units energy squared/time. On an infinitesimal interval they are the mean energy increment and its variance divided by elapsed time; the distinction between the second raw moment and variance is higher order in that interval. Neglecting third and higher jump moments needs a controlled small-jump regime, rather than an assumption that every finite-time work distribution is Gaussian.
+
+Write the probability current as $j=AP-\tfrac12\partial_E(BP)$. For energy-space evolution induced by a unital or doubly stochastic microscopic process at fixed Hamiltonian, the state uniform over individual levels is stationary. Its coarse-grained energy density is proportional to the density of levels $\Omega(E)$, which is generally not constant. For a bounded spectrum with reflecting endpoints, the stationary current vanishes. Substituting $P_{\infty}\propto\Omega$ gives
+
+$$
+2A=B\,\partial_E\ln\Omega+\partial_EB
+=\beta(E)B+\partial_EB,
+\qquad \beta(E)=\partial_ES(E),\quad
+S(E)=\ln[\Omega(E)\delta E].
+$$ {#eq-app-einstein-energy}
+
+The arbitrary fixed coarse-graining width $\delta E$ drops out of $\beta$. The derivative term is required for spatially varying diffusion in the Itô/Fokker–Planck convention used here. Dropping it is an additional slowly-varying-coefficient approximation. This argument uses stationarity and a zero-current boundary condition; a doubly stochastic matrix need not satisfy pairwise detailed balance.
+
+For a system weakly coupled to a thermal reservoir at inverse temperature $\beta_b$, the equilibrium energy density is $\Omega(E)e^{-\beta_bE}$. The corresponding zero-current relation is
+$2A=(\beta(E)-\beta_b)B+B'$. For two finite isolated subsystems exchanging energy, the stationary marginal is proportional to $\Omega_1(E)\Omega_2(E_{\mathrm{tot}}-E)$, so the entropy gradient is $\beta_1(E)-\beta_2(E_{\mathrm{tot}}-E)$. In the macroscopic limit, the drift therefore drives energy toward the subsystem of higher inverse temperature (the colder body), with the finite-size derivative term supplying the correction.
+
+For several exchanged quantities $x_i$, the same calculation gives
+
+$$
+A_i=\frac12\sum_j\left(B_{ij}\partial_{x_j}S+\partial_{x_j}B_{ij}\right)
+$$ {#eq-app-multi-drift}
+
+when the stationary diffusion has zero vector current. $B_{ij}$ is a symmetric covariance-rate matrix. Nonzero circulation currents or time-reversal breaking require a more general treatment.
+
+## Deriving Onsager reciprocity {#sec-app-onsager}
+
+Take two large bodies exchanging extensive quantities $x_i$, each even under time reversal for the moment. Define the thermodynamic affinities $F_i=\partial S_{\mathrm{tot}}/\partial x_i$, with $x_i$ oriented into the first body. For energy exchange $F_E=\beta_1-\beta_2$. A microscopic reversibility relation for an exchange $\Delta x$ over a mesoscopic interval $\tau$ has the near-equilibrium form
+
+$$
+\frac{p_F(\Delta x)}{p_F(-\Delta x)}
+=e^{F\cdot\Delta x},
+$$
+
+when the reversed experiment coincides with the forward one, affinities vary negligibly during the interval, and the coarse-grained exchange description is valid. At equilibrium $p_0(\Delta x)=p_0(-\Delta x)$. Linearizing the ratio gives
+$p_F(\Delta x)-p_F(-\Delta x)=p_0(\Delta x)\sum_jF_j\Delta x_j+O(F^2)$. Hence
+
+$$
+J_i\equiv\frac{\ev{\Delta x_i}}{\tau}
+=\sum_jL_{ij}F_j+O(F^2),\qquad
+L_{ij}=\frac{\ev{\Delta x_i\Delta x_j}_0}{2\tau}.
+$$ {#eq-app-onsager-covariance}
+
+The symmetry $L_{ij}=L_{ji}$ follows from the symmetry of a covariance. Positivity also follows: for real $v_i$, $v_iL_{ij}v_j=\ev{(v\cdot\Delta x)^2}_0/(2\tau)\geq0$. Thus entropy production $\dot S=F\cdot J=F^{\mathsf T}LF$ is nonnegative to quadratic order. Reciprocity constrains cross effects, for example the relation between heat transport induced by a particle affinity and particle transport induced by a temperature affinity. It is the content of microscopic reversibility beyond a mere positivity condition [@Onsager1931].
+
+There is a useful Green–Kubo version. For classical equilibrium currents, $\Delta x_i=\int_0^\tau I_i(t)\dd t$. If their correlations decay and $\tau$ is long compared with that decay time but short compared with the relaxation of the bodies, stationarity gives
+
+$$
+L_{ij}=\frac12\int_{-\infty}^{\infty}\dd t\,
+\ev{I_i(t)I_j(0)}_{\mathrm{eq}}.
+$$
+
+For equal time-reversal parities, reversibility converts this into the familiar integral over positive times. In a quantum calculation the linear-response version uses the canonical Kubo correlation, with imaginary-time averaging, rather than assuming that noncommuting current products are classical random variables. In a thermal state it can be written
+$\langle A;B\rangle_{\mathrm{eq}}=\beta^{-1}\int_0^\beta\dd\lambda\,\tr[\rho_{\mathrm{eq}}e^{\lambda H}Ae^{-\lambda H}B]$ for zero-mean operators. Forces must be normalized as entropy affinities, as above, to compare prefactors.
+
+If a magnetic field $B_{\mathrm{mag}}$ or another time-reversal-odd control is present, reversal changes that control too. If variable $x_i$ has time-reversal parity $\varepsilon_i$, the appropriate relation is Onsager–Casimir reciprocity,
+$L_{ij}(B_{\mathrm{mag}})=\varepsilon_i\varepsilon_jL_{ji}(-B_{\mathrm{mag}})$. Symmetry at the same field is then not generally required. Ballistic currents or additional conserved quantities can prevent the correlation integral from converging to a finite diffusive coefficient. Far from equilibrium, derivatives of the covariance and higher cumulants enter; the linear relation proved here should not be asserted unchanged.
+
+## Exercises and worked answers
+
+1. **Area preservation.** Compute the determinant of the standard map's tangent matrix. Does this rule out exponential separation?
+
+   **Answer.** The determinant is $1+K\cos\theta-K\cos\theta=1$. One expanding tangent direction can coexist with one contracting direction, keeping their area product fixed. Volume preservation is compatible with chaos.
+
+2. **A mixing counterexample.** The matrix $D=\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)$ is doubly stochastic and irreducible. Why does it not approach the uniform state?
+
+   **Answer.** It has period two, $D^2=I$, and an eigenvalue $-1$. No power has all positive entries, so it is not primitive. A distribution $(p,1-p)$ alternates with $(1-p,p)$.
+
+3. **Compute passive work.** Let $E=(0,1,3)$ and $p=(0.6,0.3,0.1)$. A unitary swaps the first and last levels. Find the work.
+
+   **Answer.** The final populations are $(0.1,0.3,0.6)$. The initial energy is $0.6$ and the final energy $2.1$, so $\ev W=1.5$. The swap supplies energy to the system, as passivity requires.
+
+4. **Check a diffusion law.** Suppose $\Omega(E)\propto E^\alpha$ and $B(E)=bE^r$ on a positive-energy interval. Find the zero-current drift.
+
+   **Answer.** $\beta(E)=\alpha/E$, so @eq-app-einstein-energy gives $A(E)=b(\alpha+r)E^{r-1}/2$. Both the state-counting contribution $\alpha$ and the diffusion-gradient contribution $r$ matter. Boundary conditions and validity of the small-jump approximation still have to be supplied.
+
+5. **Reciprocity versus positivity.** Does positive entropy production by itself imply $L_{12}=L_{21}$?
+
+   **Answer.** No. $F^{\mathsf T}LF$ depends only on the symmetric part of $L$. An antisymmetric part contributes zero to entropy production. Reciprocity needs microscopic reversibility and the appropriate parity/field reversal, not positivity alone.

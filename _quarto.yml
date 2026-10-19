@@ -4,6 +4,7 @@ project:
   resources: [.nojekyll, scripts/, data/, Project.toml, Manifest.toml]
 book:
   title: "Quantum Chaos to Thermodynamics"
+  output-file: quantum-chaos-to-thermodynamics
   subtitle: "A course companion on eigenstate thermalization"
   author:
     - name: Ze-Yu Xing
@@ -20,13 +21,13 @@ book:
   downloads: [pdf]
   chapters:
     - index.qmd
-    - part: "I · From dynamics to thermal states"
+    - part: "From dynamics to thermal states"
       chapters: [01-foundations.qmd, 02-classical-chaos.qmd, 03-random-matrices.qmd, 04-many-body-chaos.qmd, 05-eth.qmd, 06-quenches.qmd]
-    - part: "II · Thermodynamics from microscopic dynamics"
+    - part: "Thermodynamics from microscopic dynamics"
       chapters: [07-entropy.qmd, 08-fluctuation-theorems.qmd, 09-response.qmd, 10-driven-systems.qmd]
-    - part: "III · Constraints and long-lived memory"
+    - part: "Constraints and long-lived memory"
       chapters: [11-integrability.qmd, 12-prethermalization.qmd]
-    - part: "IV · Work through it"
+    - part: "Work through it"
       chapters: [13-mathematical-appendices.qmd, 14-numerical-lab.qmd, coverage.qmd, references.qmd]
   page-footer:
     left: "An independent, open course companion · v0.1"
@@ -34,6 +35,7 @@ book:
 bibliography: [assets/bibliography.bib, assets/foundations.bib, assets/thermodynamics.bib, assets/integrability.bib]
 csl: assets/american-physics-society.csl
 link-citations: true
+filters: [scripts/vector-figures.lua]
 lang: en
 execute:
   enabled: false
@@ -54,7 +56,6 @@ format:
   pdf:
     documentclass: scrreprt
     pdf-engine: lualatex
-    output-file: quantum-chaos-to-thermodynamics.pdf
     papersize: a4
     geometry: [margin=24mm]
     fontsize: 11pt

@@ -1,0 +1,243 @@
+# Fluctuation theorems and energy diffusion {#sec-fluctuation-theorems}
+
+The second law constrains averages. Fluctuation relations explain how individual realizations can return energy to a drive while the average still dissipates. Their proofs expose an important distinction: exact identities based on preparation and microscopic reversibility do not require quantum chaos, whereas replacing a thermal ensemble by one representative eigenstate requires additional structure. We retain $k_B=1$ and count work as positive when delivered to the system.
+
+## Measuring work in a closed quantum system
+
+For a protocol $H_F(t)$ on $0\le t\le\tau$, let $H_i=H_F(0)$ and $H_f=H_F(\tau)$. In the **two-projective-measurement** (TPM) protocol, measure the initial energy $E_n^i$, evolve with $U_F$, and measure the final energy $E_m^f$. The measured work is the number
+
+$$
+W_{mn}=E_m^f-E_n^i.
+$$
+
+Work here labels a pair of outcomes; it is not generally the spectrum of one Hermitian operator. An initial energy measurement dephases a coherent state, so the resulting statistics describe that measurement procedure. A Gibbs initial state is already energy diagonal and is unaffected by this dephasing.
+
+Write
+
+$$
+p_F(n,m)=\frac{e^{-\beta E_n^i}}{Z_i}
+\abs{\bra{m,f}U_F\ket{n,i}}^2.
+$$ {#eq-fluctuation-tpm}
+
+For degeneracies, one may resolve states within each energy eigenspace or work directly with spectral projectors and their multiplicities. The projector formulation makes the same identities without choosing an arbitrary basis inside a degenerate space. An experimentally broadened histogram should retain enough resolution to compare corresponding forward and reverse bins.
+
+## Microscopic reversibility and Crooks' relation
+
+Let $\Theta$ denote the antiunitary time-reversal operator. The reversed experiment uses
+
+$$
+H_R(t)=\Theta H_F(\tau-t)\Theta^{-1},
+\qquad U_R=\Theta U_F^\dagger\Theta^{-1}.
+$$
+
+All time-reversal-odd control parameters, including magnetic fields, must also reverse. Antiunitarity then implies equality of conditional transition probabilities:
+
+$$
+\abs{\bra{m,f}U_F\ket{n,i}}^2
+=\abs{\bra{\Theta n,i}U_R\ket{\Theta m,f}}^2.
+$$
+
+Prepare the reverse experiment in the Gibbs state of the reversed final Hamiltonian. Dividing the two joint probabilities cancels the transition factor:
+
+$$
+\frac{p_F(n,m)}{p_R(\Theta m,\Theta n)}
+=\frac{e^{-\beta E_n^i}/Z_i}{e^{-\beta E_m^f}/Z_f}
+=e^{\beta(W_{mn}-\Delta F)},
+\qquad \Delta F=-\beta^{-1}\ln(Z_f/Z_i).
+$$
+
+Summing over pairs with the same work gives
+
+$$
+\frac{P_F(W)}{P_R(-W)}=e^{\beta(W-\Delta F)}.
+$$ {#eq-fluctuation-crooks}
+
+Ratios are understood where the corresponding probabilities have support; distributional versions avoid dividing delta functions. This is the work fluctuation relation associated with @crooks1999entropy. Quantum TPM formulations were developed, among others, by @tasaki2000jarzynski. No ETH assumption entered the proof.
+
+Multiplication by $e^{-\beta W}$ and integration over $W$ immediately yields
+
+$$
+\ev{e^{-\beta W}}_F=e^{-\beta\Delta F}.
+$$ {#eq-fluctuation-jarzynski}
+
+The nonequilibrium work equality was introduced by @jarzynski1997nonequilibrium. For an isolated quantum system it also follows directly:
+
+$$
+\begin{aligned}
+\ev{e^{-\beta W}}
+&=\frac1{Z_i}\sum_{mn}e^{-\beta E_m^f}\abs{U_{mn}}^2\\
+&=\frac1{Z_i}\sum_me^{-\beta E_m^f}=\frac{Z_f}{Z_i}.
+\end{aligned}
+$$
+
+The last step needs the row normalization of the transition matrix; it does not need time-reversal symmetry. Thus the equality is also valid for a trace-preserving unital channel between the two energy measurements, whereas the stated forward/reverse ratio requires a suitable reverse dynamics.
+
+Jensen's inequality, $\ev{e^X}\ge e^{\ev X}$, gives $\ev W\ge\Delta F$ for $\beta>0$. This average bound allows individual realizations with $W<\Delta F$. The exponential average weighs rare small-work events strongly, which can make estimating free-energy differences from finite samples difficult.
+
+::: {.callout-note title="Solved example: sudden reversal of a two-level field"}
+
+Let $H_i=(\epsilon/2)\sigma_z$ and $H_f=-H_i$, with an instantaneous switch, so $U=I$. A state initially in the lower level receives work $+\epsilon$ and the upper state receives $-\epsilon$. The partition functions agree. Their probabilities are
+
+$$
+p_-={e^{\beta\epsilon/2}\over2\cosh(\beta\epsilon/2)},
+\qquad p_+={e^{-\beta\epsilon/2}\over2\cosh(\beta\epsilon/2)}.
+$$
+
+Consequently $p_-e^{-\beta\epsilon}+p_+e^{\beta\epsilon}=1$. The mean work is $\epsilon\tanh(\beta\epsilon/2)>0$, although negative work occurs with probability $p_+$. The two outcomes, including the rare one, are essential for the equality.
+:::
+
+## Work cumulants and dissipation
+
+The logarithm of the work moment-generating function separates Gaussian and non-Gaussian contributions. If the cumulants $\kappa_r$ exist in the required convergence domain, taking the logarithm of @eq-fluctuation-jarzynski gives
+
+$$
+-\beta\Delta F
+=-\beta\kappa_1+\frac{\beta^2}{2}\kappa_2
+-\frac{\beta^3}{6}\kappa_3+\cdots.
+$$
+
+Consequently,
+
+$$
+\ev W-\Delta F
+=\frac\beta2\operatorname{Var}W
+-\frac{\beta^2}{6}\kappa_3+\cdots.
+$$
+
+The frequently used Gaussian relation between mean dissipated work and its variance is a truncation of this hierarchy. Small drive amplitude can control such a truncation over a specified protocol, but an apparently Gaussian central region of a histogram does not control its rare tails. Those tails are precisely where the exponential average can be most sensitive. For distributions whose moment-generating function is not analytic over the relevant interval, the exact equality should be used directly rather than through a formal cumulant series.
+
+Crooks' relation also gives an information-theoretic measure of irreversibility. Multiply the logarithm of @eq-fluctuation-crooks by $P_F(W)$ and integrate:
+
+$$
+D\big(P_F(W)\Vert P_R(-W)\big)
+=\beta(\ev W-\Delta F)\ge0.
+$$
+
+Thus dissipated work measures how well the forward work histogram can be distinguished from the reflected reverse histogram. At the level of full trajectories, additional observed variables can retain more information than a work histogram, but under the stated work relation this particular relative entropy has exactly the displayed value. Equality means that the two work distributions coincide almost everywhere. The conclusion concerns the ensemble of outcomes, not a prohibition on any individual negative-dissipation event.
+
+## A microcanonical relation and the eigenstate question
+
+An energy shell $a$ of $H_i$ has projector $\Pi_a^i$ and dimension $g_a^i$. A shell $b$ of $H_f$ similarly has $\Pi_b^f$ and dimension $g_b^f$. Uniform preparation within a shell gives
+
+$$
+K_F(b|a)=\frac1{g_a^i}
+\tr(\Pi_b^fU_F\Pi_a^iU_F^\dagger).
+$$
+
+Cyclicity of the trace and the reversed propagator imply the exact finite-shell identity
+
+$$
+g_a^iK_F(b|a)=g_b^fK_R(a|b).
+$$ {#eq-fluctuation-shell}
+
+For narrow shells of the same width, let $E$ and $E+W$ denote their energies. With $S=\ln(\Omega\delta E)$, the continuum form is
+
+$$
+\frac{P_F(W|E)}{P_R(-W|E+W)}
+=\exp[S_f(E+W)-S_i(E)].
+$$ {#eq-fluctuation-microcanonical}
+
+This is a density-of-states relation, not a canonical work theorem with a fixed temperature. The exact quantum microcanonical formulation is discussed in @talkner2008microcanonical. For a cyclic protocol and work small on the scale over which temperature varies,
+
+$$
+S(E+W)-S(E)=\beta(E)W
++\frac12\beta'(E)W^2+\cdots,
+\qquad \beta'=-\frac1{T^2C}.
+$$
+
+The curvature term is a finite-heat-capacity correction. Even for macroscopic $E$, it matters when work fluctuations become comparable to $T\sqrt C$. One should not claim a fixed-$\beta$ Jarzynski equality for every sharply prepared finite-energy state: the reverse distribution in @eq-fluctuation-microcanonical starts at the work-dependent energy $E+W$.
+
+Can one replace the uniform shell by one eigenstate? Ordinary diagonal ETH controls expectation values of simple observables. A full work histogram involves $U_F^\dagger\Pi_b^fU_F$, which can be highly nonlocal. Therefore ordinary ETH alone is insufficient for arbitrary protocols. A single-eigenstate extension is justified when the **specific coarse-grained transition kernel** self-averages over nearby eigenstates, as can occur for weak, physically simple driving in a chaotic system. Under that additional assumption the shell identity holds approximately for a representative eigenstate, with errors from finite shell width, finite size, and residual fluctuations. It is a controlled expectation in specified regimes, not an exact theorem for every eigenstate and every unitary.
+
+## Why a bath produces detailed balance
+
+Consider a small system with levels $\epsilon_n$ coupled weakly to a much larger bath. If the small system changes from $m$ to $n$, the bath loses $\Delta=\epsilon_n-\epsilon_m$. Pairwise microscopic transition matrix elements are related by reversibility; the number of accessible bath final states supplies the bias:
+
+$$
+\frac{w_{nm}}{w_{mn}}
+\simeq\frac{\Omega_B(E_B-\Delta)}{\Omega_B(E_B)}
+\simeq e^{-\beta_B\Delta}.
+$$ {#eq-fluctuation-detailed-balance}
+
+The second step neglects bath entropy curvature and assumes its temperature is stable. Substitution shows $w_{nm}p_m^{\mathrm{eq}}=w_{mn}p_n^{\mathrm{eq}}$ for $p_n^{\mathrm{eq}}\propto e^{-\beta_B\epsilon_n}$. This is **detailed balance**, which forbids stationary probability currents on individual links. A Gibbs stationary distribution alone is a weaker condition and does not establish pairwise balance.
+
+In a quantum weak-coupling derivation, the same factor comes from the bath's equilibrium correlation spectrum and its KMS relation. The population master equation additionally requires suitable short bath memory and a secular approximation or other control of coherences. Strong coupling can change both the effective equilibrium state and what energy is assigned to the system.
+
+## Drift, diffusion, and a finite-size Einstein relation
+
+Suppose many weak drive cycles produce energy increments $\Delta E$ with short memory. Per unit coarse-grained time define
+
+$$
+A(E)=\lim_{\delta t\to0}\frac{\ev{\Delta E|E}}{\delta t},
+\qquad
+B(E)=\lim_{\delta t\to0}\frac{\ev{(\Delta E)^2|E}}{\delta t}.
+$$
+
+The limit is a coarse-grained diffusion limit, not the microscopic short-time limit of coherent Schrödinger evolution. Higher conditional moments must be negligible at the retained resolution. Expanding the gain and loss terms of an energy jump process to second order gives
+
+$$
+\partial_tP=-\partial_E(AP)+\frac12\partial_E^2(BP)
+=-\partial_EJ,
+\quad J=AP-\frac12\partial_E(BP).
+$$ {#eq-fluctuation-fokker-planck}
+
+Here $P(E)\dd E$ is probability in an energy interval, **not** probability per eigenstate. Doubly stochastic evolution preserves equal probabilities per state, which corresponds to $P_\infty(E)\propto\Omega(E)$. If energy boundaries carry no probability current, stationarity gives
+
+$$
+0=A\Omega-\frac12\partial_E(B\Omega),
+\qquad
+2A(E)=B(E)\beta(E)+\partial_EB(E).
+$$ {#eq-fluctuation-einstein}
+
+This is an Einstein relation for energy space. It follows within the diffusion approximation from preservation of the density-of-states measure and zero stationary current. Reversibility provides another route through the local jump relation. The derivative term must be retained for small systems or strongly energy-dependent noise. Discarding it is a thermodynamic approximation, often of relative order $1/N$ for smooth extensive systems, rather than an exact identity.
+
+A bath instead selects $P_{\mathrm{eq}}(E)\propto\Omega(E)e^{-\beta_BE}$, leading to
+
+$$
+2A=B(\beta(E)-\beta_B)+B'.
+$$
+
+Thus a colder system, with larger $\beta$, tends to gain energy. Noise strength and dissipative drift cannot be chosen independently when the specified equilibrium measure must be preserved. The energy diffusion framework and its driven applications are developed in @bunin2011universal.
+
+Integrating @eq-fluctuation-fokker-planck over the allowed interval gives $\dot{\mathcal P}=J(E_{\min})-J(E_{\max})$. Reflecting boundaries impose $J=0$ and conserve probability. Absorbing boundaries describe escape and must be accompanied by a loss probability. At an unbounded high-energy end, normalizability and vanishing flux at infinity replace a fictitious finite reflecting wall. Near a ground state, a diffusion expansion can fail because individual level spacings and one-sided jumps matter. Negative temperatures are possible only for appropriate bounded spectra; the same density-of-states derivative can become negative, reversing the drift toward the entropy maximum.
+
+## Two conserved quantities
+
+Let two weakly coupled systems exchange energy $q$ and particle number $n$, positive into system 1. Their initial grand-canonical weights are proportional to $e^{-\beta_j(E_j-\mu_jN_j)}$. Conservation makes the changes of system 2 equal $(-q,-n)$. Dividing the initial weight of a transition by that of its reverse gives
+
+$$
+\frac{P_F(q,n)}{P_R(-q,-n)}
+=e^{a_Eq+a_Nn},
+\quad a_E=\beta_1-\beta_2,
+\quad a_N=-\beta_1\mu_1+\beta_2\mu_2.
+$$ {#eq-fluctuation-two-charges}
+
+This assumes negligible coupling-energy corrections at measurement times and the appropriate reversed controls. Energy and particle transfer must be retained jointly: marginalizing over particles generally destroys a simple energy-only exponential ratio when $a_N\ne0$.
+
+For several continuous conserved coordinates $x_i$, define $B_{ij}=\ev{\Delta x_i\Delta x_j}/\delta t$. A zero-current equilibrium diffusion has
+
+$$
+2A_i=\sum_j\left[B_{ij}\partial_{x_j}S+\partial_{x_j}B_{ij}\right].
+$$
+
+A nonzero stationary divergence-free current would require a separate analysis; stationarity alone in multiple dimensions does not force every current component to vanish. Off-diagonal diffusion encodes correlations such as particles carrying energy and is the starting point for thermoelectric response.
+
+## Exercises and solutions
+
+**Exercise 1.** If cyclic work is Gaussian with mean $a$ and variance $b$, what does canonical Jarzynski imply?
+
+::: {.callout-tip collapse="true" title="Solution"}
+The Gaussian moment-generating function gives $\ev{e^{-\beta W}}=e^{-\beta a+\beta^2b/2}$. For $\Delta F=0$, this equals one, so $2a=\beta b$. Non-Gaussian cumulants correct this formula; it is not the complete finite-size energy-diffusion relation when the noise depends on initial energy.
+:::
+
+**Exercise 2.** For $\Omega(E)\propto E^{\alpha-1}$ and $B(E)=bE$, find the isolated drift.
+
+::: {.callout-tip collapse="true" title="Solution"}
+Here $\beta=(\alpha-1)/E$ and $B'=b$. Equation @eq-fluctuation-einstein gives $A=b\alpha/2$. Omitting $B'$ would incorrectly replace $\alpha$ by $\alpha-1$ and can even predict zero heating for a constant density of states.
+:::
+
+**Exercise 3.** Two systems have equal temperatures but different chemical potentials. Can their energy transfers have an unbiased distribution?
+
+::: {.callout-tip collapse="true" title="Solution"}
+Equal temperatures set $a_E=0$, but $a_N=\beta(\mu_2-\mu_1)$ remains. The joint distribution is biased in particle transfer, and particle-energy correlations can bias the energy marginal. Equal temperatures alone do not remove chemical work.
+:::

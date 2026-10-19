@@ -1,4 +1,4 @@
-# Guide to the review {#sec-coverage}
+# Guide to the review {#sec-coverage .unnumbered}
 
 This map uses the numbered topic inventory of D'Alessio *et al.* [@dalessio2016]. Each row identifies where to learn the corresponding subject here. The book supplies independent explanations and examples; the original review remains the source for its particular historical discussion and numerical datasets. All seven appendices are included in the topic map.
 

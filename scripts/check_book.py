@@ -44,7 +44,8 @@ citations = set()
 for source in sources:
     text = source.read_text()
     labels += re.findall(r'\{#([\w-]+)', text)
-    citations |= set(re.findall(r'(?<![\w/])@([\w][\w:.-]*)', text))
+    citations |= {key.rstrip('.,;:') for key in
+                  re.findall(r'(?<![\w/])@([\w][\w:.-]*)', text)}
 for label, count in Counter(labels).items():
     if count > 1:
         errors.append(f'Duplicate source label: {label}')

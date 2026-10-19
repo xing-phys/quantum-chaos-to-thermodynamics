@@ -1,0 +1,207 @@
+# Entropy, work, and thermodynamic structure {#sec-entropy}
+
+An isolated quantum state evolves reversibly. Thermodynamics nevertheless describes directed changes: a stirred fluid warms, an uncontrolled distribution spreads, and a cyclic engine cannot extract work from an equilibrium reservoir. The connection requires us to specify both the preparation and the information retained. This chapter first proves several finite-dimensional statements that require no chaos. It then identifies the additional assumptions needed to interpret them thermodynamically. We set Boltzmann's constant to one, so entropy is dimensionless and temperature has energy units.
+
+## From amplitudes to populations
+
+Let a protocol change a Hamiltonian from $H_i$ to $H_f$, with eigenvectors $\ket{n,i}$ and $\ket{m,f}$. Its propagator $U$ obeys $U^\dagger U=UU^\dagger=I$. Suppose the initial density matrix is diagonal in the initial energy basis:
+
+$$
+\rho_i=\sum_n p_n\ket{n,i}\bra{n,i}.
+$$
+
+The final energy populations are
+
+$$
+q_m=\sum_n T_{mn}p_n,
+\qquad T_{mn}=\abs{\bra{m,f}U\ket{n,i}}^2.
+$$ {#eq-entropy-population-map}
+
+Normalization of each column of $U$ gives $\sum_mT_{mn}=1$, while completeness of its rows gives $\sum_nT_{mn}=1$. Thus $T$ is **doubly stochastic**: every entry is nonnegative and both its row and column sums equal one. A matrix constructed this way is called unistochastic. Every unistochastic matrix is doubly stochastic; the converse fails in dimensions above two.
+
+The assumption about the initial state matters. For a coherent preparation,
+
+$$
+q_m=\sum_{n\ell}U_{mn}\rho_{n\ell}U_{m\ell}^*,
+$$
+
+and interference terms cannot generally be written as a fixed stochastic map acting on $p_n=\rho_{nn}$. For example, a Hadamard rotation transforms $(\ket{0}+\ket{1})/\sqrt2$ into $\ket{0}$. The populations change from $(1/2,1/2)$ to $(1,0)$ and their Shannon entropy decreases. Nothing violates unitary dynamics: the initial phase supplied the missing information.
+
+A more general quantum channel $\Phi$ is **unital** if $\Phi(I)=I$. For a channel that also preserves trace, the matrix
+
+$$
+T_{mn}=\bra{m}\Phi(\ket{n}\bra{n})\ket{m}
+$$
+
+is doubly stochastic between any two orthonormal bases. Dephasing, random-unitary noise, and isolated unitary evolution are examples. Thermal amplitude damping is not unital; its preferred stationary state is generally Gibbs rather than uniform.
+
+## What a master equation assumes
+
+A continuous population description takes the form
+
+$$
+\dot p_n=\sum_{m\ne n}\left[w_{nm}p_m-w_{mn}p_n\right]
+=\sum_mL_{nm}p_m.
+$$ {#eq-entropy-master}
+
+Here $w_{nm}$ is the rate **from $m$ to $n$**, $L_{nm}=w_{nm}$ for $n\ne m$, and $L_{mm}=-\sum_{n\ne m}w_{nm}$. Column sums of $L$ vanish automatically. The evolution $e^{Lt}$ is also doubly stochastic precisely when its row sums vanish:
+
+$$
+\sum_{m\ne n}w_{nm}=\sum_{m\ne n}w_{mn}.
+$$
+
+Symmetric rates $w_{nm}=w_{mn}$ are sufficient but stronger than necessary. One can have balanced circulation around a three-state ring without pairwise symmetry.
+
+An exact isolated finite system does not automatically obey this equation. A Markov description discards memory and phase information. It may follow from weak perturbations, a separation between correlation and heating times, dephasing between kicks, or an explicit measurement protocol. Repeated coherent applications of $U$ give $U^r$, whereas repeated population maps give $T^r$; these are different experiments. Before using a master equation, identify the physical mechanism making the discarded phases irrelevant.
+
+## Uniform populations: fixed point versus attractor
+
+For $D$ accessible levels, the vector $u_n=1/D$ satisfies $Tu=u$. This is the infinite-temperature state in that finite Hilbert space, or within the conserved symmetry sector being considered. Being stationary does not make it an attractor.
+
+For a fixed matrix $T$, convergence $T^rp\to u$ for all $p$ follows if $T$ is **primitive**: some positive integer power has strictly positive entries. In a finite Markov chain this is equivalent to irreducibility together with aperiodicity. Irreducibility prevents isolated communicating blocks; aperiodicity prevents persistent cycles. The swap matrix
+
+$$
+T=\begin{pmatrix}0&1\\1&0\end{pmatrix}
+$$
+
+preserves the uniform state but alternates every nonuniform distribution forever. An identity matrix preserves every distribution. Symmetry blocks similarly retain their initial total probabilities, even if each block mixes internally. A connected continuous-time chain with finite rates avoids the discrete-time periodicity obstruction. The constructive contraction proof is in @sec-app-contraction.
+
+There is also a physical limit to the phrase infinite-temperature attractor. An unbounded spectrum has no normalizable uniform distribution. A particle repeatedly accelerated by a vibrating wall can heat forever. In periodically driven many-body systems, approximate conservation and long prethermal intervals can delay heating; integrability, localization, or exact conserved quantities can obstruct the assumed mixing. The finite-matrix theorem applies only after its hypotheses are checked.
+
+## Three entropies and a rigorous inequality
+
+The von Neumann entropy and the energy-basis diagonal entropy are
+
+$$
+S_{\mathrm{vN}}(\rho)=-\tr(\rho\ln\rho),\qquad
+S_d(\rho;H)=-\sum_np_n\ln p_n,
+\quad p_n=\bra n\rho\ket n.
+$$ {#eq-entropy-definitions}
+
+The latter is the Shannon entropy of energy measurement outcomes. It depends on the chosen basis; at degeneracies one must specify whether individual states or degenerate energy subspaces are resolved. A unitary preserves $S_{\mathrm{vN}}$ exactly. Dephasing increases entropy, so $S_d\ge S_{\mathrm{vN}}$; equality holds when $\rho$ is already diagonal in the specified basis. Diagonal entropy was developed as a useful thermodynamic quantity for isolated driven systems by @polkovnikov2011diagonal.
+
+For the initial diagonal preparations of @eq-entropy-population-map, concavity of $f(x)=-x\ln x$ gives an elementary proof:
+
+$$
+\begin{aligned}
+S_d(q)&=\sum_m f\left(\sum_nT_{mn}p_n\right)\\
+&\ge\sum_{mn}T_{mn}f(p_n)
+=\sum_n f(p_n)=S_d(p).
+\end{aligned}
+$$ {#eq-entropy-concavity}
+
+The row sums allow Jensen's inequality; the column sums give the last equality. For an isolated protocol, this compares the endpoint populations when the initial state is diagonal. It does not establish that the instantaneous diagonal entropy is monotone at every time: coherence generated during the protocol can later be converted back into populations. Under genuinely Markovian doubly stochastic population evolution, the inequality applies to each time step and hence gives monotonicity.
+
+A second proof uses relative entropy to the uniform vector:
+
+$$
+D(p\Vert u)=\sum_np_n\ln(p_n/u_n)=\ln D-S_d(p).
+$$
+
+Stochastic maps contract relative entropy and preserve $u$, so $D(Tp\Vert u)\le D(p\Vert u)$. This formulation extends naturally to Markov processes whose stationary distribution is nonuniform, although in that case Shannon entropy itself need not increase.
+
+## Kelvin's principle from passivity
+
+Order the levels as $E_1\le\cdots\le E_D$. A diagonal state is **passive** when $p_1\ge\cdots\ge p_D$. Consider a cyclic protocol, so the final Hamiltonian equals the initial one. Define work delivered to the system by
+
+$$
+W=\sum_nE_n(q_n-p_n).
+$$
+
+Let $P_k=\sum_{n\le k}p_n$ and $Q_k=\sum_{n\le k}q_n$. For a doubly stochastic map,
+
+$$
+Q_k=\sum_m a_mp_m,\quad
+0\le a_m\le1,\quad\sum_ma_m=k.
+$$
+
+Among all such coefficients the largest sum assigns unit weight to the $k$ largest $p_m$. Therefore $Q_k\le P_k$. Summation by parts then yields
+
+$$
+W=\sum_{k=1}^{D-1}(E_{k+1}-E_k)(P_k-Q_k)\ge0.
+$$ {#eq-entropy-kelvin}
+
+Thus a cyclic operation cannot extract average work from a passive preparation. The conclusion needs neither ETH nor a large system. A positive-temperature Gibbs state is passive. A population-inverted state is not: swapping a more populated upper level with a less populated lower level extracts work. The stronger requirement that every number of independently prepared copies remain passive singles out equilibrium states under standard conditions; the mathematical theory is due to @Pusz1978Passivity.
+
+::: {.callout-note title="Solved example: a mixed two-level rotation"}
+
+Take levels $0,\epsilon$ and probabilities $(p,1-p)$ with $p\ge1/2$. A rotation with transition probability $r=\sin^2\theta$ has
+
+$$
+T=\begin{pmatrix}1-r&r\\r&1-r\end{pmatrix}.
+$$
+
+The upper-level population becomes $1-p+r(2p-1)$, so $W=\epsilon r(2p-1)\ge0$. The deviation from uniformity is multiplied by $1-2r$. Repetition converges for $0<r<1$, except at $r=1$, when the two populations simply swap. Entropy increases even when a step carries the distribution through the uniform point to its opposite side.
+:::
+
+## When diagonal entropy becomes thermodynamic entropy
+
+A thermodynamic entropy $S(E,\lambda)$ counts available states near energy $E$. Write the density of states as $\Omega(E,\lambda)$ and use a specified small energy width $\delta E$ to define $S=\ln[\Omega\delta E]$. In a macroscopic short-range system, different reasonable shell widths change only subextensive terms.
+
+A narrow energy distribution is necessary for a single temperature but is **not sufficient** to make $S_d$ equal $S(E,\lambda)$. A single eigenstate has $S_d=0$, even when ETH gives thermal local observables and $S(E,\lambda)$ is extensive. Thermodynamic entropy counts compatible states; diagonal entropy records probabilities of the actual energy measurement preparation. Do not identify them for every state.
+
+A useful sufficient condition is a nonsparse, smooth population distribution occupying exponentially many levels in a narrow shell, with no extensive information beyond energy. Partition the spectrum into bins $a$ with $g_a$ states and probabilities $q_a$. If populations are nearly uniform inside each bin,
+
+$$
+S_d=-\sum_aq_a\ln q_a+\sum_aq_a\ln g_a.
+$$
+
+When the distribution has width $\sigma_E=o(N)$, the first term is subextensive, the entropy density is smooth across the occupied region, and within-bin nonuniformity has subextensive relative entropy, this becomes $S_d=S(\bar E,\lambda)+o(N)$. Chaos supports equilibration of simple observables and often the required smooth population statistics after ordinary preparations; it does not logically force this condition for arbitrarily engineered states. Numerical examples of diagonal entropy after quenches are studied in @santos2011entropy.
+
+## Fundamental relation and first law
+
+Define the equilibrium generalized force and temperature by
+
+$$
+F=-\ev{\partial_\lambda H}_{\mathrm{eq}},\qquad
+\beta=\frac1T=\left(\frac{\partial S}{\partial E}\right)_\lambda.
+$$
+
+For a Gibbs distribution $p_n=e^{-\beta E_n}/Z$, normalization gives
+
+$$
+\dd S=-\sum_n\dd p_n\ln p_n
+=\beta\sum_nE_n\dd p_n.
+$$
+
+Meanwhile,
+
+$$
+\dd E=\sum_nE_n\dd p_n+\sum_np_n\dd E_n.
+$$
+
+Hellmann--Feynman gives $\dd E_n=\bra n\partial_\lambda H\ket n\dd\lambda$; hence
+
+$$
+\dd E=T\dd S-F\dd\lambda.
+$$ {#eq-entropy-fundamental}
+
+This is a differential identity on the equilibrium state manifold. Through ensemble equivalence and ETH, the force can also be measured in a suitable narrow-energy chaotic state. Finite systems can require corrections: surface and enclosed-volume microcanonical entropies need not give identical derivatives. For the volume $\mathcal V(E,\lambda)=\tr\Theta(E-H)$, direct differentiation gives $\partial_\lambda\mathcal V=\Omega F_{\mathrm{mc}}$ and $\partial_E\mathcal V=\Omega$, making the analogous volume-entropy identity exact when its derivatives are well defined.
+
+The **first law** instead expresses energy bookkeeping along an actual process:
+
+$$
+\dd E=\delta Q+\delta W_{\mathrm{on}}.
+$$
+
+For an externally driven isolated quantum system, exact unitary dynamics gives $\dot E=\ev{\partial_\lambda H}\dot\lambda$ and $\delta Q=0$. It may produce diagonal entropy while doing dissipative work. Only for a reversible quasistatic equilibrium path can one identify $\delta Q_{\mathrm{rev}}=T\dd S$ and $\delta W_{\mathrm{on,rev}}=-F\dd\lambda$. Substituting actual nonequilibrium work into an equilibrium identity would erase entropy production by assumption.
+
+## Exercises and solutions
+
+**Exercise 1.** Show explicitly why a zero-temperature relaxation channel need not increase diagonal entropy.
+
+::: {.callout-tip collapse="true" title="Solution"}
+For probabilities $(p_0,p_1)$, full relaxation gives $(1,0)$. Starting from $(1/2,1/2)$ reduces Shannon entropy from $\ln2$ to zero. Its population matrix has both columns equal to $(1,0)^T$; columns sum to one but rows do not. The environment receives the discarded information and energy.
+:::
+
+**Exercise 2.** A three-level passive state has energies $(0,\epsilon,3\epsilon)$ and populations $(0.6,0.3,0.1)$. What work is required by the permutation exchanging levels 1 and 3?
+
+::: {.callout-tip collapse="true" title="Solution"}
+Initial energy is $0.6\epsilon$. Final populations are $(0.1,0.3,0.6)$ and final energy is $2.1\epsilon$. Work into the system is $1.5\epsilon$. The two cumulative deficits are both $0.5$; @eq-entropy-kelvin gives $\epsilon(0.5)+2\epsilon(0.5)=1.5\epsilon$.
+:::
+
+**Exercise 3.** Explain why local ETH and zero diagonal entropy are compatible.
+
+::: {.callout-tip collapse="true" title="Solution"}
+In a single energy eigenstate, energy measurement has one certain outcome, so $S_d=0$. Local observables depend on a small reduced density matrix, which can be close to a thermal state because the eigenstate is entangled with the rest. Local thermality does not imply a mixed global preparation.
+:::

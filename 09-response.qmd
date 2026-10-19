@@ -1,0 +1,300 @@
+# Response, fluctuations, and reciprocity {#sec-response}
+
+A weak probe measures both how a system fluctuates and how it reacts. In equilibrium these measurements are linked by the fluctuation-dissipation theorem. The connection becomes especially interesting in an isolated chaotic system: a single energy eigenstate is stationary, yet its matrix elements can encode the same local noise and response as a thermal ensemble. This chapter derives the relations with explicit conventions, then explains what ETH adds and what it does not.
+
+## Linear response from the von Neumann equation
+
+Take Hermitian observables $A$ and $B$, a stationary initial state $[\rho_0,H_0]=0$, and a perturbation
+
+$$
+H(t)=H_0-f(t)B.
+$$
+
+The minus sign defines our convention for the applied field. In the interaction picture,
+
+$$
+\dot\rho_I=-\frac{i}{\hbar}[-f(t)B_I(t),\rho_I(t)].
+$$
+
+Keeping one power of $f$ and integrating from the remote past gives
+
+$$
+\delta\rho_I(t)=\frac{i}{\hbar}\int_{-\infty}^t
+\dd t'\,f(t')[B_I(t'),\rho_0].
+$$
+
+Taking the trace with $A_I(t)$ and moving operators cyclically inside the trace yields
+
+$$
+\delta\ev{A(t)}=\int_{-\infty}^{\infty}\dd t'\,
+\chi_{AB}(t-t')f(t'),
+\qquad
+\chi_{AB}(t)=\frac{i}{\hbar}\theta(t)
+\ev{[A(t),B(0)]}_0.
+$$ {#eq-response-kubo}
+
+This is the retarded Kubo formula. It holds for any stationary state, including an individual eigenstate; thermal equilibrium is not needed for its derivation. The step function expresses causality. Kubo's general response formulation is developed in @kubo1957statistical.
+
+We use angular frequency and Fourier transforms
+
+$$
+X(\omega)=\int_{-\infty}^{\infty}\dd t\,e^{i\omega t}X(t),
+\qquad
+X(t)=\int\frac{\dd\omega}{2\pi}e^{-i\omega t}X(\omega).
+$$
+
+For a monochromatic field, $\delta A(\omega)=\chi_{AB}(\omega)f(\omega)$. If the observable itself depends explicitly on the field, its derivative contributes an additional instantaneous term. Conductivity calculations, for example, must keep the appropriate diamagnetic contribution rather than applying the commutator term to an incomplete observable.
+
+## Causality and dispersive response
+
+A further relation follows from causality without invoking equilibrium. Because $\chi_{AB}(t)$ vanishes at negative time, its Fourier transform is analytic for $\operatorname{Im}\omega>0$ when the response decays sufficiently fast. A small positive imaginary part of frequency is also the prescription for switching on a probe adiabatically. For a scalar response that falls off at large frequency, contour integration then gives the Kramers--Kronig relations
+
+$$
+\chi'(\omega)=\frac1\pi\mathcal P\int_{-\infty}^{\infty}
+\frac{\chi''(\omega')}{\omega'-\omega}\dd\omega',
+\qquad
+\chi''(\omega)=-\frac1\pi\mathcal P\int_{-\infty}^{\infty}
+\frac{\chi'(\omega')}{\omega'-\omega}\dd\omega'.
+$$
+
+The symbol $\mathcal P$ denotes the symmetric principal value around the pole. Instantaneous terms or nondecaying high-frequency pieces require a subtraction before applying these formulas. In practice the relations check whether measured absorption and dispersion can belong to one causal response.
+
+For Hermitian $A=B$, the time-domain response is real, so $\chi(-\omega)=\chi(\omega)^*$: the real part is even and the imaginary part is odd. In particular, when the integral converges,
+
+$$
+\chi'(0)=\frac2\pi\int_0^\infty\frac{\chi''(\omega')}{\omega'}\dd\omega'.
+$$
+
+This is a relation between response components. It is logically distinct from FDT, which relates response to fluctuations and requires the extra spectral balance condition. A stationary nonequilibrium state can obey causality and the dispersion relations while violating thermal FDT. Likewise, a vanishing absorption at one frequency says nothing by itself about the temperature or the total noise at other frequencies.
+
+## Spectral noise and detailed balance
+
+Define the connected, ordered correlation and its spectrum by
+
+$$
+C_{AB}(t)=\ev{\delta A(t)\delta B(0)},
+\qquad
+C_{AB}(\omega)=\int\dd t\,e^{i\omega t}C_{AB}(t),
+$$
+
+where $\delta A=A-\ev A$. For $\rho_0=\sum_np_n\ket n\bra n$, inserting a complete energy basis gives, away from the subtracted static piece,
+
+$$
+C_{AB}(\omega)=2\pi\sum_{nm}p_nA_{nm}B_{mn}
+\delta\left(\omega-\frac{E_m-E_n}{\hbar}\right).
+$$ {#eq-response-spectrum}
+
+With this convention positive frequency corresponds to transitions in which the system absorbs energy $\hbar\omega$. For $A=B$, the spectrum is nonnegative. It can be strongly asymmetric between positive and negative frequency: emission and absorption are different quantum processes.
+
+In a Gibbs state $p_m/p_n=e^{-\beta(E_m-E_n)}$. Exchanging the indices in the negative-frequency spectrum therefore gives
+
+$$
+C_{BA}(-\omega)=e^{-\beta\hbar\omega}C_{AB}(\omega).
+$$ {#eq-response-kms}
+
+This is the spectral detailed-balance or KMS relation. For a cross spectrum it exchanges **both** frequency and observable order. Replacing it by an evenness statement for $C_{AB}$ would discard quantum ordering and can be wrong even at equilibrium.
+
+## The fluctuation-dissipation theorem
+
+For a matrix of responses, define its dissipative part by
+
+$$
+\chi_{AB}^{\mathrm d}(\omega)
+=\frac{\chi_{AB}(\omega)-\chi_{BA}(\omega)^*}{2i}.
+$$
+
+For a single observable this reduces to $\chi''_{AA}=\Im\chi_{AA}$. The Fourier transform of the full commutator in @eq-response-kubo gives
+
+$$
+\chi_{AB}^{\mathrm d}(\omega)
+=\frac{C_{AB}(\omega)-C_{BA}(-\omega)}{2\hbar}.
+$$
+
+Define the symmetrized spectrum
+
+$$
+C_{AB}^{\mathrm{sym}}(\omega)
+=\frac12\left[C_{AB}(\omega)+C_{BA}(-\omega)\right].
+$$
+
+Using @eq-response-kms to eliminate the negative-frequency term yields
+
+$$
+C_{AB}^{\mathrm{sym}}(\omega)
+=\hbar\coth\left(\frac{\beta\hbar\omega}{2}\right)
+\chi_{AB}^{\mathrm d}(\omega).
+$$ {#eq-response-fdt}
+
+For scalar autocorrelations this is the familiar equilibrium fluctuation-dissipation theorem. Its low-frequency classical limit, $\beta\hbar\abs\omega\ll1$, is
+
+$$
+C_{AA}^{\mathrm{sym}}(\omega)
+\simeq\frac{2T}{\omega}\chi''_{AA}(\omega).
+$$
+
+At $T=0$, quantum fluctuations remain and the hyperbolic cotangent tends to the sign of $\omega$. The product has a finite positive autocorrelation spectrum. A positive-temperature passive state has $\chi''_{AA}(\omega)\ge0$ for $\omega>0$. A bounded-spectrum negative-temperature state can instead provide gain; its population inversion changes the sign of the absorptive response.
+
+For $f(t)=f_0\cos\omega t$ coupled as $-fA$, the average input power over a cycle is
+
+$$
+\overline{\dot W}=\frac12f_0^2\omega\chi''_{AA}(\omega).
+$$
+
+To verify the sign, write the response as $f_0[\chi'\cos\omega t+\chi''\sin\omega t]$ and average $-\dot f\,\delta\ev A$. Positive $\chi''$ therefore represents heating in our convention. Reversing either the Fourier convention or the sign of the coupling changes intermediate signs, so these definitions should always accompany a response formula.
+
+::: {.callout-note title="Solved example: an oscillator spectrum"}
+
+For $H=p^2/(2m)+m\omega_0^2x^2/2$, let $x=x_0(a+a^\dagger)$ with $x_0^2=\hbar/(2m\omega_0)$. Thermal occupation is $\bar n=(e^{\beta\hbar\omega_0}-1)^{-1}$. Direct calculation gives
+
+$$
+C_{xx}(\omega)=2\pi x_0^2\left[(\bar n+1)\delta(\omega-\omega_0)
++\bar n\delta(\omega+\omega_0)\right].
+$$
+
+The ratio of negative- to positive-frequency weights is $\bar n/(\bar n+1)=e^{-\beta\hbar\omega_0}$. The commutator eliminates $\bar n$, giving
+
+$$
+\chi''_{xx}(\omega)=\frac{\pi}{2m\omega_0}
+[\delta(\omega-\omega_0)-\delta(\omega+\omega_0)].
+$$
+
+The symmetrized noise retains the factor $2\bar n+1=\coth(\beta\hbar\omega_0/2)$, exactly as in @eq-response-fdt. This integrable example also emphasizes that canonical FDT itself does not require chaos.
+:::
+
+## How an eigenstate can satisfy thermal FDT
+
+For one eigenstate $\ket n$, the exact spectrum is
+
+$$
+C_{AA}^{(n)}(\omega)=2\pi\sum_{m\ne n}\abs{A_{nm}}^2
+\delta\left(\omega-\frac{E_m-E_n}{\hbar}\right).
+$$
+
+Its upward and downward transition weights are not related by Gibbs probabilities, since only one initial state is occupied. Off-diagonal ETH supplies a different mechanism. Write its smooth variance schematically as
+
+$$
+\overline{\abs{A_{nm}}^2}
+=e^{-S(\bar E)}\abs{f_A(\bar E,\varepsilon)}^2,
+\quad \bar E=(E_n+E_m)/2,
+\quad\varepsilon=E_m-E_n.
+$$
+
+An energy reference in $S$ and the units of $f_A$ must be chosen consistently; it cancels in the following ratio. Hermiticity makes the smooth variance even in $\varepsilon$. Replacing the sum by a density-of-states integral after suitable frequency smoothing gives
+
+$$
+C_{AA}^{(n)}(\omega)\propto
+\Omega(E_n+\hbar\omega)
+ e^{-S(E_n+\hbar\omega/2)}
+\abs{f_A(E_n+\hbar\omega/2,\hbar\omega)}^2.
+$$
+
+Set $\varepsilon=\hbar\omega$ and expand the logarithm of the ratio at fixed microscopic $\varepsilon$:
+
+$$
+\ln\frac{C_{AA}^{(n)}(-\omega)}{C_{AA}^{(n)}(\omega)}
+=-\beta(E_n)\varepsilon
+-\varepsilon\,\partial_E\ln\abs{f_A(E_n,\varepsilon)}^2
++O(\varepsilon^3\partial_E^3S,\varepsilon^3\partial_E^3\ln\abs f_A^2).
+$$ {#eq-response-eigenstate-balance}
+
+The density of accessible final states contributes $-2\beta\varepsilon$; the ETH matrix-element envelope contributes $+\beta\varepsilon$. Their combination produces the thermal factor. For a smooth local-observable envelope depending on energy density, its logarithmic derivative is generally $O(1/N)$ at fixed frequency. Thus thermal detailed balance and FDT emerge to leading thermodynamic order with temperature fixed by the eigenstate energy. This is an ETH consequence, whereas the exact Kubo formula for that eigenstate required only stationarity. Connections between chaotic matrix elements, relaxation, and equilibrium correlation functions were developed in @fSrednicki1999.
+
+The order of limits matters. A finite isolated system has discrete lines and recurrences. One needs frequency windows containing many transitions, yet narrow relative to physical spectral features, or observation times below the recurrence scale. At very low frequencies, hydrodynamic modes and conservation laws can create structure that a naive smooth-envelope expansion misses. The approximation also fails when the energy difference probes a finite fraction of the total energy, or where ETH itself fails.
+
+## Two-observable ETH requires joint information
+
+Separate ETH fits for $A$ and $B$ do not determine $C_{AB}$. One needs the smooth joint covariance
+
+$$
+g_{AB}(\bar E,\varepsilon)
+=e^{S(\bar E)}\overline{A_{nm}B_{mn}}.
+$$
+
+The fluctuating parts of different observables cannot generally be treated as independent random numbers. Their covariance retains conserved overlaps, selection rules, phases, and possible time-reversal parity. For every vector of complex coefficients $v_A$, the matrix of positive-frequency ordered spectra obeys
+
+$$
+\sum_{AB}v_A^*C_{AB}(\omega)v_B\ge0,
+$$
+
+because it is the noise spectrum of the corresponding linear combination. In particular,
+
+$$
+\abs{C_{AB}(\omega)}^2\le C_{AA}(\omega)C_{BB}(\omega).
+$$
+
+A joint ETH description consistent with this positivity and microscopic symmetries reproduces the cross-observable version of @eq-response-fdt after the same smoothing and thermodynamic limits. Autocorrelation ETH alone leaves the cross spectrum undetermined.
+
+## Onsager--Casimir reciprocity
+
+Let $x_i$ be slowly exchanged extensive coordinates and $a_i$ their thermodynamic affinities, normalized so entropy production is $\dot S=\sum_i a_iJ_i$, where $J_i=\dot x_i$. Near equilibrium,
+
+$$
+\ev{J_i}=\sum_jL_{ij}a_j+O(a^2).
+$$
+
+An energy affinity is an inverse-temperature difference; a particle affinity includes $-\beta\mu$. The symmetric part of $L$ must be positive semidefinite, since $\sum_{ij}a_iL_{ij}a_j\ge0$. The antisymmetric part produces no entropy to this order.
+
+Suppose time reversal sends $x_i\to\epsilon_i x_i$, with $\epsilon_i=\pm1$, and reverses magnetic field $\mathcal B$. Microscopic reversibility relates the corresponding equilibrium current correlations. In a classical reversible setting, or with quantum correlations replaced by the appropriate Kubo-transformed correlations, integrating this relation gives
+
+$$
+L_{ij}(\mathcal B)=\epsilon_i\epsilon_jL_{ji}(-\mathcal B).
+$$ {#eq-response-onsager}
+
+The Kubo transform can be written as
+
+$$
+C_{ij}^{K}(t)=\frac1\beta\int_0^\beta\dd u\,
+\ev{J_j(-i\hbar u)J_i(t)}_{\mathrm{eq}}.
+$$
+
+For entropy-normalized affinities, a Green--Kubo expression has the form $L_{ij}=\int_0^\infty C_{ij}^{K}(t)\dd t$, with volume and geometry factors determined by whether $J_i$ is a total current or a current density. In a system without magnetic fields and for variables of the same parity, @eq-response-onsager reduces to $L_{ij}=L_{ji}$. For example, the response of particle flow to a temperature affinity equals the reciprocal energy-flow response to the corresponding particle affinity, once both forces and currents use conjugate normalizations. Comparing coefficients defined with different temperature factors can hide this equality.
+
+## Nonlinear relations from a fluctuation symmetry
+
+Fluctuation relations contain information beyond linear response. For one integrated transfer $Q$ in time $t$, assume the steady-state large-time statistics satisfy $P_a(Q)/P_a(-Q)=e^{aQ}$ at zero magnetic field, up to boundary corrections subextensive in $t$. Define
+
+$$
+g(\lambda,a)=\lim_{t\to\infty}\frac1t\ln\ev{e^{-\lambda Q}}_a
+=\sum_{r\ge1}\frac{(-\lambda)^r}{r!}c_r(a).
+$$
+
+Here $c_1$ is the mean current and $c_2$ is the growth rate of its variance. The probability symmetry gives
+
+$$
+g(\lambda,a)=g(a-\lambda,a),\qquad g(0,a)=g(a,a)=0.
+$$ {#eq-response-generating-symmetry}
+
+Expansion at $\lambda=a$ therefore implies
+
+$$
+c_1(a)=\frac a2c_2(a)-\frac{a^2}{6}c_3(a)
++\frac{a^3}{24}c_4(a)+\cdots.
+$$
+
+At equilibrium, odd cumulants vanish. If $c_1=La+Ma^2/2+\cdots$ and $c_2=C_0+C_1a+\cdots$, coefficient matching gives
+
+$$
+L=\frac12C_0,\qquad M=C_1.
+$$ {#eq-response-nonlinear}
+
+The first equality is a zero-frequency fluctuation-dissipation relation. The second ties a nonlinear current coefficient to the first change of noise with affinity. Higher orders involve higher cumulants and their derivatives; there is no general license to discard them. For several affinities one differentiates the vector version of @eq-response-generating-symmetry. Magnetic-field reversal must be included in that symmetry before deriving nonlinear parity relations, as illustrated by @saito2008symmetry.
+
+## Exercises and solutions
+
+**Exercise 1.** At $\beta\hbar\omega=\ln3$, what is the ratio of emission to absorption noise for a thermal Hermitian observable?
+
+::: {.callout-tip collapse="true" title="Solution"}
+With our frequency convention, emission is the negative-frequency spectrum. Its ratio to absorption is $e^{-\beta\hbar\omega}=1/3$. The symmetrized spectrum is not the same as either ordered spectrum.
+:::
+
+**Exercise 2.** Why does causality alone not imply thermal FDT for a pure eigenstate?
+
+::: {.callout-tip collapse="true" title="Solution"}
+Causality yields the retarded commutator response and relates its real and imaginary parts. FDT additionally requires a relation between the commutator and the symmetric fluctuations. A generic eigenstate has no Gibbs KMS identity; ETH can supply an approximate spectral balance for suitable observables and frequency windows.
+:::
+
+**Exercise 3.** A current has $c_2(a)=4+6a+O(a^2)$. Find its first two response coefficients under the stated fluctuation symmetry.
+
+::: {.callout-tip collapse="true" title="Solution"}
+Equation @eq-response-nonlinear gives $L=2$ and $M=6$, so $c_1(a)=2a+3a^2+O(a^3)$. These numbers refer to the entropy affinity $a$; converting to a voltage or temperature difference may introduce additional factors.
+:::

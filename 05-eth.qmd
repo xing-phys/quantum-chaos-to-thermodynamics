@@ -1,0 +1,121 @@
+# Eigenstate thermalization and quantum equilibration {#sec-eth}
+
+The eigenstate thermalization hypothesis makes a striking claim: for suitable observables, an individual energy eigenstate already carries the equilibrium equation of state. Time evolution is then needed to suppress observable coherences, while the equilibrium value is encoded in the eigenstates themselves. We first establish what dephasing proves exactly, and then identify the additional hypothesis that makes equilibrium thermal.
+
+## Exact unitary dynamics and the diagonal ensemble
+
+Let $H\ket n=E_n\ket n$ and expand a pure initial state as $\ket{\psi_0}=\sum_nc_n\ket n$. For a Hermitian observable $A$, write $A_{mn}=\bra m A\ket n$ and $p_n=|c_n|^2$. Its expectation is
+
+$$
+A(t)=\sum_np_nA_{nn}
++\sum_{m\ne n}c_m^*c_n e^{i(E_m-E_n)t/\hbar}A_{mn}.
+$$ {#eq-eth-dynamics}
+
+Define the infinite-time average $\overline{X}=\lim_{\tau\to\infty}\tau^{-1}\int_0^\tau X(t)\,\mathrm dt$. Since the time average of $e^{i\omega t}$ vanishes for nonzero $\omega$, nondegenerate energies imply
+
+$$
+\overline{A(t)}=A_{\mathrm{DE}}=\sum_np_nA_{nn},\qquad
+\rho_{\mathrm{DE}}=\sum_np_n\ket n\bra n.
+$$ {#eq-eth-de}
+
+If energies are degenerate, the exact averaged density matrix is instead $\overline\rho=\sum_E P_E\rho_0P_E$: coherences within an equal-energy subspace remain. The diagonal ensemble is thus shorthand for dephasing in the appropriate energy blocks, not a physical stochastic projection during closed-system evolution.
+
+The diagonal weights retain memory of the preparation. There is no general reason for $\rho_{\mathrm{DE}}$ to equal a Gibbs state. Furthermore, an average alone does not say that the signal stays near its average. A pendulum also has a time average while continuing to oscillate with finite amplitude.
+
+## A rigorous variance bound
+
+Assume nonresonant nonzero gaps: $E_m-E_n=E_p-E_q$ with $m\ne n$ implies $(m,n)=(p,q)$. Squaring the fluctuating term in @eq-eth-dynamics and averaging gives the exact identity
+
+$$
+\overline{|A(t)-A_{\mathrm{DE}}|^2}
+=\sum_{m\ne n}p_mp_n|A_{mn}|^2.
+$$ {#eq-eth-timevariance}
+
+Define the effective dimension $d_{\mathrm{eff}}=(\sum_np_n^2)^{-1}$. Using $p_mp_n\le(p_m^2+p_n^2)/2$, Hermiticity, and
+$\sum_n|A_{mn}|^2=\bra m A^2\ket m\le\|A\|^2$ yields
+
+$$
+\overline{|A(t)-A_{\mathrm{DE}}|^2}
+\le\|A\|^2\sum_np_n^2
+=\frac{\|A\|^2}{d_{\mathrm{eff}}}.
+$$ {#eq-eth-effective-bound}
+
+Here $\|A\|$ is the operator norm. Subtracting a constant multiple of the identity may tighten the bound without changing the fluctuations. Chebyshev's inequality then bounds the long-time fraction of instants with $|A(t)-A_{\mathrm{DE}}|>\epsilon$ by $\|A\|^2/(d_{\mathrm{eff}}\epsilon^2)$. Degenerate gaps can be accommodated by multiplying suitable bounds by their maximal degeneracy, rather than silently using @eq-eth-timevariance.
+
+This result establishes equilibration for many populated levels and a bounded observable under its spectral assumptions. It is not a proof of a Gibbs value, monotonic relaxation, or a practical equilibration time. It is also not necessary: an energy eigenstate has $d_{\mathrm{eff}}=1$ but is exactly stationary. Rigorous work by @fReimann2008 and @fLinden2009 develops broad equilibration results with carefully stated preparation, spectral, and subsystem assumptions.
+
+## The ETH ansatz
+
+For a local or few-body observable in a chaotic many-body system, the standard form is
+
+$$
+A_{mn}=\mathcal A(\bar E)\delta_{mn}
++e^{-S(\bar E)/2}f_A(\bar E,\omega)R_{mn},
+\qquad
+\bar E=\frac{E_m+E_n}{2},\qquad
+\omega=\frac{E_m-E_n}{\hbar}.
+$$ {#eq-eth-ansatz}
+
+$\mathcal A(E)$ is a smooth equilibrium function; $S(E)$ is a thermodynamic entropy associated with the density of states in a fixed reference energy interval; $f_A$ is a smooth frequency envelope; and $R_{mn}$ describes irregular order-one fluctuations after averaging within small energy-frequency bins. The diagonal variance can differ from the off-diagonal variance by a symmetry-dependent factor. Hermiticity requires compatible conjugation properties, for example $f_A(\bar E,-\omega)=f_A(\bar E,\omega)^*$ in a convention where $R_{nm}=R_{mn}^*$.
+
+The reference interval makes $e^{S}$ dimensionless; a change of convention is absorbed into $f_A$. The actual matrix elements of a fixed Hamiltonian are deterministic. The ansatz models their local statistical behavior and does not assert that all $R_{mn}$ are independent. Exact identities, conservation laws, and higher correlation functions constrain them. The early proposals of @fDeutsch1991 and @fSrednicki1994, followed by the matrix-element formulation in @fSrednicki1999, provide the conceptual basis of ETH.
+
+Why the exponential? The number of states in a many-body shell is $D\sim e^S$. Random-orientation estimates in @sec-random-matrices make individual matrix-element fluctuations of a bounded local observable scale as $D^{-1/2}$. Conversely, the spectral sum
+$\sum_m|A_{mn}|^2=\bra n A^2\ket n$ remains finite because approximately $e^S$ small contributions add. Physical locality and dynamics determine the envelope $f_A$; a full invariant random matrix cannot provide that frequency structure.
+
+## How diagonal ETH produces thermal values
+
+Suppose the preparation has mean energy $E_0=\sum_np_nE_n$ and variance $\sigma_E^2=\sum_np_n(E_n-E_0)^2$. Diagonal ETH gives
+
+$$
+A_{\mathrm{DE}}=\sum_np_n\mathcal A(E_n)
++\sum_np_n\delta A_n
+=\mathcal A(E_0)+\frac12\mathcal A''(E_0)\sigma_E^2+\cdots
++\sum_np_n\delta A_n.
+$$ {#eq-eth-thermal-expansion}
+
+The linear term vanishes by definition of $E_0$. For an intensive local observable, write $\mathcal A(E)=a(E/L)$. Then $\mathcal A''(E)=a''(e)/L^2$. If $\sigma_E^2=O(L)$, the curvature correction is $O(1/L)$ where $a$ is smooth. If eigenstate deviations are uniformly small in the occupied window, their weighted sum is also small regardless of the detailed weights $p_n$.
+
+The microcanonical average over a narrow window tends to the same $\mathcal A(E_0)$. Under ensemble equivalence, a canonical state with matching mean energy also gives it. Thus the mechanism has three distinct ingredients: narrow energy density, smooth and thermal diagonal matrix elements, and sufficiently small observable coherences for most times. The diagonal density matrices themselves need never coincide.
+
+Off-diagonal ETH also estimates temporal fluctuations. Near a fixed energy density, $|A_{mn}|^2\sim e^{-S}|f_A|^2$ makes @eq-eth-timevariance small. Nevertheless, correlations between initial amplitudes and matrix elements, low-frequency hydrodynamic structure, and conserved quantities affect the approach to equilibrium. The entropy factor alone does not determine a relaxation rate.
+
+## Weak ETH, strong ETH, and observable choice
+
+Fix a sequence of energy-density windows and an observable. **Weak ETH** says that the fraction of eigenstates whose expectation differs appreciably from the thermal value goes to zero with increasing size. **Strong ETH** requires the maximum deviation in that window to vanish. Numerical standard deviations probe typical fluctuations; testing the largest outliers is a different task.
+
+Weak ETH does not thermalize every preparation: a state can place appreciable weight on a vanishing fraction of exceptional eigenstates. Strong diagonal ETH removes that particular obstruction for narrow-energy preparations, but dephasing and the observation time still matter. Neither form is intended to apply to all operators. The projector onto a chosen eigenstate is deliberately constructed to distinguish that state, and a conserved operator has special matrix structure. The physically relevant class is typically local, few-body, or otherwise restricted by the measurement protocol.
+
+## The quantum ergodic theorem and its limits
+
+One can describe macroscopic observations using a coarse decomposition $\mathcal H_R=\bigoplus_\nu\mathcal H_\nu$ with projectors $P_\nu$ and dimensions $d_\nu$. Equilibrium weights are $d_\nu/D_R$. Von Neumann's quantum ergodic theorem, with nonresonance and suitable large macrospaces, establishes normal behavior for typical relative orientations of these macrospaces and the Hamiltonian eigenbasis: every initial vector has macrospace weights close to equilibrium for most times [@fVonNeumann2010].
+
+The quantifiers are essential. This is a rigorous typicality statement about macroscopic decompositions, not a proof that every specified local Hamiltonian has thermal eigenstates. It does not supply an experimentally useful time scale or make the fine-grained entropy increase. ETH instead asks whether physically given observables have the required structure in a physically given Hamiltonian.
+
+Integrable systems, localized systems, special nonthermal eigenstates, phase coexistence, and approximate conservation laws delimit ETH's use. They are not reasons to discard equilibration: a system can equilibrate to a constrained or preparation-dependent value. Later chapters examine these alternatives.
+
+## Exercises and worked answers
+
+**1. A nonthermal stationary state.** Does stationarity imply thermalization?
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+No. Any energy eigenstate is stationary. In a Hamiltonian that violates diagonal ETH, a local expectation in an eigenstate can differ from the microcanonical result at the same energy. Stationarity establishes neither the thermal value nor initial-state independence.
+:::
+
+**2. Two-level coherence.** For $c_1=c_2=1/\sqrt2$, derive the temporal variance when the gap is nonzero.
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+The oscillation is $\operatorname{Re}[A_{12}e^{i(E_1-E_2)t/\hbar}]$ after absorbing the relative initial phase. Its time-averaged square is $|A_{12}|^2/2$. This agrees with @eq-eth-timevariance, which includes the ordered pairs $(1,2)$ and $(2,1)$, each weighted by $1/4$.
+:::
+
+**3. A curvature error.** If $a(e)=a_0+a_1e+a_2e^2$ and $\sigma_E^2=cL$, what is the leading diagonal-ensemble shift from $a(E_0/L)$ when diagonal ETH is exact?
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+The shift is exactly $a_2\sigma_E^2/L^2=a_2c/L$. Finite energy width gives a correction even when every eigenstate obeys the smooth ETH function. This correction should not be mistaken for an ETH violation.
+:::

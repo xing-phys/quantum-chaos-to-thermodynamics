@@ -1,0 +1,149 @@
+# Prethermalization and kinetic relaxation {#sec-prethermalization}
+
+A small violation of integrability need not immediately erase the conserved information described in the previous chapter. Local correlations can relax rapidly to a constrained state, remain near it for a long interval, and only later move toward thermal equilibrium. This separation of stages is called *prethermalization*. It is a statement about a hierarchy of dynamical time scales, not a new exact equilibrium ensemble.
+
+This chapter derives a useful weak-coupling description. We distinguish exact perturbative identities from the assumptions that turn them into irreversible kinetic equations. Throughout, $\hbar=k_B=1$.
+
+## Fast relaxation and slowly changing charges
+
+Write
+
+$$
+H=H_0+gV,\qquad [H_0,Q_\alpha]=0,
+$$ {#eq-pre-hamiltonian}
+
+where $g$ is dimensionless and small, and $V$ has the dimensions of energy. The exact equation is
+$\dd\ev{Q_\alpha}/\dd t=ig\ev{[V,Q_\alpha]}$. If dephasing under $H_0$ produces a locally stationary GGE on a time $\tau_{\mathrm{deph}}$, we may hope that, at later times, the state is approximately specified by slowly varying expectations $q_\alpha(t)$. The proposed local description is
+
+$$
+\rho_{\mathrm{slow}}(t)=Z(t)^{-1}
+\exp\left[-\sum_\alpha\lambda_\alpha(t)Q_\alpha\right].
+$$
+
+This ansatz concerns finite-support observables; the exact global state remains unitarily related to the initial state. If it is diagonal in a common charge basis, $\tr\rho_{\mathrm{slow}}[V,Q_\alpha]=0$. Indeed, the diagonal matrix elements of that commutator vanish. Dissipative charge drift then usually starts at order $g^2$, while order-$g$ effects can renormalize energies or generate coherent motion within degenerate subspaces.
+
+An observed plateau may therefore correspond to a GGE of *dressed* approximate charges, rather than the bare $Q_\alpha$. Weak interaction quenches in fermionic systems give concrete examples of correlation buildup, a long-lived nonthermal distribution, and later kinetic relaxation [@Moeckel2008Quench]. Detailed numerical work also finds prethermal plateaux and their subsequent drift in models with weak integrability breaking [@Bertini2015Prethermalization]. These are model-dependent observations supporting the framework, not a guarantee for every perturbation.
+
+## What second-order perturbation theory actually gives
+
+In the interaction picture, $V_I(t)=e^{iH_0t}Ve^{-iH_0t}$ and
+$\dot\rho_I=-ig[V_I(t),\rho_I]$. Integrating once and substituting back into the expectation-value equation gives
+
+$$
+\frac{\dd\ev{Q_\alpha}}{\dd t}
+=ig\tr\rho_0[V_I(t),Q_\alpha]
+-g^2\int_0^t\dd s\,
+\tr\rho_0[V_I(s),[V_I(t),Q_\alpha]]+O(g^3)
+$$ {#eq-pre-memory}
+
+at fixed time. This expression contains memory of the preparation. It is not yet a closed equation for $q_\alpha(t)$, and its error estimate is not uniform at arbitrarily long times. Terms proportional to $g^2t$ eventually invalidate a naive fixed-order expansion.
+
+To obtain a kinetic equation one assumes that the correlation kernel decays on a time $\tau_c$, while the occupations change on a much longer time $\tau_{\mathrm{kin}}$. One then replaces the old state inside the kernel by the slowly evolving local GGE, neglects its change during $\tau_c$, and extends the memory integral to infinity. This is a Markov approximation with a separation of time scales. Taking $g\to0$ while $g^2t$ stays finite identifies the usual kinetic limit.
+
+The real part of the oscillatory integral selects resonant transitions. For two eigenstates of $H_0$, first-order transition amplitudes give
+
+$$
+P_{a\leftarrow b}(t)
+=g^2\abs{V_{ab}}^2
+\frac{4\sin^2[(E_a-E_b)t/2]}{(E_a-E_b)^2}.
+$$
+
+In a dense spectrum, integrated against a smooth function of energy,
+$4\sin^2(\omega t/2)/(t\omega^2)\to2\pi\delta(\omega)$. Therefore the transition rate is
+
+$$
+W_{a\leftarrow b}=2\pi g^2\abs{V_{ab}}^2\delta(E_a-E_b).
+$$ {#eq-pre-golden-rule}
+
+Principal-value contributions from the imaginary part shift energies and should be absorbed into the effective quasiparticle dynamics when relevant. A finite isolated system has discrete lines, so replacing the sinc peak by a delta function requires an intermediate time window: long compared with microscopic correlation times, short enough that individual level discreteness and recurrences do not dominate. The thermodynamic and weak-coupling limits are part of the argument.
+
+For a Hermitian static perturbation the leading rates are symmetric under $a\leftrightarrow b$. An approximate master equation has
+$\dot p_a=\sum_b(W_{a\leftarrow b}p_b-W_{b\leftarrow a}p_a)$. It preserves probability and redistributes weight among resonant states. Its apparent irreversibility comes from discarding coherences and memory, not from modifying the exact unitary law.
+
+## From many-body transitions to a fermionic collision integral
+
+For weakly interacting fermions take $H_0=\sum_k\epsilon_k n_k$. A two-body interaction contains terms $c_1^\dagger c_2^\dagger c_4c_3$. The indices include momentum and any spin or band label. A collision transfers two occupied incoming modes to two empty outgoing modes. If the local state approximately factorizes in quasiparticle occupations, its probability contains products of $n_k$ and $1-n_k$.
+
+With a nonnegative rate $\mathcal W_{12;34}$ that includes the golden-rule factor, the momentum and energy constraints, the antisymmetrized matrix element, and consistent counting of equivalent channels, one obtains
+
+$$
+\dot n_1=\sum_{234}\mathcal W_{12;34}
+\left[(1-n_1)(1-n_2)n_3n_4
+-n_1n_2(1-n_3)(1-n_4)\right].
+$$ {#eq-pre-boltzmann}
+
+We use the ordered-index convention in which the rate is symmetric under $1\leftrightarrow2$, $3\leftrightarrow4$, and $(12)\leftrightarrow(34)$; any identical-particle counting factor belongs in $\mathcal W$. The two terms are gain and loss. Pauli blocking is essential: a collision cannot fill an already occupied fermion mode. Bosonic collisions instead contain stimulated-emission factors $1+n$.
+
+The energy constraint is $\epsilon_1+\epsilon_2=\epsilon_3+\epsilon_4$. Crystal momentum is conserved modulo a reciprocal lattice vector. Summing @eq-pre-boltzmann over all modes and pairing gain with loss proves $\dot N=0$. Multiplication by $\epsilon_1$ and symmetrization proves conservation of $\sum_k\epsilon_kn_k$. This is the leading kinetic energy; conservation of the exact interacting energy may require quasiparticle shifts and correlation-energy corrections at higher order.
+
+The closure assumes that correlations between incoming occupations can be neglected at the accuracy of interest. It can fail during initial correlation buildup, near singular resonances, or when additional slow variables are omitted. Integrable interacting quasiparticles require their own scattering and charge structure; a bare free-particle equation should not be transplanted without a derivation.
+
+## An entropy theorem and the destination of collisions
+
+Define the fermionic kinetic entropy
+
+$$
+S_{\mathrm{kin}}=-\sum_k[n_k\ln n_k+(1-n_k)\ln(1-n_k)].
+$$
+
+It is the entropy of a product occupation ensemble, not the conserved entropy of the exact isolated density matrix. Put
+$X=(1-n_1)(1-n_2)n_3n_4$ and
+$Y=n_1n_2(1-n_3)(1-n_4)$. Differentiating and using the rate symmetries gives
+
+$$
+\dot S_{\mathrm{kin}}=
+\frac14\sum_{1234}\mathcal W_{12;34}(X-Y)\ln\frac XY\geq0.
+$$ {#eq-pre-h-theorem}
+
+The inequality follows because $\ln x$ is increasing. If $X>Y$, both factors are positive; if $X<Y$, both are negative. Zero occupations are handled by continuous limits. The factor $1/4$ comes from averaging over exchanging the two members of each pair and exchanging incoming with outgoing states.
+
+Equality requires $X=Y$ for every active channel. Let
+$\varphi_k=\ln[n_k/(1-n_k)]$. The stationarity condition is
+
+$$
+\varphi_1+\varphi_2=\varphi_3+\varphi_4
+$$
+
+on all allowed collisions. Thus every additive collision invariant produces a stationary distribution. If particle number and energy are the only independent invariants and the collision network connects the relevant states, then
+
+$$
+\varphi_k=\beta\mu-\beta\epsilon_k,\qquad
+n_k=\frac{1}{e^{\beta(\epsilon_k-\mu)}+1}.
+$$
+
+If ordinary momentum is conserved without Umklapp processes, a drifting distribution can include a term proportional to momentum. If channels are disconnected, additional invariants survive and a nonthermal stationary state is possible. The entropy theorem proves monotonicity within the kinetic approximation; convergence to a unique thermal state needs these extra connectivity assumptions.
+
+::: {.callout-note}
+## A one-dimensional kinematic obstruction
+
+For identical particles with $\epsilon_k=k^2/(2m)$, two-body collisions conserve $P=k_1+k_2$ and $k_1^2+k_2^2$. Since
+$k_1k_2=[P^2-(k_1^2+k_2^2)]/2$, the outgoing momenta solve the same quadratic equation as the incoming ones. Hence $\{k_3,k_4\}=\{k_1,k_2\}$. Such collisions only exchange labels and cannot relax the distribution. Thermalization then needs another channel: three-body scattering, a lattice dispersion with suitable phase space, additional species, or another integrability-breaking process. A formal $g^2$ prefactor does not establish a nonzero relaxation rate.
+:::
+
+## Time scales and the interpretation of a plateau
+
+If a typical resonant rate is $g^2J$ for microscopic energy $J$, dimensional analysis suggests $\tau_{\mathrm{kin}}\sim(g^2J)^{-1}$. The prethermal window is
+$\tau_{\mathrm{deph}}\ll t\ll\tau_{\mathrm{kin}}$. This estimate assumes nonvanishing second-order phase space and nonsingular matrix elements. Selection rules can eliminate the leading channel. Low-temperature Pauli blocking can add strong temperature factors. Approximate symmetries, constrained dynamics, and higher-order processes can produce other powers or much longer times. High-frequency driven prethermalization is another mechanism and need not obey this weak-static-perturbation estimate.
+
+A useful numerical diagnosis follows several observables. First establish fast decay of oscillations. Then test whether intermediate values agree with an appropriate GGE or dressed-charge ensemble. Finally vary $g$ and check a predicted rescaling of the slow drift, while controlling finite size and accessible time. A flat trace by itself cannot distinguish a true stationary state from an unresolved slow evolution.
+
+The hierarchy also clarifies what “thermalization” means operationally. A system may have nearly thermal densities while its momentum distribution is still nonthermal, or short-range correlators may settle while a transport mode relaxes slowly. The chosen observables and tolerance belong in any quoted equilibration time.
+
+## Exercises and worked answers
+
+1. **Verify charge conservation.** Show directly that @eq-pre-boltzmann conserves a quantity $Q_f=\sum_k f_kn_k$ whenever $f_1+f_2=f_3+f_4$ for every active collision.
+
+   **Answer.** After the same symmetrization used in the entropy proof,
+   $\dot Q_f=\tfrac14\sum\mathcal W(X-Y)(f_1+f_2-f_3-f_4)=0$. Choosing $f=1$ and $f=\epsilon$ gives number and energy.
+
+2. **A single reaction channel.** Consider four distinct modes with only $12\leftrightarrow34$ allowed. Why need its stationary state not be determined by number and energy alone?
+
+   **Answer.** Each event changes occupations by a multiple of $(-1,-1,+1,+1)$. Every vector $f$ orthogonal to this vector is invariant, a three-dimensional space. For example $n_1-n_2$ and $n_3-n_4$ are separately conserved. Detailed balance fixes only one relation among four occupations. More channels are needed for thermal uniqueness.
+
+3. **Scaling test.** Suppose the same local observable obeys $A(t)-A_{\mathrm{th}}\simeq A_0e^{-cg^2Jt}$. What happens when $g$ is halved?
+
+   **Answer.** The slow decay time increases by four. Curves should approximately collapse when plotted against $g^2Jt$ after the initial transient. Failure of collapse can indicate higher-order processes, a changed plateau, finite-size effects, or the absence of the assumed kinetic regime; it is not by itself evidence against unitary dynamics.
+
+4. **Entropy accounting.** How can @eq-pre-h-theorem coexist with constant exact von Neumann entropy?
+
+   **Answer.** $S_{\mathrm{kin}}$ uses only single-mode occupations and discards intermode correlations. Unitary evolution can move information into correlations while the entropy of the maximum-entropy product state consistent with the retained data rises. The two entropies are functions of different information.

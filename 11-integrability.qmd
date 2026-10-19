@@ -1,0 +1,240 @@
+# Integrability and constrained equilibrium {#sec-integrability}
+
+An isolated system can relax while remembering much more than its energy. A free gas supplies the simplest example: particles redistribute in space, but each single-particle mode keeps its occupation. An interacting integrable chain has a more elaborate version of this memory. Statistical mechanics remains useful, provided we retain the conserved information that local measurements can detect.
+
+By the end of this chapter you should be able to construct a generalized Gibbs ensemble, compute its free-particle correlations, explain why a bosonic observable can relax in a fermionized model, and identify the missing-information problem in interacting integrable systems. We set $k_B=1$ and use $\hbar=1$ in time evolution.
+
+## Maximum entropy with many constraints
+
+Let $Q_\alpha$ be Hermitian conserved operators, $[H,Q_\alpha]=0$, and let their initial expectation values be $q_\alpha$. For now assume the charges commute with one another. We seek a density operator with these expectations and the largest von Neumann entropy. Vary
+
+$$
+-\tr(\rho\ln\rho)-\lambda_0(\tr\rho-1)
+-\sum_\alpha\lambda_\alpha(\tr\rho Q_\alpha-q_\alpha).
+$$
+
+Using $\delta\tr(\rho\ln\rho)=\tr[\delta\rho(\ln\rho+1)]$ gives
+
+$$
+\rho_{\mathrm{GGE}}=\frac{1}{Z}
+\exp\left(-\sum_\alpha\lambda_\alpha Q_\alpha\right),
+\qquad Z=\tr\exp\left(-\sum_\alpha\lambda_\alpha Q_\alpha\right).
+$$ {#eq-int-gge}
+
+The multipliers satisfy $q_\alpha=-\partial_{\lambda_\alpha}\ln Z$. Their susceptibility matrix is the charge covariance matrix,
+$\partial_{\lambda_\alpha}\partial_{\lambda_\beta}\ln Z=\ev{Q_\alpha Q_\beta}-\ev{Q_\alpha}\ev{Q_\beta}$, which is positive semidefinite. Redundant charges can therefore make the multipliers nonunique even when the state is unique.
+
+There is also a useful proof of maximality. For any other state $\sigma$ satisfying the same constraints, positivity of quantum relative entropy gives
+
+$$
+0\leq D(\sigma\Vert\rho_{\mathrm{GGE}})
+=-S(\sigma)+\ln Z+\sum_\alpha\lambda_\alpha q_\alpha
+=S(\rho_{\mathrm{GGE}})-S(\sigma).
+$$
+
+This is a variational result, not a dynamical theorem. It does not prove that unitary evolution approaches the GGE. Nor does it say which charges suffice. Including every eigenstate projector reproduces the diagonal ensemble exactly but gives little compression. The physical question is whether local and quasilocal conserved quantities determine the state seen by every fixed finite subsystem. Early hard-core-boson calculations established the practical usefulness of this idea [@Rigol2007GGE].
+
+## Free fermions: occupations, correlations, and dephasing
+
+Consider a number-conserving quadratic Hamiltonian on $L$ sites,
+
+$$
+H=\sum_{ij}h_{ij}c_i^\dagger c_j
+=\sum_\mu\epsilon_\mu d_\mu^\dagger d_\mu,
+\qquad c_i=\sum_\mu\phi_\mu(i)d_\mu.
+$$
+
+The anticommutation rules are $\{c_i,c_j^\dagger\}=\delta_{ij}$ and $\{c_i,c_j\}=0$. Each $I_\mu=d_\mu^\dagger d_\mu$ has eigenvalues 0 and 1 and commutes with $H$. Constraining $n_\mu=\ev{I_\mu}_0$ makes the partition function factorize:
+
+$$
+Z=\prod_\mu(1+e^{-\lambda_\mu}),\qquad
+n_\mu=\frac{1}{1+e^{\lambda_\mu}},\qquad
+\lambda_\mu=\ln\frac{1-n_\mu}{n_\mu}.
+$$ {#eq-int-occupation}
+
+Exactly empty or full modes are allowed as limits $\lambda_\mu\to\pm\infty$. A conventional thermal state is the special case $\lambda_\mu=\beta(\epsilon_\mu-\mu_{\mathrm{chem}})$. A general quench produces an independent function of mode label instead.
+
+The real-space covariance follows directly:
+
+$$
+C_{ij}(t)\equiv\ev{c_i^\dagger(t)c_j(t)}
+=\sum_{\mu\nu}\phi_\mu^*(i)\phi_\nu(j)
+e^{i(\epsilon_\mu-\epsilon_\nu)t}\ev{d_\mu^\dagger d_\nu}_0.
+$$ {#eq-int-covariance}
+
+For nondegenerate one-particle energies its infinite-time average retains only $\mu=\nu$, exactly as predicted by the occupation GGE. In an extended system many frequencies dephase and local instantaneous correlations can settle near this value. A finite system remains quasiperiodic and can recur. Statements about stationary local states usually take the thermodynamic limit before the long-time limit.
+
+Degeneracies require care: if $\epsilon_\mu=\epsilon_\nu$, the coherence $d_\mu^\dagger d_\nu$ is conserved too. One can diagonalize the initial covariance within each degenerate subspace, or constrain the entire stationary covariance block. Occupations in an arbitrary basis need not suffice. Pairing Hamiltonians similarly require a Nambu covariance containing both $\ev{c_i^\dagger c_j}$ and $\ev{c_i c_j}$.
+
+For a Gaussian state, Wick's rule expresses every even correlation as sums of products of two-point functions. For example,
+
+$$
+\ev{c_i^\dagger c_j^\dagger c_l c_m}
+=C_{im}C_{jl}-C_{il}C_{jm}
+$$
+
+when anomalous correlations vanish. Quadratic evolution preserves Gaussianity. For initially non-Gaussian states, using Wick's rule needs an additional argument: spreading particles can dilute connected higher-order correlations in a fixed observation region. Rigorous forms of this *gaussification* require assumptions such as clustering in the initial state and delocalizing one-particle propagation [@Gluza2016Gaussification]. Localized modes, insufficient transport, persistent degeneracies, and long-range initial correlations can obstruct the argument.
+
+The global diagonal ensemble can retain correlations $\ev{I_\mu I_\nu}_0-n_\mu n_\nu$ that @eq-int-occupation discards. A GGE may nevertheless reproduce every fixed-support observable because the contribution of that information becomes negligible locally. Equality of local states is much weaker than equality of global density operators or entropies.
+
+::: {.callout-tip}
+## Solved example: density-wave melting
+
+Take $H=-J\sum_j(c_j^\dagger c_{j+1}+\mathrm{h.c.})$ on an even periodic chain and initially occupy every even site. Each momentum mode has $n_k=1/2$, so its occupation GGE is the infinite-temperature state at half filling. The initial state also has $\ev{c_k^\dagger c_{k+\pi}}=1/2$ with a sign fixed by the origin convention. Since $\epsilon_k=-2J\cos k$, the staggered density becomes, in the infinite chain,
+
+$$
+m(t)\equiv\frac1L\sum_j(-1)^j\ev{n_j(t)}
+=\frac12\int_{-\pi}^{\pi}\frac{\dd k}{2\pi}e^{-4iJt\cos k}
+=\frac12 J_0(4Jt).
+$$
+
+Here $J_0$ is defined by the displayed integral. Its oscillatory envelope decays as $t^{-1/2}$. The occupations never change; relaxation comes from the off-diagonal momentum coherence.
+:::
+
+## Hard-core bosons and the Jordan–Wigner string
+
+Hard-core bosons obey $b_j^2=0$ and $\{b_j,b_j^\dagger\}=1$ on one site, while operators on different sites commute. In an open chain define
+
+$$
+b_j=\exp\left(i\pi\sum_{l<j}c_l^\dagger c_l\right)c_j,
+\qquad n_j=b_j^\dagger b_j=c_j^\dagger c_j.
+$$ {#eq-int-jw}
+
+The string supplies the minus signs needed to turn fermionic exchange into bosonic exchange. Nearest-neighbor hopping maps to fermion hopping, so the many-body energies and density dynamics are free-fermionic. On a ring the boundary hopping depends on fermion parity; calculations must select the appropriate parity sector and boundary condition.
+
+Off-diagonal bosonic correlations contain strings. For $i<j$,
+
+$$
+\ev{b_i^\dagger b_j}
+=\left\langle c_i^\dagger
+\prod_{i<l<j}(1-2n_l)c_j\right\rangle.
+$$ {#eq-int-boson-string}
+
+These can be evaluated by expanding the product and applying Wick's rule, or more efficiently as determinants/Pfaffians of a covariance matrix. At separation two, Wick's rule gives the explicit check
+
+$$
+\ev{b_i^\dagger b_{i+2}}
+=C_{i,i+2}(1-2C_{i+1,i+1})
++2C_{i,i+1}C_{i+1,i+2}.
+$$
+
+Thus bosonic momentum occupations, obtained by Fourier transforming @eq-int-boson-string, can change substantially although fermionic mode occupations are constants. The mapping changes the form of the observable. For fixed $j-i$, the string has finite support; local fermionic gaussification can then determine its late-time value. A momentum distribution sums all separations, so interchange of the long-distance, thermodynamic, and long-time limits needs further control.
+
+## Generalized eigenstate thermalization
+
+Ordinary ETH says that energy density determines local properties of a typical chaotic eigenstate. Integrable eigenstates at the same energy can have different mode distributions and different local observables. The replacement is a *macrostate* containing all relevant conserved densities. Eigenstates that represent the same smooth macrostate should become locally indistinguishable as $L$ grows. This is the useful content of generalized ETH, rather than a claim that all same-energy integrable eigenstates agree [@Cassidy2011Generalized].
+
+For free particles this is transparent. A momentum-occupation eigenstate has
+
+$$
+\ev{c_j^\dagger c_{j+r}}=\frac1L\sum_k e^{ikr}n_k.
+$$
+
+Divide momentum space into bins of width $\Delta k$ with $L^{-1}\ll\Delta k\ll1$. If two eigenstates have the same occupied fraction in each bin, the difference of their fixed-$r$ correlations vanishes as the bin width shrinks. Within a bin, $e^{ikr}$ barely changes. Wick's rule extends the result to finite-support fermionic observables. There remain exponentially many microscopic occupation patterns compatible with each smooth distribution. A generalized microcanonical ensemble samples these patterns; a GGE assigns Lagrange multipliers to their macroscopic constraints. Their local equivalence is an ensemble-equivalence statement with regularity assumptions, not an identity at finite size.
+
+## A transverse-field Ising quench
+
+Consider
+
+$$
+H(h)=-J\sum_j\left(\sigma_j^x\sigma_{j+1}^x+h\sigma_j^z\right),
+\qquad J>0.
+$$
+
+With $\sigma_j^z=1-2c_j^\dagger c_j$, a Jordan–Wigner transformation turns the spin interaction into hopping plus pairing. Fourier transformation groups modes $k,-k$. Diagonalizing their $2\times2$ particle-hole matrix is a rotation with angle
+
+$$
+e^{i\theta_k(h)}=\frac{h-\cos k+i\sin k}{\sqrt{1+h^2-2h\cos k}},
+\qquad \epsilon_k(h)=2J\sqrt{1+h^2-2h\cos k}.
+$$ {#eq-int-ising-spectrum}
+
+The resulting Bogoliubov operators satisfy
+$H=\sum_k\epsilon_k(\gamma_k^\dagger\gamma_k-1/2)$. If the initial state is the ground state at $h_0$ and time evolution uses $h$, composing the two rotations gives, up to an irrelevant pair phase,
+
+$$
+\ket{\psi_0}=\prod_{k>0}\left[
+\cos\frac{\Delta\theta_k}{2}
++i\sin\frac{\Delta\theta_k}{2}\gamma_k^\dagger\gamma_{-k}^\dagger
+\right]\ket{0_h},\quad
+\Delta\theta_k=\theta_k(h)-\theta_k(h_0).
+$$
+
+Consequently
+
+$$
+n_k=\ev{\gamma_k^\dagger\gamma_k}_0
+=\sin^2\frac{\Delta\theta_k}{2}
+=\frac{1-\cos\Delta\theta_k}{2}.
+$$ {#eq-int-ising-quench}
+
+At each positive $k$, the state is a superposition of an empty and a doubly occupied pair. Its diagonal ensemble therefore has $\ev{I_k I_{-k}}=n_k$, whereas a product occupation GGE gives $n_k^2$. This illustrates the global/local distinction concretely. Oscillating anomalous terms have frequencies $2\epsilon_k$ and disappear from generic fixed-support late-time correlations when dispersive dephasing applies.
+
+For example, the stationary transverse magnetization is
+
+$$
+\ev{\sigma^z}_{\mathrm{stat}}
+=\int_{-\pi}^{\pi}\frac{\dd k}{2\pi}
+\cos\theta_k(h)\,[1-2n_k].
+$$
+
+For a quench from $h_0\to+\infty$ to $h=1$, $\theta_k(h_0)=0$ and $\cos\theta_k(1)=\abs{\sin(k/2)}$. The integral is the average of $\sin^2(k/2)$, hence $\ev{\sigma^z}_{\mathrm{stat}}=1/2$. This calculation uses a covariance integral instead of a sum over $2^L$ spin states. At flat-dispersion points, such as $h=0$, persistent coherent oscillations need separate treatment.
+
+### Truncating the charges
+
+Mode occupations are nonlocal, but suitable combinations are local. In the Ising chain, multiplying the quadratic Hamiltonian's momentum-space matrix by $\cos(rk)$ creates a conserved quadratic charge with support extending only a distance of order $r$. Its Bogoliubov form is proportional to
+$\sum_k\epsilon_k\cos(rk)(I_k-1/2)$. Current-type charges supply the appropriate odd-in-$k$ family when the state requires it. Taking sufficiently many such charges is equivalent, for regular translation-invariant states, to specifying the mode distribution.
+
+A truncated GGE retains only charges with range up to a cutoff $R$, chooses their multipliers from the initial expectations, and predicts a finite subsystem density matrix. Increasing $R$ restores increasingly detailed spatial information. The practical target is convergence of the reduced state or of selected correlations as $R$ grows. It is not exact recovery of every $n_k$ at a small cutoff. Studies of the Ising chain show why the shortest-range charges are especially valuable for small subsystems [@Fagotti2013RDM]. Near criticality or for nonsmooth mode data, convergence can be slower; there is no universal finite cutoff that works for all states and observables.
+
+## Interacting integrability: the XXZ completeness problem
+
+The spin-$1/2$ XXZ chain,
+
+$$
+H=J\sum_j\left(S_j^xS_{j+1}^x+S_j^yS_{j+1}^y
++\Delta S_j^zS_{j+1}^z\right),\qquad S^a=\sigma^a/2,
+$$
+
+is interacting after fermionization. In the gapped regime $\Delta=\cosh\eta>1$, its Bethe quasiparticles include bound complexes of $a=1,2,\ldots$ overturned spins. A homogeneous thermodynamic eigenstate is described by particle and hole densities $\rho_a(\lambda)$ and $\rho_a^h(\lambda)$ for each species, with rapidity $\lambda\in[-\pi/2,\pi/2]$. Rapidity plays the role of a momentum parameter. Scattering changes the available density of states, giving coupled constraints
+
+$$
+\rho_a+\rho_a^h=a_a-\sum_b K_{ab}*\rho_b,
+\qquad
+a_a(\lambda)=\frac{\sinh(a\eta)}{\pi[\cosh(a\eta)-\cos(2\lambda)]}.
+$$ {#eq-int-bethe-density}
+
+Here $*$ integrates over the rapidity interval. One standard kernel convention is
+$K_{ab}=(1-\delta_{ab})a_{|a-b|}+2\sum_{j=1}^{\min(a,b)-1}a_{|a-b|+2j}+a_{a+b}$.
+This equation is the interacting counterpart of counting allowed free momentum states. A charge density has the linear form $q_\alpha=\sum_a\int\dd\lambda\,q_{\alpha a}(\lambda)\rho_a(\lambda)$. Its one-particle eigenvalues $q_{\alpha a}$ characterize which species and rapidities that charge can distinguish.
+
+Counting ways to fill particle/hole slots gives the entropy density
+
+$$
+s_{\mathrm{YY}}=\sum_a\int\dd\lambda\,
+\left[(\rho_a+\rho_a^h)\ln(\rho_a+\rho_a^h)
+-\rho_a\ln\rho_a-\rho_a^h\ln\rho_a^h\right].
+$$
+
+Maximizing it subject to @eq-int-bethe-density and the charges is a generalized thermodynamic Bethe ansatz. It reduces the stationary-state problem to functions of one variable, but only if the constraints determine the root densities. An infinite list of charges can still be incomplete: infinitely many measurements of one combination need not distinguish all bound-state species.
+
+This issue became decisive in quenches from the Néel product state $\ket{\uparrow\downarrow\uparrow\downarrow\cdots}$ (or its translation-symmetric combination). A GGE using the then-standard strictly local transfer-matrix charges disagreed with an independently obtained quench-action stationary state [@Wouters2014XXZ]. The quench-action method weights thermodynamic eigenstates by their overlaps with the initial state and their state-counting entropy, then finds the dominant macrostate. It provides a useful independent benchmark rather than assuming a chosen charge list is complete.
+
+The resolution was to include additional *quasilocal* charges: extensive operators whose density has spatial tails that decay sufficiently fast, rather than stopping at a fixed range. Suitable families distinguish information about bound quasiparticle densities missed by the earlier charge set, and a complete construction recovers the tested stationary state [@Ilievski2015Complete]. Thus the failure of a particular GGE is a diagnosis of missing constraints, not a disproof of maximum entropy. The explicit kernels and charge families depend on the anisotropy regime; the formulas above were restricted to $\Delta>1$ for that reason.
+
+## Exercises and worked answers
+
+1. **Same energy, different equilibrium.** For three free modes with energies $(-1,0,1)$, compare occupation profiles $(1/2,0,1/2)$ and $(0,1,0)$. Do particle number and energy determine the GGE?
+
+   **Answer.** Both have $N=1$ and $E=0$, but their central occupations are 0 and 1. A measurement of $I_2$ distinguishes them. Two constraints cannot determine three independent occupation expectations. Thermalization requires a mechanism that changes the extra conserved data.
+
+2. **A global distinction.** A pair of modes has the diagonal state $\rho=(1-n)\ket{00}\bra{00}+n\ket{11}\bra{11}$. Compute its entropy and that of the product GGE with the same occupations.
+
+   **Answer.** Write $h(n)=-n\ln n-(1-n)\ln(1-n)$. The diagonal state has entropy $h(n)$; the product state has entropy $2h(n)$. The missing $h(n)$ is their classical mutual information. Local equivalence in a many-mode spatial limit does not imply equal extensive entropies.
+
+3. **Check a bosonic string.** Expand $\ev{b_i^\dagger b_{i+2}}$ and derive the expression in this chapter using Wick's rule.
+
+   **Answer.** The string is $1-2n_{i+1}$. Wick's rule gives $\ev{c_i^\dagger n_{i+1}c_{i+2}}=C_{i,i+2}C_{i+1,i+1}-C_{i,i+1}C_{i+1,i+2}$. Subtract twice this from $C_{i,i+2}$.
+
+4. **Design a completeness test.** What would demonstrate that a charge set is insufficient even if it contains infinitely many members?
+
+   **Answer.** Find two admissible macrostates with identical values of all listed charges and different values of a local observable. Equivalently, find a nonzero change $\delta\rho_a$ satisfying the linearized Bethe constraints and $\sum_a\int q_{\alpha a}\delta\rho_a=0$ for every listed $\alpha$, while changing a physical correlation. Counting charges alone cannot exclude such a null space.
