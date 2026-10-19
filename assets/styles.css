@@ -1,0 +1,34 @@
+/* Shared styles for the quantum chaos course companion. */
+
+/* Slightly larger, clearer display equations */
+.math.display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+
+/* Keep long inline formulas from breaking awkwardly */
+.math.inline {
+  overflow-wrap: normal;
+}
+
+main { max-width: 58rem; }
+p { line-height: 1.65; }
+.sidebar-title { font-weight: 650; }
+table { font-size: 0.93em; }
+figure img { background: white; border-radius: 4px; }
+
+/* Figure captions */
+figure.quarto-float.tbl figcaption,
+figure.quarto-float.fig figcaption {
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+/* Theorem boxes */
+div.callout {
+  border-radius: 6px;
+}
+
+/* Dark mode: SVG figures with dark backgrounds can be dimmed if needed */
+/* .quarto-dark figure svg { filter: brightness(0.85); } */

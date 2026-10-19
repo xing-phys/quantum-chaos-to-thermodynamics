@@ -1,0 +1,11 @@
+seed = 20261019
+L = 9
+D = 512
+initial_basis_index_zero_based = 232
+E0 = 2.0816681711721685e-14
+DE_Z5 = -0.026319610326532843
+MC_Z5 = -0.04924677919114429
+MC_shell_count = 67
+energy_width = 3.149999999999989
+effective_dimension = 138.3825643871364
+gap_nondegenerate_variance_formula = 0.002358443523540383

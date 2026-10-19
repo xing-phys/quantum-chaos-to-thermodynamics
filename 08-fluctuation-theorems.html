@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Fluctuation theorems and energy diffusion – Quantum Chaos to Thermodynamics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./09-response.html" rel="next">
+<link href="./07-entropy.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3edcf9c1eb3d8aa20d6f8598a6a633bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-85efcaa1d9ca1228538a34edc3b23cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3edcf9c1eb3d8aa20d6f8598a6a633bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+window.MathJax = {
+  tex: {
+    tags: "ams",
+    macros: {
+      ket: ["\\lvert #1 \\rangle", 1],
+      bra: ["\\langle #1 \\rvert", 1],
+      braket: ["\\langle #1 \\vert #2 \\rangle", 2],
+      ev: ["\\langle #1 \\rangle", 1],
+      norm: ["\\lVert #1 \\rVert", 1],
+      abs: ["\\lvert #1 \\rvert", 1],
+      tr: ["\\operatorname{Tr}", 0],
+      erf: ["\\operatorname{erf}", 0],
+      Re: ["\\operatorname{Re}", 0],
+      Im: ["\\operatorname{Im}", 0],
+      dd: ["\\mathrm{d}", 0],
+      cL: ["\\mathcal{L}", 0],
+      cD: ["\\mathcal{D}", 0],
+      cH: ["\\mathcal{H}", 0],
+      cT: ["\\mathcal{T}", 0],
+      cV: ["\\mathcal{V}", 0],
+      cU: ["\\mathcal{U}", 0],
+      cS: ["\\mathcal{S}", 0],
+      cA: ["\\mathcal{A}", 0],
+      cB: ["\\mathcal{B}", 0],
+      cI: ["\\mathcal{I}", 0],
+      cO: ["\\mathcal{O}", 0]
+    }
+  },
+  options: {
+    renderActions: {
+      addMenu: []
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-entropy.html">Thermodynamics from microscopic dynamics</a></li><li class="breadcrumb-item"><a href="./08-fluctuation-theorems.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fluctuation theorems and energy diffusion</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Quantum Chaos to Thermodynamics</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./quantum-chaos-to-thermodynamics.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">From dynamics to thermal states</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-foundations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">States, observables, and equilibrium ensembles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-classical-chaos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Classical mechanics: regular motion, ergodicity, and chaos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-random-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random matrices and the fingerprints of quantum chaos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-many-body-chaos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Physical many-body Hamiltonians and eigenstate structure</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-eth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Eigenstate thermalization and quantum equilibration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-quenches.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantum quenches and numerical tests of thermalization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Thermodynamics from microscopic dynamics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-entropy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Entropy, work, and thermodynamic structure</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-fluctuation-theorems.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fluctuation theorems and energy diffusion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Response, fluctuations, and reciprocity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-driven-systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Driven systems and finite reservoirs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Constraints and long-lived memory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-integrability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integrability and constrained equilibrium</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-prethermalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Prethermalization and kinetic relaxation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Work through it</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-mathematical-appendices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mathematical tools and two revealing examples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-numerical-lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A reproducible numerical laboratory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./coverage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Guide to the review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#measuring-work-in-a-closed-quantum-system" id="toc-measuring-work-in-a-closed-quantum-system" class="nav-link active" data-scroll-target="#measuring-work-in-a-closed-quantum-system"><span class="header-section-number">8.1</span> Measuring work in a closed quantum system</a></li>
+  <li><a href="#microscopic-reversibility-and-crooks-relation" id="toc-microscopic-reversibility-and-crooks-relation" class="nav-link" data-scroll-target="#microscopic-reversibility-and-crooks-relation"><span class="header-section-number">8.2</span> Microscopic reversibility and Crooks’ relation</a></li>
+  <li><a href="#work-cumulants-and-dissipation" id="toc-work-cumulants-and-dissipation" class="nav-link" data-scroll-target="#work-cumulants-and-dissipation"><span class="header-section-number">8.3</span> Work cumulants and dissipation</a></li>
+  <li><a href="#a-microcanonical-relation-and-the-eigenstate-question" id="toc-a-microcanonical-relation-and-the-eigenstate-question" class="nav-link" data-scroll-target="#a-microcanonical-relation-and-the-eigenstate-question"><span class="header-section-number">8.4</span> A microcanonical relation and the eigenstate question</a></li>
+  <li><a href="#why-a-bath-produces-detailed-balance" id="toc-why-a-bath-produces-detailed-balance" class="nav-link" data-scroll-target="#why-a-bath-produces-detailed-balance"><span class="header-section-number">8.5</span> Why a bath produces detailed balance</a></li>
+  <li><a href="#drift-diffusion-and-a-finite-size-einstein-relation" id="toc-drift-diffusion-and-a-finite-size-einstein-relation" class="nav-link" data-scroll-target="#drift-diffusion-and-a-finite-size-einstein-relation"><span class="header-section-number">8.6</span> Drift, diffusion, and a finite-size Einstein relation</a></li>
+  <li><a href="#two-conserved-quantities" id="toc-two-conserved-quantities" class="nav-link" data-scroll-target="#two-conserved-quantities"><span class="header-section-number">8.7</span> Two conserved quantities</a></li>
+  <li><a href="#exercises-and-solutions" id="toc-exercises-and-solutions" class="nav-link" data-scroll-target="#exercises-and-solutions"><span class="header-section-number">8.8</span> Exercises and solutions</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/edit/main/08-fluctuation-theorems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/blob/main/08-fluctuation-theorems.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-entropy.html">Thermodynamics from microscopic dynamics</a></li><li class="breadcrumb-item"><a href="./08-fluctuation-theorems.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fluctuation theorems and energy diffusion</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-fluctuation-theorems" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fluctuation theorems and energy diffusion</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The second law constrains averages. Fluctuation relations explain how individual realizations can return energy to a drive while the average still dissipates. Their proofs expose an important distinction: exact identities based on preparation and microscopic reversibility do not require quantum chaos, whereas replacing a thermal ensemble by one representative eigenstate requires additional structure. We retain <span class="math inline">\(k_B=1\)</span> and count work as positive when delivered to the system.</p>
+<section id="measuring-work-in-a-closed-quantum-system" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="measuring-work-in-a-closed-quantum-system"><span class="header-section-number">8.1</span> Measuring work in a closed quantum system</h2>
+<p>For a protocol <span class="math inline">\(H_F(t)\)</span> on <span class="math inline">\(0\le t\le\tau\)</span>, let <span class="math inline">\(H_i=H_F(0)\)</span> and <span class="math inline">\(H_f=H_F(\tau)\)</span>. In the <strong>two-projective-measurement</strong> (TPM) protocol, measure the initial energy <span class="math inline">\(E_n^i\)</span>, evolve with <span class="math inline">\(U_F\)</span>, and measure the final energy <span class="math inline">\(E_m^f\)</span>. The measured work is the number</p>
+<p><span class="math display">\[
+W_{mn}=E_m^f-E_n^i.
+\]</span></p>
+<p>Work here labels a pair of outcomes; it is not generally the spectrum of one Hermitian operator. An initial energy measurement dephases a coherent state, so the resulting statistics describe that measurement procedure. A Gibbs initial state is already energy diagonal and is unaffected by this dephasing.</p>
+<p>Write</p>
+<p><span id="eq-fluctuation-tpm"><span class="math display">\[
+p_F(n,m)=\frac{e^{-\beta E_n^i}}{Z_i}
+\abs{\bra{m,f}U_F\ket{n,i}}^2.
+\tag{8.1}\]</span></span></p>
+<p>For degeneracies, one may resolve states within each energy eigenspace or work directly with spectral projectors and their multiplicities. The projector formulation makes the same identities without choosing an arbitrary basis inside a degenerate space. An experimentally broadened histogram should retain enough resolution to compare corresponding forward and reverse bins.</p>
+</section>
+<section id="microscopic-reversibility-and-crooks-relation" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="microscopic-reversibility-and-crooks-relation"><span class="header-section-number">8.2</span> Microscopic reversibility and Crooks’ relation</h2>
+<p>Let <span class="math inline">\(\Theta\)</span> denote the antiunitary time-reversal operator. The reversed experiment uses</p>
+<p><span class="math display">\[
+H_R(t)=\Theta H_F(\tau-t)\Theta^{-1},
+\qquad U_R=\Theta U_F^\dagger\Theta^{-1}.
+\]</span></p>
+<p>All time-reversal-odd control parameters, including magnetic fields, must also reverse. Antiunitarity then implies equality of conditional transition probabilities:</p>
+<p><span class="math display">\[
+\abs{\bra{m,f}U_F\ket{n,i}}^2
+=\abs{\bra{\Theta n,i}U_R\ket{\Theta m,f}}^2.
+\]</span></p>
+<p>Prepare the reverse experiment in the Gibbs state of the reversed final Hamiltonian. Dividing the two joint probabilities cancels the transition factor:</p>
+<p><span class="math display">\[
+\frac{p_F(n,m)}{p_R(\Theta m,\Theta n)}
+=\frac{e^{-\beta E_n^i}/Z_i}{e^{-\beta E_m^f}/Z_f}
+=e^{\beta(W_{mn}-\Delta F)},
+\qquad \Delta F=-\beta^{-1}\ln(Z_f/Z_i).
+\]</span></p>
+<p>Summing over pairs with the same work gives</p>
+<p><span id="eq-fluctuation-crooks"><span class="math display">\[
+\frac{P_F(W)}{P_R(-W)}=e^{\beta(W-\Delta F)}.
+\tag{8.2}\]</span></span></p>
+<p>Ratios are understood where the corresponding probabilities have support; distributional versions avoid dividing delta functions. This is the work fluctuation relation associated with <span class="citation" data-cites="crooks1999entropy">&nbsp;[<a href="references.html#ref-crooks1999entropy" role="doc-biblioref">1</a>]</span>. Quantum TPM formulations were developed, among others, by <span class="citation" data-cites="tasaki2000jarzynski">&nbsp;[<a href="references.html#ref-tasaki2000jarzynski" role="doc-biblioref">2</a>]</span>. No ETH assumption entered the proof.</p>
+<p>Multiplication by <span class="math inline">\(e^{-\beta W}\)</span> and integration over <span class="math inline">\(W\)</span> immediately yields</p>
+<p><span id="eq-fluctuation-jarzynski"><span class="math display">\[
+\ev{e^{-\beta W}}_F=e^{-\beta\Delta F}.
+\tag{8.3}\]</span></span></p>
+<p>The nonequilibrium work equality was introduced by <span class="citation" data-cites="jarzynski1997nonequilibrium">&nbsp;[<a href="references.html#ref-jarzynski1997nonequilibrium" role="doc-biblioref">3</a>]</span>. For an isolated quantum system it also follows directly:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\ev{e^{-\beta W}}
+&amp;=\frac1{Z_i}\sum_{mn}e^{-\beta E_m^f}\abs{U_{mn}}^2\\
+&amp;=\frac1{Z_i}\sum_me^{-\beta E_m^f}=\frac{Z_f}{Z_i}.
+\end{aligned}
+\]</span></p>
+<p>The last step needs the row normalization of the transition matrix; it does not need time-reversal symmetry. Thus the equality is also valid for a trace-preserving unital channel between the two energy measurements, whereas the stated forward/reverse ratio requires a suitable reverse dynamics.</p>
+<p>Jensen’s inequality, <span class="math inline">\(\ev{e^X}\ge e^{\ev X}\)</span>, gives <span class="math inline">\(\ev W\ge\Delta F\)</span> for <span class="math inline">\(\beta&gt;0\)</span>. This average bound allows individual realizations with <span class="math inline">\(W&lt;\Delta F\)</span>. The exponential average weighs rare small-work events strongly, which can make estimating free-energy differences from finite samples difficult.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Solved example: sudden reversal of a two-level field">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solved example: sudden reversal of a two-level field
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(H_i=(\epsilon/2)\sigma_z\)</span> and <span class="math inline">\(H_f=-H_i\)</span>, with an instantaneous switch, so <span class="math inline">\(U=I\)</span>. A state initially in the lower level receives work <span class="math inline">\(+\epsilon\)</span> and the upper state receives <span class="math inline">\(-\epsilon\)</span>. The partition functions agree. Their probabilities are</p>
+<p><span class="math display">\[
+p_-={e^{\beta\epsilon/2}\over2\cosh(\beta\epsilon/2)},
+\qquad p_+={e^{-\beta\epsilon/2}\over2\cosh(\beta\epsilon/2)}.
+\]</span></p>
+<p>Consequently <span class="math inline">\(p_-e^{-\beta\epsilon}+p_+e^{\beta\epsilon}=1\)</span>. The mean work is <span class="math inline">\(\epsilon\tanh(\beta\epsilon/2)&gt;0\)</span>, although negative work occurs with probability <span class="math inline">\(p_+\)</span>. The two outcomes, including the rare one, are essential for the equality.</p>
+</div>
+</div>
+</section>
+<section id="work-cumulants-and-dissipation" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="work-cumulants-and-dissipation"><span class="header-section-number">8.3</span> Work cumulants and dissipation</h2>
+<p>The logarithm of the work moment-generating function separates Gaussian and non-Gaussian contributions. If the cumulants <span class="math inline">\(\kappa_r\)</span> exist in the required convergence domain, taking the logarithm of <a href="#eq-fluctuation-jarzynski" class="quarto-xref">Equation&nbsp;<span>8.3</span></a> gives</p>
+<p><span class="math display">\[
+-\beta\Delta F
+=-\beta\kappa_1+\frac{\beta^2}{2}\kappa_2
+-\frac{\beta^3}{6}\kappa_3+\cdots.
+\]</span></p>
+<p>Consequently,</p>
+<p><span class="math display">\[
+\ev W-\Delta F
+=\frac\beta2\operatorname{Var}W
+-\frac{\beta^2}{6}\kappa_3+\cdots.
+\]</span></p>
+<p>The frequently used Gaussian relation between mean dissipated work and its variance is a truncation of this hierarchy. Small drive amplitude can control such a truncation over a specified protocol, but an apparently Gaussian central region of a histogram does not control its rare tails. Those tails are precisely where the exponential average can be most sensitive. For distributions whose moment-generating function is not analytic over the relevant interval, the exact equality should be used directly rather than through a formal cumulant series.</p>
+<p>Crooks’ relation also gives an information-theoretic measure of irreversibility. Multiply the logarithm of <a href="#eq-fluctuation-crooks" class="quarto-xref">Equation&nbsp;<span>8.2</span></a> by <span class="math inline">\(P_F(W)\)</span> and integrate:</p>
+<p><span class="math display">\[
+D\big(P_F(W)\Vert P_R(-W)\big)
+=\beta(\ev W-\Delta F)\ge0.
+\]</span></p>
+<p>Thus dissipated work measures how well the forward work histogram can be distinguished from the reflected reverse histogram. At the level of full trajectories, additional observed variables can retain more information than a work histogram, but under the stated work relation this particular relative entropy has exactly the displayed value. Equality means that the two work distributions coincide almost everywhere. The conclusion concerns the ensemble of outcomes, not a prohibition on any individual negative-dissipation event.</p>
+</section>
+<section id="a-microcanonical-relation-and-the-eigenstate-question" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="a-microcanonical-relation-and-the-eigenstate-question"><span class="header-section-number">8.4</span> A microcanonical relation and the eigenstate question</h2>
+<p>An energy shell <span class="math inline">\(a\)</span> of <span class="math inline">\(H_i\)</span> has projector <span class="math inline">\(\Pi_a^i\)</span> and dimension <span class="math inline">\(g_a^i\)</span>. A shell <span class="math inline">\(b\)</span> of <span class="math inline">\(H_f\)</span> similarly has <span class="math inline">\(\Pi_b^f\)</span> and dimension <span class="math inline">\(g_b^f\)</span>. Uniform preparation within a shell gives</p>
+<p><span class="math display">\[
+K_F(b|a)=\frac1{g_a^i}
+\tr(\Pi_b^fU_F\Pi_a^iU_F^\dagger).
+\]</span></p>
+<p>Cyclicity of the trace and the reversed propagator imply the exact finite-shell identity</p>
+<p><span id="eq-fluctuation-shell"><span class="math display">\[
+g_a^iK_F(b|a)=g_b^fK_R(a|b).
+\tag{8.4}\]</span></span></p>
+<p>For narrow shells of the same width, let <span class="math inline">\(E\)</span> and <span class="math inline">\(E+W\)</span> denote their energies. With <span class="math inline">\(S=\ln(\Omega\delta E)\)</span>, the continuum form is</p>
+<p><span id="eq-fluctuation-microcanonical"><span class="math display">\[
+\frac{P_F(W|E)}{P_R(-W|E+W)}
+=\exp[S_f(E+W)-S_i(E)].
+\tag{8.5}\]</span></span></p>
+<p>This is a density-of-states relation, not a canonical work theorem with a fixed temperature. The exact quantum microcanonical formulation is discussed in <span class="citation" data-cites="talkner2008microcanonical">&nbsp;[<a href="references.html#ref-talkner2008microcanonical" role="doc-biblioref">4</a>]</span>. For a cyclic protocol and work small on the scale over which temperature varies,</p>
+<p><span class="math display">\[
+S(E+W)-S(E)=\beta(E)W
++\frac12\beta'(E)W^2+\cdots,
+\qquad \beta'=-\frac1{T^2C}.
+\]</span></p>
+<p>The curvature term is a finite-heat-capacity correction. Even for macroscopic <span class="math inline">\(E\)</span>, it matters when work fluctuations become comparable to <span class="math inline">\(T\sqrt C\)</span>. One should not claim a fixed-<span class="math inline">\(\beta\)</span> Jarzynski equality for every sharply prepared finite-energy state: the reverse distribution in <a href="#eq-fluctuation-microcanonical" class="quarto-xref">Equation&nbsp;<span>8.5</span></a> starts at the work-dependent energy <span class="math inline">\(E+W\)</span>.</p>
+<p>Can one replace the uniform shell by one eigenstate? Ordinary diagonal ETH controls expectation values of simple observables. A full work histogram involves <span class="math inline">\(U_F^\dagger\Pi_b^fU_F\)</span>, which can be highly nonlocal. Therefore ordinary ETH alone is insufficient for arbitrary protocols. A single-eigenstate extension is justified when the <strong>specific coarse-grained transition kernel</strong> self-averages over nearby eigenstates, as can occur for weak, physically simple driving in a chaotic system. Under that additional assumption the shell identity holds approximately for a representative eigenstate, with errors from finite shell width, finite size, and residual fluctuations. It is a controlled expectation in specified regimes, not an exact theorem for every eigenstate and every unitary.</p>
+</section>
+<section id="why-a-bath-produces-detailed-balance" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="why-a-bath-produces-detailed-balance"><span class="header-section-number">8.5</span> Why a bath produces detailed balance</h2>
+<p>Consider a small system with levels <span class="math inline">\(\epsilon_n\)</span> coupled weakly to a much larger bath. If the small system changes from <span class="math inline">\(m\)</span> to <span class="math inline">\(n\)</span>, the bath loses <span class="math inline">\(\Delta=\epsilon_n-\epsilon_m\)</span>. Pairwise microscopic transition matrix elements are related by reversibility; the number of accessible bath final states supplies the bias:</p>
+<p><span id="eq-fluctuation-detailed-balance"><span class="math display">\[
+\frac{w_{nm}}{w_{mn}}
+\simeq\frac{\Omega_B(E_B-\Delta)}{\Omega_B(E_B)}
+\simeq e^{-\beta_B\Delta}.
+\tag{8.6}\]</span></span></p>
+<p>The second step neglects bath entropy curvature and assumes its temperature is stable. Substitution shows <span class="math inline">\(w_{nm}p_m^{\mathrm{eq}}=w_{mn}p_n^{\mathrm{eq}}\)</span> for <span class="math inline">\(p_n^{\mathrm{eq}}\propto e^{-\beta_B\epsilon_n}\)</span>. This is <strong>detailed balance</strong>, which forbids stationary probability currents on individual links. A Gibbs stationary distribution alone is a weaker condition and does not establish pairwise balance.</p>
+<p>In a quantum weak-coupling derivation, the same factor comes from the bath’s equilibrium correlation spectrum and its KMS relation. The population master equation additionally requires suitable short bath memory and a secular approximation or other control of coherences. Strong coupling can change both the effective equilibrium state and what energy is assigned to the system.</p>
+</section>
+<section id="drift-diffusion-and-a-finite-size-einstein-relation" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="drift-diffusion-and-a-finite-size-einstein-relation"><span class="header-section-number">8.6</span> Drift, diffusion, and a finite-size Einstein relation</h2>
+<p>Suppose many weak drive cycles produce energy increments <span class="math inline">\(\Delta E\)</span> with short memory. Per unit coarse-grained time define</p>
+<p><span class="math display">\[
+A(E)=\lim_{\delta t\to0}\frac{\ev{\Delta E|E}}{\delta t},
+\qquad
+B(E)=\lim_{\delta t\to0}\frac{\ev{(\Delta E)^2|E}}{\delta t}.
+\]</span></p>
+<p>The limit is a coarse-grained diffusion limit, not the microscopic short-time limit of coherent Schrödinger evolution. Higher conditional moments must be negligible at the retained resolution. Expanding the gain and loss terms of an energy jump process to second order gives</p>
+<p><span id="eq-fluctuation-fokker-planck"><span class="math display">\[
+\partial_tP=-\partial_E(AP)+\frac12\partial_E^2(BP)
+=-\partial_EJ,
+\quad J=AP-\frac12\partial_E(BP).
+\tag{8.7}\]</span></span></p>
+<p>Here <span class="math inline">\(P(E)\dd E\)</span> is probability in an energy interval, <strong>not</strong> probability per eigenstate. Doubly stochastic evolution preserves equal probabilities per state, which corresponds to <span class="math inline">\(P_\infty(E)\propto\Omega(E)\)</span>. If energy boundaries carry no probability current, stationarity gives</p>
+<p><span id="eq-fluctuation-einstein"><span class="math display">\[
+0=A\Omega-\frac12\partial_E(B\Omega),
+\qquad
+2A(E)=B(E)\beta(E)+\partial_EB(E).
+\tag{8.8}\]</span></span></p>
+<p>This is an Einstein relation for energy space. It follows within the diffusion approximation from preservation of the density-of-states measure and zero stationary current. Reversibility provides another route through the local jump relation. The derivative term must be retained for small systems or strongly energy-dependent noise. Discarding it is a thermodynamic approximation, often of relative order <span class="math inline">\(1/N\)</span> for smooth extensive systems, rather than an exact identity.</p>
+<p>A bath instead selects <span class="math inline">\(P_{\mathrm{eq}}(E)\propto\Omega(E)e^{-\beta_BE}\)</span>, leading to</p>
+<p><span class="math display">\[
+2A=B(\beta(E)-\beta_B)+B'.
+\]</span></p>
+<p>Thus a colder system, with larger <span class="math inline">\(\beta\)</span>, tends to gain energy. Noise strength and dissipative drift cannot be chosen independently when the specified equilibrium measure must be preserved. The energy diffusion framework and its driven applications are developed in <span class="citation" data-cites="bunin2011universal">&nbsp;[<a href="references.html#ref-bunin2011universal" role="doc-biblioref">5</a>]</span>.</p>
+<p>Integrating <a href="#eq-fluctuation-fokker-planck" class="quarto-xref">Equation&nbsp;<span>8.7</span></a> over the allowed interval gives <span class="math inline">\(\dot{\mathcal P}=J(E_{\min})-J(E_{\max})\)</span>. Reflecting boundaries impose <span class="math inline">\(J=0\)</span> and conserve probability. Absorbing boundaries describe escape and must be accompanied by a loss probability. At an unbounded high-energy end, normalizability and vanishing flux at infinity replace a fictitious finite reflecting wall. Near a ground state, a diffusion expansion can fail because individual level spacings and one-sided jumps matter. Negative temperatures are possible only for appropriate bounded spectra; the same density-of-states derivative can become negative, reversing the drift toward the entropy maximum.</p>
+</section>
+<section id="two-conserved-quantities" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="two-conserved-quantities"><span class="header-section-number">8.7</span> Two conserved quantities</h2>
+<p>Let two weakly coupled systems exchange energy <span class="math inline">\(q\)</span> and particle number <span class="math inline">\(n\)</span>, positive into system 1. Their initial grand-canonical weights are proportional to <span class="math inline">\(e^{-\beta_j(E_j-\mu_jN_j)}\)</span>. Conservation makes the changes of system 2 equal <span class="math inline">\((-q,-n)\)</span>. Dividing the initial weight of a transition by that of its reverse gives</p>
+<p><span id="eq-fluctuation-two-charges"><span class="math display">\[
+\frac{P_F(q,n)}{P_R(-q,-n)}
+=e^{a_Eq+a_Nn},
+\quad a_E=\beta_1-\beta_2,
+\quad a_N=-\beta_1\mu_1+\beta_2\mu_2.
+\tag{8.9}\]</span></span></p>
+<p>This assumes negligible coupling-energy corrections at measurement times and the appropriate reversed controls. Energy and particle transfer must be retained jointly: marginalizing over particles generally destroys a simple energy-only exponential ratio when <span class="math inline">\(a_N\ne0\)</span>.</p>
+<p>For several continuous conserved coordinates <span class="math inline">\(x_i\)</span>, define <span class="math inline">\(B_{ij}=\ev{\Delta x_i\Delta x_j}/\delta t\)</span>. A zero-current equilibrium diffusion has</p>
+<p><span class="math display">\[
+2A_i=\sum_j\left[B_{ij}\partial_{x_j}S+\partial_{x_j}B_{ij}\right].
+\]</span></p>
+<p>A nonzero stationary divergence-free current would require a separate analysis; stationarity alone in multiple dimensions does not force every current component to vanish. Off-diagonal diffusion encodes correlations such as particles carrying energy and is the starting point for thermoelectric response.</p>
+</section>
+<section id="exercises-and-solutions" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="exercises-and-solutions"><span class="header-section-number">8.8</span> Exercises and solutions</h2>
+<p><strong>Exercise 1.</strong> If cyclic work is Gaussian with mean <span class="math inline">\(a\)</span> and variance <span class="math inline">\(b\)</span>, what does canonical Jarzynski imply?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The Gaussian moment-generating function gives <span class="math inline">\(\ev{e^{-\beta W}}=e^{-\beta a+\beta^2b/2}\)</span>. For <span class="math inline">\(\Delta F=0\)</span>, this equals one, so <span class="math inline">\(2a=\beta b\)</span>. Non-Gaussian cumulants correct this formula; it is not the complete finite-size energy-diffusion relation when the noise depends on initial energy.</p>
+</div>
+</div>
+</div>
+<p><strong>Exercise 2.</strong> For <span class="math inline">\(\Omega(E)\propto E^{\alpha-1}\)</span> and <span class="math inline">\(B(E)=bE\)</span>, find the isolated drift.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here <span class="math inline">\(\beta=(\alpha-1)/E\)</span> and <span class="math inline">\(B'=b\)</span>. Equation <a href="#eq-fluctuation-einstein" class="quarto-xref">Equation&nbsp;<span>8.8</span></a> gives <span class="math inline">\(A=b\alpha/2\)</span>. Omitting <span class="math inline">\(B'\)</span> would incorrectly replace <span class="math inline">\(\alpha\)</span> by <span class="math inline">\(\alpha-1\)</span> and can even predict zero heating for a constant density of states.</p>
+</div>
+</div>
+</div>
+<p><strong>Exercise 3.</strong> Two systems have equal temperatures but different chemical potentials. Can their energy transfers have an unbiased distribution?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Equal temperatures set <span class="math inline">\(a_E=0\)</span>, but <span class="math inline">\(a_N=\beta(\mu_2-\mu_1)\)</span> remains. The joint distribution is biased in particle transfer, and particle-energy correlations can bias the energy marginal. Equal temperatures alone do not remove chemical work.</p>
+</div>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-crooks1999entropy" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">G. E. Crooks, <a href="https://doi.org/10.1103/PhysRevE.60.2721">Entropy production fluctuation theorem and the nonequilibrium work relation for free energy differences</a>, Physical Review E <strong>60</strong>, 2721 (1999).</div>
+</div>
+<div id="ref-tasaki2000jarzynski" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">H. Tasaki, <a href="https://doi.org/10.48550/arXiv.cond-mat/0009244">Jarzynski relations for quantum systems and some applications</a>, (2000).</div>
+</div>
+<div id="ref-jarzynski1997nonequilibrium" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">C. Jarzynski, <a href="https://doi.org/10.1103/PhysRevLett.78.2690">Nonequilibrium equality for free energy differences</a>, Physical Review Letters <strong>78</strong>, 2690 (1997).</div>
+</div>
+<div id="ref-talkner2008microcanonical" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">P. Talkner, P. Hänggi, and M. Morillo, <a href="https://doi.org/10.1103/PhysRevE.77.051131">Microcanonical quantum fluctuation theorems</a>, Physical Review E <strong>77</strong>, 051131 (2008).</div>
+</div>
+<div id="ref-bunin2011universal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">G. Bunin, L. D’Alessio, Y. Kafri, and A. Polkovnikov, <a href="https://doi.org/10.1038/nphys2057">Universal energy fluctuations in thermally isolated driven systems</a>, Nature Physics <strong>7</strong>, 913 (2011).</div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/xing-phys\.github\.io\/quantum-chaos-to-thermodynamics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./07-entropy.html" class="pagination-link" aria-label="Entropy, work, and thermodynamic structure">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Entropy, work, and thermodynamic structure</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./09-response.html" class="pagination-link" aria-label="Response, fluctuations, and reciprocity">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Response, fluctuations, and reciprocity</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>An independent, open course companion · v0.1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/edit/main/08-fluctuation-theorems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/blob/main/08-fluctuation-theorems.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with Quarto · CC BY 4.0</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>13&nbsp; Mathematical tools and two revealing examples – Quantum Chaos to Thermodynamics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./14-numerical-lab.html" rel="next">
+<link href="./12-prethermalization.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3edcf9c1eb3d8aa20d6f8598a6a633bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-85efcaa1d9ca1228538a34edc3b23cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3edcf9c1eb3d8aa20d6f8598a6a633bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+window.MathJax = {
+  tex: {
+    tags: "ams",
+    macros: {
+      ket: ["\\lvert #1 \\rangle", 1],
+      bra: ["\\langle #1 \\rvert", 1],
+      braket: ["\\langle #1 \\vert #2 \\rangle", 2],
+      ev: ["\\langle #1 \\rangle", 1],
+      norm: ["\\lVert #1 \\rVert", 1],
+      abs: ["\\lvert #1 \\rvert", 1],
+      tr: ["\\operatorname{Tr}", 0],
+      erf: ["\\operatorname{erf}", 0],
+      Re: ["\\operatorname{Re}", 0],
+      Im: ["\\operatorname{Im}", 0],
+      dd: ["\\mathrm{d}", 0],
+      cL: ["\\mathcal{L}", 0],
+      cD: ["\\mathcal{D}", 0],
+      cH: ["\\mathcal{H}", 0],
+      cT: ["\\mathcal{T}", 0],
+      cV: ["\\mathcal{V}", 0],
+      cU: ["\\mathcal{U}", 0],
+      cS: ["\\mathcal{S}", 0],
+      cA: ["\\mathcal{A}", 0],
+      cB: ["\\mathcal{B}", 0],
+      cI: ["\\mathcal{I}", 0],
+      cO: ["\\mathcal{O}", 0]
+    }
+  },
+  options: {
+    renderActions: {
+      addMenu: []
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-mathematical-appendices.html">Work through it</a></li><li class="breadcrumb-item"><a href="./13-mathematical-appendices.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mathematical tools and two revealing examples</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Quantum Chaos to Thermodynamics</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./quantum-chaos-to-thermodynamics.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">From dynamics to thermal states</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-foundations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">States, observables, and equilibrium ensembles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-classical-chaos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Classical mechanics: regular motion, ergodicity, and chaos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-random-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random matrices and the fingerprints of quantum chaos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-many-body-chaos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Physical many-body Hamiltonians and eigenstate structure</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-eth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Eigenstate thermalization and quantum equilibration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-quenches.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantum quenches and numerical tests of thermalization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Thermodynamics from microscopic dynamics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-entropy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Entropy, work, and thermodynamic structure</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-fluctuation-theorems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fluctuation theorems and energy diffusion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Response, fluctuations, and reciprocity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-driven-systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Driven systems and finite reservoirs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Constraints and long-lived memory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-integrability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Integrability and constrained equilibrium</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-prethermalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Prethermalization and kinetic relaxation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Work through it</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-mathematical-appendices.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mathematical tools and two revealing examples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-numerical-lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A reproducible numerical laboratory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./coverage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Guide to the review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-app-rotor" id="toc-sec-app-rotor" class="nav-link active" data-scroll-target="#sec-app-rotor"><span class="header-section-number">13.1</span> The kicked rotor: from a map to localization</a>
+  <ul class="collapse">
+  <li><a href="#classical-stroboscopic-dynamics" id="toc-classical-stroboscopic-dynamics" class="nav-link" data-scroll-target="#classical-stroboscopic-dynamics"><span class="header-section-number">13.1.1</span> Classical stroboscopic dynamics</a></li>
+  <li><a href="#floquet-evolution" id="toc-floquet-evolution" class="nav-link" data-scroll-target="#floquet-evolution"><span class="header-section-number">13.1.2</span> Floquet evolution</a></li>
+  </ul></li>
+  <li><a href="#sec-app-zeta" id="toc-sec-app-zeta" class="nav-link" data-scroll-target="#sec-app-zeta"><span class="header-section-number">13.2</span> Zeta zeros: unfolding, evidence, and conjecture</a>
+  <ul class="collapse">
+  <li><a href="#prime-modes-and-complex-temperature-zeros" id="toc-prime-modes-and-complex-temperature-zeros" class="nav-link" data-scroll-target="#prime-modes-and-complex-temperature-zeros"><span class="header-section-number">13.2.1</span> Prime modes and complex-temperature zeros</a></li>
+  </ul></li>
+  <li><a href="#sec-app-contraction" id="toc-sec-app-contraction" class="nav-link" data-scroll-target="#sec-app-contraction"><span class="header-section-number">13.3</span> When the uniform state is an attractor</a></li>
+  <li><a href="#sec-app-birkhoff" id="toc-sec-app-birkhoff" class="nav-link" data-scroll-target="#sec-app-birkhoff"><span class="header-section-number">13.4</span> A constructive proof of Birkhoff’s theorem</a></li>
+  <li><a href="#sec-app-passivity" id="toc-sec-app-passivity" class="nav-link" data-scroll-target="#sec-app-passivity"><span class="header-section-number">13.5</span> A rigorous passive-work inequality</a></li>
+  <li><a href="#sec-app-drift-diffusion" id="toc-sec-app-drift-diffusion" class="nav-link" data-scroll-target="#sec-app-drift-diffusion"><span class="header-section-number">13.6</span> Deriving the energy drift–diffusion relation</a></li>
+  <li><a href="#sec-app-onsager" id="toc-sec-app-onsager" class="nav-link" data-scroll-target="#sec-app-onsager"><span class="header-section-number">13.7</span> Deriving Onsager reciprocity</a></li>
+  <li><a href="#exercises-and-worked-answers" id="toc-exercises-and-worked-answers" class="nav-link" data-scroll-target="#exercises-and-worked-answers"><span class="header-section-number">13.8</span> Exercises and worked answers</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/edit/main/13-mathematical-appendices.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/blob/main/13-mathematical-appendices.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-mathematical-appendices.html">Work through it</a></li><li class="breadcrumb-item"><a href="./13-mathematical-appendices.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mathematical tools and two revealing examples</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-mathematical-appendices" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mathematical tools and two revealing examples</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This chapter collects the seven auxiliary topics behind the book’s main argument. The kicked rotor illustrates the distinction between classical diffusion and quantum interference. Zeta zeros illustrate spectral universality and the limits of numerical evidence. The remaining sections provide proofs and continuum derivations that can be reused independently. A probability vector is a column vector throughout; a doubly stochastic matrix has both row sums and column sums equal to one.</p>
+<section id="sec-app-rotor" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-app-rotor"><span class="header-section-number">13.1</span> The kicked rotor: from a map to localization</h2>
+<section id="classical-stroboscopic-dynamics" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="classical-stroboscopic-dynamics"><span class="header-section-number">13.1.1</span> Classical stroboscopic dynamics</h3>
+<p>Choose dimensionless time with one kick per unit interval and Hamiltonian</p>
+<p><span class="math display">\[
+H(\theta,P,t)=\frac{P^2}{2}+K\cos\theta\sum_{n\in\mathbb Z}\delta(t-n),
+\qquad \theta\equiv\theta+2\pi.
+\]</span></p>
+<p>Let <span class="math inline">\((\theta_n,P_n)\)</span> denote the state just before kick <span class="math inline">\(n\)</span>. Integrating Hamilton’s equation through the impulse and then through free rotation gives the <em>standard map</em>:</p>
+<p><span id="eq-app-standard-map"><span class="math display">\[
+P_{n+1}=P_n+K\sin\theta_n,\qquad
+\theta_{n+1}=\theta_n+P_{n+1}\pmod{2\pi}.
+\tag{13.1}\]</span></span></p>
+<p>Its tangent matrix in the order <span class="math inline">\((\theta,P)\)</span> is <span class="math inline">\(\left(\begin{smallmatrix}1+K\cos\theta&amp;1\\K\cos\theta&amp;1\end{smallmatrix}\right)\)</span>, with determinant one. Thus phase-space area is preserved even when nearby trajectories separate exponentially. For small kicks many invariant curves survive; for stronger kicks large chaotic regions appear, with regular islands often remaining.</p>
+<p>The fixed points at <span class="math inline">\(P=0\)</span> are <span class="math inline">\(\theta=0\)</span> and <span class="math inline">\(\theta=\pi\)</span>. Their tangent eigenvalues obey</p>
+<p><span class="math display">\[
+\lambda^2-(2+K\cos\theta_*)\lambda+1=0.
+\]</span></p>
+<p>For our positive-cosine kick convention, <span class="math inline">\(\theta_*=\pi\)</span> is the potential minimum. Its trace is <span class="math inline">\(2-K\)</span>, so for <span class="math inline">\(0&lt;K&lt;4\)</span> the eigenvalues are a complex-conjugate pair of modulus one: the fixed point is elliptic at linear order. At <span class="math inline">\(K&gt;4\)</span> they become real reciprocal eigenvalues, one with modulus larger than one, giving a hyperbolic instability. At <span class="math inline">\(\theta_*=0\)</span>, the trace is <span class="math inline">\(2+K&gt;2\)</span>, so that point is hyperbolic for every <span class="math inline">\(K&gt;0\)</span>. The endpoints <span class="math inline">\(K=0,4\)</span> are marginal and need nonlinear analysis. Near the elliptic point, writing <span class="math inline">\(\theta=\pi+q\)</span> gives <span class="math inline">\(q_{n+1}-2q_n+q_{n-1}\simeq-Kq_n\)</span>; for <span class="math inline">\(K\ll1\)</span> this approaches a pendulum’s small-oscillation equation. Hyperbolicity of a fixed point is local information: it does not prove that the entire map is chaotic or determine the threshold for unrestricted momentum transport.</p>
+<p>If successive angles were independent and uniform, each momentum increment would have mean zero and variance <span class="math inline">\(K^2/2\)</span>. Then <span class="math inline">\(\ev{(P_n-P_0)^2}\simeq D_Pn\)</span>, with <span class="math inline">\(D_P\simeq K^2/2\)</span>. This random-phase estimate is useful in a strongly chaotic regime. Correlations between kicks, trapping near islands, and accelerator modes can change the diffusion coefficient or even the diffusion law. Classical chaos alone does not justify treating every kick as independent noise.</p>
+</section>
+<section id="floquet-evolution" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="floquet-evolution"><span class="header-section-number">13.1.2</span> Floquet evolution</h3>
+<p>Quantization gives momentum states <span class="math inline">\(\ket m\)</span> with <span class="math inline">\(P\ket m=\hbar_{\mathrm{eff}}m\ket m\)</span>, <span class="math inline">\(m\in\mathbb Z\)</span>. Wavefunctions are periodic in <span class="math inline">\(\theta\)</span>; equivalently, <span class="math inline">\([\theta,P]=i\hbar_{\mathrm{eff}}\)</span> holds in the usual local angular-coordinate sense. Evolution from just before one kick to just before the next is</p>
+<p><span id="eq-app-rotor-floquet"><span class="math display">\[
+U_F=\exp\left(-\frac{iP^2}{2\hbar_{\mathrm{eff}}}\right)
+\exp\left(-\frac{iK\cos\theta}{\hbar_{\mathrm{eff}}}\right).
+\tag{13.2}\]</span></span></p>
+<p>Using the Fourier expansion <span class="math inline">\(e^{-iz\cos\theta}=\sum_l(-i)^lJ_l(z)e^{il\theta}\)</span> gives</p>
+<p><span class="math display">\[
+\bra{m}U_F\ket{n}
+=e^{-i\hbar_{\mathrm{eff}}m^2/2}
+(-i)^{m-n}J_{m-n}(K/\hbar_{\mathrm{eff}}).
+\]</span></p>
+<p>A numerical simulation can alternate a diagonal kick in angle representation with a diagonal free phase in momentum representation, using Fourier transforms. A momentum cutoff must be large enough that the spreading wavepacket never reaches its artificial boundary.</p>
+<p>For generic nonresonant parameters in a classically diffusive regime, interference can stop the quantum momentum spreading. Floquet eigenstates become localized in momentum, with envelopes schematically <span class="math inline">\(\abs{\psi_m}^2\sim e^{-2|m-m_0|/\ell}\)</span>. The relation between the rotor eigenvalue problem and a one-dimensional Anderson-type lattice problem explains this <em>dynamical localization</em> <span class="citation" data-cites="Fishman1982Rotor">&nbsp;[<a href="references.html#ref-Fishman1982Rotor" role="doc-biblioref">1</a>]</span>. The phase sequence is deterministic, so one must not silently replace every parameter choice by independent random disorder.</p>
+<p>A useful scaling estimate compares classical spreading in mode number, <span class="math inline">\(\ev{(\Delta m)^2}\sim(D_P/\hbar_{\mathrm{eff}}^2)n\)</span>, with a break time of order the number <span class="math inline">\(\ell\)</span> of appreciably occupied Floquet components. Setting <span class="math inline">\(\ell^2\sim(D_P/\hbar_{\mathrm{eff}}^2)\ell\)</span> gives <span class="math inline">\(\ell\sim D_P/\hbar_{\mathrm{eff}}^2\)</span> and <span class="math inline">\(n_{\mathrm{break}}\sim\ell\)</span>, up to convention-dependent numerical factors. This is a scaling argument, not an exact formula across all <span class="math inline">\(K\)</span>.</p>
+<p>Resonances are an essential exception. When <span class="math inline">\(\hbar_{\mathrm{eff}}/(4\pi)\)</span> is rational, the free phases are periodic in momentum and resonance or antiresonance may replace localization. For <span class="math inline">\(\hbar_{\mathrm{eff}}=4\pi\)</span>, the free operator is the identity. Starting from <span class="math inline">\(m=0\)</span>, after <span class="math inline">\(n\)</span> kicks the angle wavefunction is proportional to <span class="math inline">\(e^{-inK\cos\theta/\hbar_{\mathrm{eff}}}\)</span>, so <span class="math inline">\(\ev{P^2}=K^2n^2/2\)</span>: ballistic growth. At <span class="math inline">\(\hbar_{\mathrm{eff}}=2\pi\)</span>, the free evolution translates the angle by <span class="math inline">\(\pi\)</span>, successive cosine kicks cancel, and <span class="math inline">\(U_F^2=1\)</span>. For a kicked particle rather than a rotor, conserved quasimomentum introduces another resonance condition. Weak noise or decoherence can also destroy interference and restore long-time diffusion.</p>
+</section>
+</section>
+<section id="sec-app-zeta" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="sec-app-zeta"><span class="header-section-number">13.2</span> Zeta zeros: unfolding, evidence, and conjecture</h2>
+<p>For <span class="math inline">\(\Re s&gt;1\)</span>, the Riemann zeta function is <span class="math inline">\(\zeta(s)=\sum_{n\geq1}n^{-s}\)</span>. Analytic continuation defines it elsewhere, apart from its pole at <span class="math inline">\(s=1\)</span>. Its nontrivial zeros lie in the critical strip <span class="math inline">\(0&lt;\Re s&lt;1\)</span>. The Riemann hypothesis asserts that all lie on <span class="math inline">\(\Re s=1/2\)</span>. It is separate from statements about spacing correlations.</p>
+<p>Write zeros on the critical line as <span class="math inline">\(1/2+i\gamma_n\)</span> with positive increasing <span class="math inline">\(\gamma_n\)</span>. In a range in which all zeros are known to lie on that line, or conditionally on the Riemann hypothesis, a smooth counting function is</p>
+<p><span class="math display">\[
+\overline N(T)=\frac{T}{2\pi}\ln\frac{T}{2\pi}
+-\frac{T}{2\pi}+\frac78.
+\]</span></p>
+<p>The local density changes slowly with height: <span class="math inline">\(\overline N'(T)=(2\pi)^{-1}\ln(T/2\pi)\)</span>. Raw spacings at different heights are therefore incomparable. Define unfolded positions <span class="math inline">\(x_n=\overline N(\gamma_n)\)</span> and spacings <span class="math inline">\(s_n=x_{n+1}-x_n\)</span>. Their local mean approaches one. In a narrow window near <span class="math inline">\(T\)</span>, the equivalent approximation is <span class="math inline">\(s_n\simeq(\gamma_{n+1}-\gamma_n)\ln(T/2\pi)/(2\pi)\)</span>.</p>
+<p>The conjectured distinct-pair correlation is the bulk GUE expression</p>
+<p><span id="eq-app-zeta-pair"><span class="math display">\[
+R_2(s)=1-\left(\frac{\sin\pi s}{\pi s}\right)^2.
+\tag{13.3}\]</span></span></p>
+<p>The self-pair delta function at <span class="math inline">\(s=0\)</span> is excluded from this convention. Expanding the sine shows <span class="math inline">\(R_2(s)\sim\pi^2s^2/3\)</span> near zero, a form of quadratic repulsion. Pair correlation is not the same statistic as the nearest-neighbor distribution, although both can be compared with random matrices.</p>
+<p>Montgomery obtained conditional results for a restricted Fourier range and proposed the fuller pair-correlation statement <span class="citation" data-cites="Montgomery1973Pair">&nbsp;[<a href="references.html#ref-Montgomery1973Pair" role="doc-biblioref">2</a>]</span>. Odlyzko’s high-precision computations found detailed numerical agreement with random-matrix predictions <span class="citation" data-cites="Odlyzko1987Zeros">&nbsp;[<a href="references.html#ref-Odlyzko1987Zeros" role="doc-biblioref">3</a>]</span>. This is strong numerical evidence for spectral universality. It is neither a proof of the full correlation conjecture nor a proof of the Riemann hypothesis.</p>
+<p>The Hilbert–Pólya idea asks whether a suitable self-adjoint operator could encode the zeros as spectral data, so that its real eigenvalues would force their real parts to be <span class="math inline">\(1/2\)</span>. A successful proof needs a rigorously established correspondence with all relevant zeros; merely constructing an operator with selected imaginary parts as eigenvalues achieves nothing by itself. No such operator or proof is supplied by matching a spacing histogram. The physics lesson is methodological: a universal statistic can reveal structure without identifying its microscopic mechanism.</p>
+<section id="prime-modes-and-complex-temperature-zeros" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="prime-modes-and-complex-temperature-zeros"><span class="header-section-number">13.2.1</span> Prime modes and complex-temperature zeros</h3>
+<p>Unique prime factorization supplies another connection to statistical mechanics. For <span class="math inline">\(\Re s&gt;1\)</span>, absolute convergence permits expanding</p>
+<p><span class="math display">\[
+\prod_{p\ \mathrm{prime}}(1-p^{-s})^{-1}
+=\prod_p\sum_{n_p\geq0}p^{-sn_p}
+=\sum_{n\geq1}n^{-s}=\zeta(s).
+\]</span></p>
+<p>Each choice of nonnegative integers <span class="math inline">\(n_p\)</span> corresponds to exactly one integer <span class="math inline">\(n=\prod_pp^{n_p}\)</span>. Introduce independent bosonic modes with normal-ordered energies <span class="math inline">\(H=E_*\sum_p(\ln p)N_p\)</span>, where <span class="math inline">\(E_*&gt;0\)</span> sets the energy unit and the vacuum energy is zero. A Fock state then has energy <span class="math inline">\(E_n=E_*\ln n\)</span>, with one state per positive integer. Its partition function is</p>
+<p><span class="math display">\[
+Z(\beta)=\prod_p\frac1{1-e^{-\beta E_*\ln p}}
+=\zeta(\beta E_*),\qquad \Re(\beta E_*)&gt;1.
+\]</span></p>
+<p>The convergence restriction is physical: at high enough temperature the increasing number of accessible logarithmic-energy levels makes the trace diverge. Analytically continuing <span class="math inline">\(\zeta\)</span> beyond this domain does not make that divergent trace a thermal state. In particular, the critical-line zeros are outside the domain of this literal infinite-mode Gibbs ensemble. This distinction prevents the partition-function analogy from becoming a purported physical proof about the zeros.</p>
+<p>For any Hamiltonian with a convergent Gibbs trace, its energy probability distribution has characteristic function</p>
+<p><span class="math display">\[
+\chi_\beta(u)=\ev{e^{iuH}}_\beta
+=\frac{Z(\beta-iu)}{Z(\beta)}.
+\]</span></p>
+<p>Here <span class="math inline">\(u\)</span> has units of inverse energy. Thus zeros of the characteristic function are complex-temperature zeros of the partition function on the corresponding vertical line. Zeros in complex inverse temperature are called Fisher zeros. A finite-level cutoff makes <span class="math inline">\(Z\)</span> a finite sum, so its complex zeros are unambiguous; interpreting their accumulation as a thermodynamic singularity requires a specified limit. Neither analytic continuation nor removal of a cutoff can be interchanged with that limit without justification. For the untruncated prime-mode model, the Euler product has no zeros in its convergent half-plane, so its physical characteristic function does not sample the critical-line zeros.</p>
+<p>A related Loschmidt amplitude is obtained by purifying the Gibbs state: <span class="math inline">\(\ket{\Psi_\beta}=\sum_n\sqrt{p_n}\ket n\ket n\)</span>. Evolving only one copy gives overlap <span class="math inline">\(Z(\beta+it/\hbar)/Z(\beta)\)</span>. This establishes a precise relation to return amplitudes for that preparation, not for an arbitrary quench. Proposed broader links between complex-zero patterns and ergodicity remain conjectural. The prime-mode Hamiltonian itself has conserved occupation numbers; a partition-function identity alone does not establish chaotic dynamics.</p>
+</section>
+</section>
+<section id="sec-app-contraction" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="sec-app-contraction"><span class="header-section-number">13.3</span> When the uniform state is an attractor</h2>
+<p>Let <span class="math inline">\(D\)</span> be a <span class="math inline">\(d\times d\)</span> doubly stochastic matrix and <span class="math inline">\(u_i=1/d\)</span>. Since its rows sum to one, <span class="math inline">\(Du=u\)</span>. Its columns summing to one ensure normalization of <span class="math inline">\(Dp\)</span>. These facts establish a stationary uniform state, but they do not establish attraction. The identity matrix preserves every distribution, and a cyclic permutation rotates distributions forever.</p>
+<p>A sufficient condition is <em>primitivity</em>: for some integer <span class="math inline">\(m\)</span>, every entry of <span class="math inline">\(D^m\)</span> is positive. Set <span class="math inline">\(a=\min_{ij}(D^m)_{ij}&gt;0\)</span> and <span class="math inline">\(\delta=da\leq1\)</span>. If <span class="math inline">\(\delta&lt;1\)</span>, write</p>
+<p><span class="math display">\[
+D^m=\delta J+(1-\delta)R,\qquad J_{ij}=1/d,
+\]</span></p>
+<p>where <span class="math inline">\(R\)</span> is again doubly stochastic and nonnegative. If <span class="math inline">\(\delta=1\)</span>, <span class="math inline">\(D^m=J\)</span> and mixing is already exact. For any vector <span class="math inline">\(x\)</span>, column stochasticity and the triangle inequality give</p>
+<p><span class="math display">\[
+\norm{Rx}_1\leq\sum_{ij}R_{ij}|x_j|=\norm{x}_1.
+\]</span></p>
+<p>Because <span class="math inline">\(J(p-u)=0\)</span>,</p>
+<p><span id="eq-app-stochastic-contraction"><span class="math display">\[
+\norm{D^{mn}p-u}_1\leq(1-\delta)^n\norm{p-u}_1.
+\tag{13.4}\]</span></span></p>
+<p>Intermediate applications of <span class="math inline">\(D\)</span> cannot increase this norm, so <span class="math inline">\(D^np\to u\)</span>. The bound is constructive, although often far from optimal. Spectrally, primitivity means that the eigenvalue one is simple and all other eigenvalues have modulus smaller than one. For a finite Markov chain it is equivalent to irreducibility plus aperiodicity. Reducible dynamics can retain independent conserved sectors, and a uniform state over the whole Hilbert space is then the wrong target. Time-dependent products require their own mixing conditions; primitivity of an unrelated average matrix is insufficient.</p>
+</section>
+<section id="sec-app-birkhoff" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="sec-app-birkhoff"><span class="header-section-number">13.4</span> A constructive proof of Birkhoff’s theorem</h2>
+<p><strong>The theorem.</strong> Every finite doubly stochastic matrix is a convex combination of permutation matrices: <span class="math inline">\(D=\sum_a w_aP_a\)</span>, <span class="math inline">\(w_a\geq0\)</span>, <span class="math inline">\(\sum_aw_a=1\)</span>.</p>
+<p>First regard the nonzero entries of <span class="math inline">\(D\)</span> as edges of a bipartite graph connecting rows to columns. For a subset <span class="math inline">\(S\)</span> of rows, let <span class="math inline">\(N(S)\)</span> be the columns connected to them. Their total row weight is <span class="math inline">\(|S|\)</span>, and it all lies in <span class="math inline">\(N(S)\)</span>. The total weight in those columns is <span class="math inline">\(|N(S)|\)</span>, so <span class="math inline">\(|N(S)|\geq|S|\)</span>.</p>
+<p>This condition guarantees a matching covering all rows. To see why, start with a matching of maximal size. If a row is unmatched, follow alternating paths: an unused edge from a row to a column, then the matching edge back to a row. If an unmatched column is reached, reversing the path increases the matching, contradicting maximality. Otherwise every reached column is matched to a reached row, while the initial unmatched row supplies one additional reached row. The reached rows then outnumber their neighboring columns, contradicting the condition above. Hence a perfect matching exists.</p>
+<p>Choose its permutation matrix <span class="math inline">\(P\)</span> and put <span class="math inline">\(w=\min_iD_{i,P(i)}&gt;0\)</span>. Then <span class="math inline">\(D-wP\)</span> is nonnegative with row and column sums <span class="math inline">\(1-w\)</span>. If <span class="math inline">\(w=1\)</span> we are done. Otherwise</p>
+<p><span class="math display">\[
+D=wP+(1-w)D_1,\qquad D_1=\frac{D-wP}{1-w}
+\]</span></p>
+<p>and <span class="math inline">\(D_1\)</span> is doubly stochastic. At least one previously positive entry has become zero, and no zero has become positive. Repeating the procedure must terminate after finitely many steps. Expanding the nested decompositions gives the desired positive weights, which sum to one.</p>
+<p>For example, <span class="math inline">\(\left(\begin{smallmatrix}0.6&amp;0.4\\0.4&amp;0.6\end{smallmatrix}\right)=0.6I+0.4\left(\begin{smallmatrix}0&amp;1\\1&amp;0\end{smallmatrix}\right)\)</span>. This is an algebraic representation of population mixing. It does not assert that a particular unitary evolution physically tosses a classical coin between permutations. Quantum transition probabilities <span class="math inline">\(D_{ij}=|U_{ij}|^2\)</span> form a subset of doubly stochastic matrices, and Birkhoff’s theorem applies to that subset as well.</p>
+</section>
+<section id="sec-app-passivity" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="sec-app-passivity"><span class="header-section-number">13.5</span> A rigorous passive-work inequality</h2>
+<p>Consider a cyclic process: the final Hamiltonian equals the initial one. Order its energies as <span class="math inline">\(E_1\leq\cdots\leq E_d\)</span> and let the initial state be diagonal with <span class="math inline">\(p_1\geq\cdots\geq p_d\)</span>. Such a state is <em>passive</em>. A unitary process gives final energy populations <span class="math inline">\(q=Dp\)</span>, where <span class="math inline">\(D_{ij}=|U_{ij}|^2\)</span> is doubly stochastic. We prove</p>
+<p><span id="eq-app-passive-work"><span class="math display">\[
+\ev W=\sum_iE_i(q_i-p_i)\geq0.
+\tag{13.5}\]</span></span></p>
+<p>For each <span class="math inline">\(k&lt;d\)</span>, define <span class="math inline">\(r_j=\sum_{i\leq k}D_{ij}\)</span>. Then <span class="math inline">\(0\leq r_j\leq1\)</span> and <span class="math inline">\(\sum_jr_j=k\)</span>. Since the <span class="math inline">\(p_j\)</span> decrease with <span class="math inline">\(j\)</span>, the largest possible value of <span class="math inline">\(\sum_jr_jp_j\)</span> is obtained by giving weight one to the first <span class="math inline">\(k\)</span> entries. This can also be seen by repeatedly moving available weight from a larger index to a smaller one, which never lowers the sum. Therefore</p>
+<p><span class="math display">\[
+\sum_{i\leq k}q_i=\sum_jr_jp_j\leq\sum_{i\leq k}p_i.
+\]</span></p>
+<p>Set <span class="math inline">\(R_k=\sum_{i\leq k}(q_i-p_i)\leq0\)</span>, with <span class="math inline">\(R_0=R_d=0\)</span>. Discrete summation by parts yields</p>
+<p><span class="math display">\[
+\ev W=\sum_iE_i(R_i-R_{i-1})
+=\sum_{k=1}^{d-1}(E_k-E_{k+1})R_k\geq0.
+\]</span></p>
+<p>Each factor in each product is nonpositive. No chaos assumption, large-system limit, or canonical ensemble was used. The proof works for every doubly stochastic population map. Degenerate energies cause no problem because the corresponding energy gaps vanish.</p>
+<p>A Gibbs distribution with <span class="math inline">\(\beta\geq0\)</span> is passive because its populations decrease with energy. Conversely, a population inversion <span class="math inline">\(p_j&gt;p_i\)</span> for <span class="math inline">\(E_j&gt;E_i\)</span> permits work extraction by swapping levels: the change is <span class="math inline">\((E_j-E_i)(p_i-p_j)&lt;0\)</span>. Coherences also matter: a general passive state must commute with <span class="math inline">\(H\)</span>, since an appropriate unitary can otherwise lower its energy. With degeneracies one can diagonalize within each energy subspace.</p>
+<p>Passivity for one copy is weaker than <em>complete passivity</em>, which requires that no number of copies allow work extraction by a joint cycle. The latter singles out equilibrium Gibbs states and ground-state cases under the appropriate hypotheses <span class="citation" data-cites="Lenard1978Passivity Pusz1978Passivity">&nbsp;[<a href="references.html#ref-Lenard1978Passivity" role="doc-biblioref">4</a>,<a href="references.html#ref-Pusz1978Passivity" role="doc-biblioref">5</a>]</span>. For a noncyclic protocol with different initial and final spectra, <a href="#eq-app-passive-work" class="quarto-xref">Equation&nbsp;<span>13.5</span></a> is not the relevant comparison without additional terms.</p>
+</section>
+<section id="sec-app-drift-diffusion" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="sec-app-drift-diffusion"><span class="header-section-number">13.6</span> Deriving the energy drift–diffusion relation</h2>
+<p>Let <span class="math inline">\(P(E,t)\)</span> be a density per unit energy and <span class="math inline">\(w(E,\omega)\dd\omega\)</span> the rate for a jump from <span class="math inline">\(E\)</span> to <span class="math inline">\(E+\omega\)</span>. The gain–loss equation is</p>
+<p><span class="math display">\[
+\partial_tP(E)=\int\dd\omega\,
+\left[w(E-\omega,\omega)P(E-\omega)-w(E,\omega)P(E)\right].
+\]</span></p>
+<p>If jumps are small compared with the scale on which the distribution and rates vary, Taylor expansion of the gain term produces the first two Kramers–Moyal terms:</p>
+<p><span id="eq-app-fokker-planck"><span class="math display">\[
+\partial_tP=-\partial_E(AP)+\frac12\partial_E^2(BP),\qquad
+A(E)=\int\dd\omega\,\omega w(E,\omega),\quad
+B(E)=\int\dd\omega\,\omega^2w(E,\omega).
+\tag{13.6}\]</span></span></p>
+<p><span class="math inline">\(A\)</span> has units energy/time and <span class="math inline">\(B\)</span> has units energy squared/time. On an infinitesimal interval they are the mean energy increment and its variance divided by elapsed time; the distinction between the second raw moment and variance is higher order in that interval. Neglecting third and higher jump moments needs a controlled small-jump regime, rather than an assumption that every finite-time work distribution is Gaussian.</p>
+<p>Write the probability current as <span class="math inline">\(j=AP-\tfrac12\partial_E(BP)\)</span>. For energy-space evolution induced by a unital or doubly stochastic microscopic process at fixed Hamiltonian, the state uniform over individual levels is stationary. Its coarse-grained energy density is proportional to the density of levels <span class="math inline">\(\Omega(E)\)</span>, which is generally not constant. For a bounded spectrum with reflecting endpoints, the stationary current vanishes. Substituting <span class="math inline">\(P_{\infty}\propto\Omega\)</span> gives</p>
+<p><span id="eq-app-einstein-energy"><span class="math display">\[
+2A=B\,\partial_E\ln\Omega+\partial_EB
+=\beta(E)B+\partial_EB,
+\qquad \beta(E)=\partial_ES(E),\quad
+S(E)=\ln[\Omega(E)\delta E].
+\tag{13.7}\]</span></span></p>
+<p>The arbitrary fixed coarse-graining width <span class="math inline">\(\delta E\)</span> drops out of <span class="math inline">\(\beta\)</span>. The derivative term is required for spatially varying diffusion in the Itô/Fokker–Planck convention used here. Dropping it is an additional slowly-varying-coefficient approximation. This argument uses stationarity and a zero-current boundary condition; a doubly stochastic matrix need not satisfy pairwise detailed balance.</p>
+<p>For a system weakly coupled to a thermal reservoir at inverse temperature <span class="math inline">\(\beta_b\)</span>, the equilibrium energy density is <span class="math inline">\(\Omega(E)e^{-\beta_bE}\)</span>. The corresponding zero-current relation is <span class="math inline">\(2A=(\beta(E)-\beta_b)B+B'\)</span>. For two finite isolated subsystems exchanging energy, the stationary marginal is proportional to <span class="math inline">\(\Omega_1(E)\Omega_2(E_{\mathrm{tot}}-E)\)</span>, so the entropy gradient is <span class="math inline">\(\beta_1(E)-\beta_2(E_{\mathrm{tot}}-E)\)</span>. In the macroscopic limit, the drift therefore drives energy toward the subsystem of higher inverse temperature (the colder body), with the finite-size derivative term supplying the correction.</p>
+<p>For several exchanged quantities <span class="math inline">\(x_i\)</span>, the same calculation gives</p>
+<p><span id="eq-app-multi-drift"><span class="math display">\[
+A_i=\frac12\sum_j\left(B_{ij}\partial_{x_j}S+\partial_{x_j}B_{ij}\right)
+\tag{13.8}\]</span></span></p>
+<p>when the stationary diffusion has zero vector current. <span class="math inline">\(B_{ij}\)</span> is a symmetric covariance-rate matrix. Nonzero circulation currents or time-reversal breaking require a more general treatment.</p>
+</section>
+<section id="sec-app-onsager" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="sec-app-onsager"><span class="header-section-number">13.7</span> Deriving Onsager reciprocity</h2>
+<p>Take two large bodies exchanging extensive quantities <span class="math inline">\(x_i\)</span>, each even under time reversal for the moment. Define the thermodynamic affinities <span class="math inline">\(F_i=\partial S_{\mathrm{tot}}/\partial x_i\)</span>, with <span class="math inline">\(x_i\)</span> oriented into the first body. For energy exchange <span class="math inline">\(F_E=\beta_1-\beta_2\)</span>. A microscopic reversibility relation for an exchange <span class="math inline">\(\Delta x\)</span> over a mesoscopic interval <span class="math inline">\(\tau\)</span> has the near-equilibrium form</p>
+<p><span class="math display">\[
+\frac{p_F(\Delta x)}{p_F(-\Delta x)}
+=e^{F\cdot\Delta x},
+\]</span></p>
+<p>when the reversed experiment coincides with the forward one, affinities vary negligibly during the interval, and the coarse-grained exchange description is valid. At equilibrium <span class="math inline">\(p_0(\Delta x)=p_0(-\Delta x)\)</span>. Linearizing the ratio gives <span class="math inline">\(p_F(\Delta x)-p_F(-\Delta x)=p_0(\Delta x)\sum_jF_j\Delta x_j+O(F^2)\)</span>. Hence</p>
+<p><span id="eq-app-onsager-covariance"><span class="math display">\[
+J_i\equiv\frac{\ev{\Delta x_i}}{\tau}
+=\sum_jL_{ij}F_j+O(F^2),\qquad
+L_{ij}=\frac{\ev{\Delta x_i\Delta x_j}_0}{2\tau}.
+\tag{13.9}\]</span></span></p>
+<p>The symmetry <span class="math inline">\(L_{ij}=L_{ji}\)</span> follows from the symmetry of a covariance. Positivity also follows: for real <span class="math inline">\(v_i\)</span>, <span class="math inline">\(v_iL_{ij}v_j=\ev{(v\cdot\Delta x)^2}_0/(2\tau)\geq0\)</span>. Thus entropy production <span class="math inline">\(\dot S=F\cdot J=F^{\mathsf T}LF\)</span> is nonnegative to quadratic order. Reciprocity constrains cross effects, for example the relation between heat transport induced by a particle affinity and particle transport induced by a temperature affinity. It is the content of microscopic reversibility beyond a mere positivity condition <span class="citation" data-cites="Onsager1931">&nbsp;[<a href="references.html#ref-Onsager1931" role="doc-biblioref">6</a>]</span>.</p>
+<p>There is a useful Green–Kubo version. For classical equilibrium currents, <span class="math inline">\(\Delta x_i=\int_0^\tau I_i(t)\dd t\)</span>. If their correlations decay and <span class="math inline">\(\tau\)</span> is long compared with that decay time but short compared with the relaxation of the bodies, stationarity gives</p>
+<p><span class="math display">\[
+L_{ij}=\frac12\int_{-\infty}^{\infty}\dd t\,
+\ev{I_i(t)I_j(0)}_{\mathrm{eq}}.
+\]</span></p>
+<p>For equal time-reversal parities, reversibility converts this into the familiar integral over positive times. In a quantum calculation the linear-response version uses the canonical Kubo correlation, with imaginary-time averaging, rather than assuming that noncommuting current products are classical random variables. In a thermal state it can be written <span class="math inline">\(\langle A;B\rangle_{\mathrm{eq}}=\beta^{-1}\int_0^\beta\dd\lambda\,\tr[\rho_{\mathrm{eq}}e^{\lambda H}Ae^{-\lambda H}B]\)</span> for zero-mean operators. Forces must be normalized as entropy affinities, as above, to compare prefactors.</p>
+<p>If a magnetic field <span class="math inline">\(B_{\mathrm{mag}}\)</span> or another time-reversal-odd control is present, reversal changes that control too. If variable <span class="math inline">\(x_i\)</span> has time-reversal parity <span class="math inline">\(\varepsilon_i\)</span>, the appropriate relation is Onsager–Casimir reciprocity, <span class="math inline">\(L_{ij}(B_{\mathrm{mag}})=\varepsilon_i\varepsilon_jL_{ji}(-B_{\mathrm{mag}})\)</span>. Symmetry at the same field is then not generally required. Ballistic currents or additional conserved quantities can prevent the correlation integral from converging to a finite diffusive coefficient. Far from equilibrium, derivatives of the covariance and higher cumulants enter; the linear relation proved here should not be asserted unchanged.</p>
+</section>
+<section id="exercises-and-worked-answers" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="exercises-and-worked-answers"><span class="header-section-number">13.8</span> Exercises and worked answers</h2>
+<ol type="1">
+<li><p><strong>Area preservation.</strong> Compute the determinant of the standard map’s tangent matrix. Does this rule out exponential separation?</p>
+<p><strong>Answer.</strong> The determinant is <span class="math inline">\(1+K\cos\theta-K\cos\theta=1\)</span>. One expanding tangent direction can coexist with one contracting direction, keeping their area product fixed. Volume preservation is compatible with chaos.</p></li>
+<li><p><strong>A mixing counterexample.</strong> The matrix <span class="math inline">\(D=\left(\begin{smallmatrix}0&amp;1\\1&amp;0\end{smallmatrix}\right)\)</span> is doubly stochastic and irreducible. Why does it not approach the uniform state?</p>
+<p><strong>Answer.</strong> It has period two, <span class="math inline">\(D^2=I\)</span>, and an eigenvalue <span class="math inline">\(-1\)</span>. No power has all positive entries, so it is not primitive. A distribution <span class="math inline">\((p,1-p)\)</span> alternates with <span class="math inline">\((1-p,p)\)</span>.</p></li>
+<li><p><strong>Compute passive work.</strong> Let <span class="math inline">\(E=(0,1,3)\)</span> and <span class="math inline">\(p=(0.6,0.3,0.1)\)</span>. A unitary swaps the first and last levels. Find the work.</p>
+<p><strong>Answer.</strong> The final populations are <span class="math inline">\((0.1,0.3,0.6)\)</span>. The initial energy is <span class="math inline">\(0.6\)</span> and the final energy <span class="math inline">\(2.1\)</span>, so <span class="math inline">\(\ev W=1.5\)</span>. The swap supplies energy to the system, as passivity requires.</p></li>
+<li><p><strong>Check a diffusion law.</strong> Suppose <span class="math inline">\(\Omega(E)\propto E^\alpha\)</span> and <span class="math inline">\(B(E)=bE^r\)</span> on a positive-energy interval. Find the zero-current drift.</p>
+<p><strong>Answer.</strong> <span class="math inline">\(\beta(E)=\alpha/E\)</span>, so <a href="#eq-app-einstein-energy" class="quarto-xref">Equation&nbsp;<span>13.7</span></a> gives <span class="math inline">\(A(E)=b(\alpha+r)E^{r-1}/2\)</span>. Both the state-counting contribution <span class="math inline">\(\alpha\)</span> and the diffusion-gradient contribution <span class="math inline">\(r\)</span> matter. Boundary conditions and validity of the small-jump approximation still have to be supplied.</p></li>
+<li><p><strong>Reciprocity versus positivity.</strong> Does positive entropy production by itself imply <span class="math inline">\(L_{12}=L_{21}\)</span>?</p>
+<p><strong>Answer.</strong> No.&nbsp;<span class="math inline">\(F^{\mathsf T}LF\)</span> depends only on the symmetric part of <span class="math inline">\(L\)</span>. An antisymmetric part contributes zero to entropy production. Reciprocity needs microscopic reversibility and the appropriate parity/field reversal, not positivity alone.</p></li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Fishman1982Rotor" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">S. Fishman, D. R. Grempel, and R. E. Prange, <a href="https://doi.org/10.1103/PhysRevLett.49.509">Chaos, quantum recurrences, and anderson localization</a>, Physical Review Letters <strong>49</strong>, 509 (1982).</div>
+</div>
+<div id="ref-Montgomery1973Pair" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">H. L. Montgomery, <em><a href="https://doi.org/10.1090/pspum/024/0337821">The Pair Correlation of Zeros of the Zeta Function</a></em>, in <em>Analytic Number Theory</em>, edited by H. G. Diamond, Vol. 24 (American Mathematical Society, 1973), pp. 181–193.</div>
+</div>
+<div id="ref-Odlyzko1987Zeros" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">A. M. Odlyzko, <a href="https://doi.org/10.1090/S0025-5718-1987-0866115-0">On the distribution of spacings between zeros of the zeta function</a>, Mathematics of Computation <strong>48</strong>, 273 (1987).</div>
+</div>
+<div id="ref-Lenard1978Passivity" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">A. Lenard, <a href="https://doi.org/10.1007/BF01011769">Thermodynamical proof of the gibbs formula for elementary quantum systems</a>, Journal of Statistical Physics <strong>19</strong>, 575 (1978).</div>
+</div>
+<div id="ref-Pusz1978Passivity" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">W. Pusz and S. L. Woronowicz, <a href="https://doi.org/10.1007/BF01614224">Passive states and <span>KMS</span> states for general quantum systems</a>, Communications in Mathematical Physics <strong>58</strong>, 273 (1978).</div>
+</div>
+<div id="ref-Onsager1931" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">L. Onsager, <a href="https://doi.org/10.1103/PhysRev.37.405">Reciprocal relations in irreversible processes. <span>I</span>.</a>, Physical Review <strong>37</strong>, 405 (1931).</div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/xing-phys\.github\.io\/quantum-chaos-to-thermodynamics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./12-prethermalization.html" class="pagination-link" aria-label="Prethermalization and kinetic relaxation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Prethermalization and kinetic relaxation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./14-numerical-lab.html" class="pagination-link" aria-label="A reproducible numerical laboratory">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A reproducible numerical laboratory</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>An independent, open course companion · v0.1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/edit/main/13-mathematical-appendices.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/xing-phys/quantum-chaos-to-thermodynamics/blob/main/13-mathematical-appendices.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with Quarto · CC BY 4.0</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
