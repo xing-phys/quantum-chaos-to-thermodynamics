@@ -1,0 +1,71 @@
+# Guide to the review {#sec-coverage}
+
+This map uses the numbered topic inventory of D'Alessio *et al.* [@dalessio2016]. Each row identifies where to learn the corresponding subject here. The book supplies independent explanations and examples; the original review remains the source for its particular historical discussion and numerical datasets. All seven appendices are included in the topic map.
+
+## Introduction, chaos, and eigenstates
+
+| Review section | Topic | Book location |
+|:--|:--|:--|
+| 1 | Thermalization problem and isolated experiments | [Foundations](01-foundations.qmd), [Quenches](06-quenches.qmd) |
+| 2.1 | Classical chaos, integrability, and phase space | [Classical chaos](02-classical-chaos.qmd) |
+| 2.2 | Random matrix ensembles and spectral statistics | [Random matrices](03-random-matrices.qmd) |
+| 2.2.1 | Chaotic eigenfunctions | [Random matrices](03-random-matrices.qmd) |
+| 2.2.2 | Matrix elements of operators | [Random matrices](03-random-matrices.qmd), [ETH](05-eth.qmd) |
+| 2.3 | Berry–Tabor conjecture | [Random matrices](03-random-matrices.qmd) |
+| 2.4 | Semiclassical limit and Berry random waves | [Random matrices](03-random-matrices.qmd) |
+| 3.1 | Wigner–Dyson and Poisson examples | [Many-body chaos](04-many-body-chaos.qmd), [Numerical lab](14-numerical-lab.qmd) |
+| 3.2 | Many-body eigenstate structure | [Many-body chaos](04-many-body-chaos.qmd) |
+| 3.3 | Quantum chaos and entanglement | [Many-body chaos](04-many-body-chaos.qmd) |
+| 3.4 | Delocalization in energy space | [Many-body chaos](04-many-body-chaos.qmd) |
+| 4.1 | Meaning of quantum thermalization | [Foundations](01-foundations.qmd), [ETH](05-eth.qmd) |
+| 4.2 | ETH ansatz | [ETH](05-eth.qmd) |
+| 4.2.1 | ETH implies thermalization under conditions | [ETH](05-eth.qmd) |
+| 4.2.2 | Quantum ergodic theorem | [ETH](05-eth.qmd) |
+| 4.3.1 | Diagonal and off-diagonal matrix elements in lattices | [ETH](05-eth.qmd), [Quenches](06-quenches.qmd) |
+| 4.3.2 | Quench dynamics and stationary predictions | [Quenches](06-quenches.qmd), [Numerical lab](14-numerical-lab.qmd) |
+
+## Thermodynamic laws and response
+
+| Review section | Topic | Book location |
+|:--|:--|:--|
+| 5.1 | Setup and doubly stochastic transitions | [Entropy and work](07-entropy.qmd) |
+| 5.1.1 | Master equations | [Entropy and work](07-entropy.qmd) |
+| 5.2.1 | Infinite-temperature attractor and convergence conditions | [Entropy and work](07-entropy.qmd), [Proofs](13-mathematical-appendices.qmd) |
+| 5.2.2 | Increase of diagonal entropy | [Entropy and work](07-entropy.qmd) |
+| 5.2.3 | Kelvin formulation and passive states | [Entropy and work](07-entropy.qmd), [Proofs](13-mathematical-appendices.qmd) |
+| 5.3.1 | Fundamental thermodynamic relation | [Entropy and work](07-entropy.qmd) |
+| 5.3.2 | Fundamental relation versus energy accounting | [Entropy and work](07-entropy.qmd) |
+| 6.1.1 | Gibbs-initial fluctuation theorems | [Fluctuation theorems](08-fluctuation-theorems.qmd) |
+| 6.1.2 | Microcanonical and eigenstate versions | [Fluctuation theorems](08-fluctuation-theorems.qmd) |
+| 6.2 | Open-system detailed balance | [Fluctuation theorems](08-fluctuation-theorems.qmd) |
+| 6.3 | Energy drift and diffusion | [Fluctuation theorems](08-fluctuation-theorems.qmd), [Driven systems](10-driven-systems.qmd) |
+| 6.4 | Heating Fokker–Planck equation | [Driven systems](10-driven-systems.qmd) |
+| 6.5 | Two or more conserved quantities | [Fluctuation theorems](08-fluctuation-theorems.qmd), [Response](09-response.qmd) |
+| 6.6 | Linear response and Onsager reciprocity | [Response](09-response.qmd), [Proofs](13-mathematical-appendices.qmd) |
+| 6.7 | Nonlinear response coefficients | [Response](09-response.qmd) |
+| 6.8 | Single-eigenstate fluctuation–dissipation relation | [Response](09-response.qmd) |
+| 6.9 | Two-observable correlations | [Response](09-response.qmd) |
+| 7.1 | Fluctuating chaotic cavity | [Driven systems](10-driven-systems.qmd) |
+| 7.2 | Harmonic driving and energy-distribution transition | [Driven systems](10-driven-systems.qmd) |
+| 7.3 | Energy exchange between finite systems | [Driven systems](10-driven-systems.qmd) |
+
+## Integrability and auxiliary derivations
+
+| Review section | Topic | Book location |
+|:--|:--|:--|
+| 8.1 | Maximum entropy with conserved charges | [Integrability](11-integrability.qmd) |
+| 8.1.1 | Free spinless fermions | [Integrability](11-integrability.qmd) |
+| 8.1.2 | Hard-core bosons | [Integrability](11-integrability.qmd) |
+| 8.2 | Generalized eigenstate thermalization | [Integrability](11-integrability.qmd) |
+| 8.2.1 | Ising chain and truncated charge ensembles | [Integrability](11-integrability.qmd) |
+| 8.3 | XXZ quenches and charge completeness | [Integrability](11-integrability.qmd) |
+| 8.4 | Prethermalization and kinetic equations | [Prethermalization](12-prethermalization.qmd) |
+| A | Kicked rotor and dynamical localization | [Mathematical appendix](13-mathematical-appendices.qmd) |
+| B | Riemann zeta zeros and GUE | [Mathematical appendix](13-mathematical-appendices.qmd) |
+| C | Infinite-temperature attractor proof | [Mathematical appendix](13-mathematical-appendices.qmd) |
+| D | Birkhoff's theorem | [Mathematical appendix](13-mathematical-appendices.qmd) |
+| E | Passive-state work inequality | [Mathematical appendix](13-mathematical-appendices.qmd) |
+| F | Continuous drift–diffusion derivation | [Mathematical appendix](13-mathematical-appendices.qmd) |
+| G | Onsager derivation | [Mathematical appendix](13-mathematical-appendices.qmd) |
+
+The [numerical lab](14-numerical-lab.qmd) adds runnable finite-system calculations. The [bibliography](references.qmd) provides direct primary-source citations beyond the organizing review. Exercises and solutions are placed with the concepts they test.

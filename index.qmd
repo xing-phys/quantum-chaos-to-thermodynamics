@@ -1,0 +1,44 @@
+---
+title: "Welcome"
+---
+
+## The question that organizes this book {.unnumbered}
+
+An isolated quantum state evolves reversibly. A cup of coffee cools irreversibly. How can the second statement emerge from the first? This book develops the answer through observables, energy eigenstates, dephasing, conservation laws, and controlled approximations. The central bridge is the **eigenstate thermalization hypothesis**, or ETH: in suitable interacting systems, individual energy eigenstates already encode thermal predictions for simple observables.
+
+This is an independent course companion to the review by Luca D'Alessio, Yariv Kafri, Anatoli Polkovnikov, and Marcos Rigol [@dalessio2016]. Its topic sequence supplies our backbone. The explanations, worked calculations, exercises, code, and figures here are original. This is neither an edition of the review nor a claim that its authors endorse the book. Read the [original review](https://doi.org/10.1080/00018732.2016.1198134) for its historical synthesis and extensive literature survey.
+
+## Who this is for {.unnumbered}
+
+You should know vectors, matrices, derivatives, elementary probability, and the Schrödinger equation. Chapter 1 develops the density matrix, partial trace, entropy, and the ensembles used later. No prior course in quantum chaos or nonequilibrium statistical mechanics is assumed. Keep a notebook: reproducing a short derivation usually teaches more than reading a long one.
+
+The book moves from classical chaos and random matrices to many-body eigenstates and quenches; then from population dynamics to entropy, work fluctuations, response, and heating; finally to integrability, generalized ensembles, and prethermalization. The mathematical appendix supplies the auxiliary proofs, while the numerical lab makes the principal diagnostics reproducible in Julia. A [section-by-section coverage map](coverage.qmd) includes every numbered subsection and appendix of the review.
+
+## Reading routes {.unnumbered}
+
+| Goal | Route |
+|:--|:--|
+| Learn why an isolated system can thermalize | Chapters 1–6, then the numerical lab |
+| Understand microscopic thermodynamics | Chapters 1, 5, and 7–10, then appendix proofs |
+| Study failure of ordinary thermalization | Chapters 1, 5–6, and 11–12 |
+| Run a reading course | Read in order; solve each worked checkpoint before viewing its solution |
+
+A twelve-week course can assign Chapters 1–2 together, Chapters 3–12 one per week, and the numerical lab as a final project. The appendix is consulted alongside the relevant chapter. The full book is also available through the PDF download in the navigation bar.
+
+## Conventions and the strength of claims {.unnumbered}
+
+We use $k_B=1$ unless restored explicitly, so entropy is dimensionless and inverse temperature is $\beta=1/T$. Chapters may set $\hbar=1$ for a calculation and say so. $N$ counts particles or sites, $D$ is a Hilbert-space dimension, and $S(E)=\ln[\rho(E)\delta E]$ is a shell entropy; the reference window $\delta E$ must be specified when an absolute entropy matters. An observable is a Hermitian operator. “Local” means supported on a bounded number of nearby sites as the total system grows.
+
+Three types of statements recur:
+
+- **Exact statements** follow from linear algebra, unitary dynamics, or explicitly stated probability assumptions. Examples are conservation of von Neumann entropy under unitary evolution and the two-measurement Jarzynski identity for a Gibbs initial state.
+- **Conditional results** follow once assumptions such as ETH, nondegenerate energy gaps, local equilibration, weak driving, or a Markov approximation hold. The assumptions belong to the result.
+- **Numerical observations and conjectures** include Wigner–Dyson behavior in many physical models, strong ETH in generic systems, and the random-matrix description of zeta zeros. Finite-size plots do not turn these into theorems.
+
+Thermalization concerns a chosen class of observables and a stated time window. It does not mean that a pure global state becomes a mixed global Gibbs state. Spectral chaos, entanglement, equilibration, and transport are related diagnostics with distinct definitions. The chapters develop those distinctions before using them.
+
+## How to use the calculations {.unnumbered}
+
+Each chapter includes worked reasoning and exercises with solutions. Attempt an exercise first, then compare assumptions as well as the final formula. The numerical lab specifies the Hamiltonian, seed, observables, and output files. Its figures illustrate finite systems and analytically specified models; they are not copied data from the review. The repository preserves both source and figure-generating code.
+
+This first edition is a substantive teaching draft. Its coverage map describes topical coverage, not an assertion that every original numerical dataset or literature citation has been reproduced. Corrections can be reported through the repository's issue link, ideally with a chapter, equation, and a proposed correction.

@@ -1,0 +1,27 @@
+name: Build and publish book
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.10.18
+          tinytex: true
+      - name: Render HTML and PDF
+        run: quarto render
+      - name: Validate references and navigation
+        run: python3 scripts/check_book.py
+      - name: Publish GitHub Pages
+        run: quarto publish gh-pages --no-render --no-prompt --no-browser
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

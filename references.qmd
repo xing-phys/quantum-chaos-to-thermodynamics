@@ -1,0 +1,6 @@
+# References {.unnumbered}
+
+The review motivates the topic map; primary research papers support individual developments. Bibliographic links point to the published source or an author preprint. All figures in this book are generated for this project.
+
+::: {#refs}
+:::
